@@ -100,13 +100,13 @@ export default function () {
 
   return (
     <Container>
-      <div className={css({ display: "flex", alignItems: "center", background: "green" })}>
-        <Block $style={{ display: "flex", alignItems: "center", position: "relative", flex: 1, background: "yellow" }}>
+      <div className={css({ display: "flex", alignItems: "center" })}>
+        <Block $style={{ display: "flex", alignItems: "center", position: "relative", flex: 1 }}>
           <Block
             $style={{
               position: "absolute",
               zIndex: "4",
-              background: "red",
+              background: "#333333",
               left: 0,
               top: 0,
               height: "10px",
