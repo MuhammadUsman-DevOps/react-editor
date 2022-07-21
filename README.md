@@ -1,36 +1,55 @@
-# Editor
+# Layerhub
 
-## Image editing
+## Layerhub components
 
-## Presentation editing
+Layerhub created editors for graphics, presentations and video.
 
-## Video editing
+### Select editor
 
-# components
+![Editor Preview](https://i.ibb.co/QdWxchZ/select-editor.png)
 
-## SDK for creating design editors (PUBLIC)
+### Image editor
 
-- @scenify/react: SDK for creating image and video editors using react
-- @scenify/vue: SDK for creating image and video editors using vue
+![Editor Preview](https://i.ibb.co/FHHxdfp/graphic-editor.png)
 
-## Rendering API (PRIVATE)
+### Presentation editor
 
-- Allows users to render their images/designs usign an API
-- Allows users to render videos to mp4 (beta) (v1) - CLI / animated gif
+![Editor Preview](https://i.ibb.co/GMbDptv/presentation-editor.png)
 
-## Importing designs (PRIVATE)
+### Video editor
 
-- Allow import templates from Adobe Illustrator
-- Allow import templates from Figma
-- Allow import templates from SVG
-- Allow import templates from PSD
+![Editor Preview](https://i.ibb.co/yd16JQY/video-editor.png)
 
-# Sample
+## How to start
 
-domain.com ->
+Clone the project:
 
-editor.domain.com?token=dasdas
+```
+git clone https://github.com/layerhub-io/react-editor
+```
 
-# Issues
+Install dependencies, currently using pnpm, but other package managers should work too.
 
-Cloned item should be set as active object
+```
+pnpm i
+```
+
+Start the project on development mode
+
+```
+pnpm dev
+```
+
+App should be running now.
+
+## Contribution
+
+Feel free to contribute by opening issues with any questions, bug reports or feature requests.
+
+## Get in touch
+
+You can reach us at cloud@scenify.io
+
+## License
+
+[MIT](LICENSE)
