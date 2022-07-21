@@ -1,0 +1,31 @@
+.react-colorful__saturation-pointer {
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 0 !important;
+}
+
+.react-colorful__hue {
+    height: 20px !important;
+    margin-top: 0.5rem;
+    border-radius: 0 !important;
+}
+
+.react-colorful__pointer .react-colorful__hue-pointer {
+    width: 20px;
+    /* height: inherit; */
+    height: 20px;
+    border-radius: 0 !important;
+}
+
+
+.react-colorful__hue .react-colorful__hue-pointer {
+    width: 20px;
+    height: 20px;
+    border-radius: 0 !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
