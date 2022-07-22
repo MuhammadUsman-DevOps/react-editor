@@ -1,11 +1,12 @@
 import { useStyletron } from "baseui"
-import { panelListItems } from "~/constants/app-options"
+import { BASE_ITEMS, VIDEO_PANEL_ITEMS } from "~/constants/app-options"
 import useAppContext from "~/hooks/useAppContext"
 import { styled } from "baseui"
 import { useEditor } from "@scenify/react"
 import Icons from "~/components/Icons"
 import { useTranslation } from "react-i18next"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
+import useEditorType from "~/hooks/useEditorType"
 
 const Container = styled("div", (props) => ({
   width: "80px",
@@ -15,10 +16,11 @@ const Container = styled("div", (props) => ({
 function PanelsList() {
   const { activePanel } = useAppContext()
   const { t } = useTranslation("editor")
-
+  const editorType = useEditorType()
+  const PANEL_ITEMS = editorType === "VIDEO" ? VIDEO_PANEL_ITEMS : BASE_ITEMS
   return (
     <Container>
-      {panelListItems.map((panelListItem) => (
+      {PANEL_ITEMS.map((panelListItem) => (
         <PanelListItem
           label={t(`panels.panelsList.${panelListItem.id}`)}
           name={panelListItem.name}
