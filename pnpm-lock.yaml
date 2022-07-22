@@ -11,12 +11,9 @@ specifiers:
   '@types/node': ^17.0.35
   '@types/react': ^18.0.0
   '@types/react-dom': ^18.0.0
-  '@types/styletron-engine-atomic': ^1.1.1
-  '@types/styletron-react': ^5.0.3
-  '@types/styletron-standard': ^2.0.2
-  '@vitejs/plugin-react': ^1.3.0
+  '@vitejs/plugin-react': ^2.0.0
   axios: ^0.27.2
-  baseui: ^11.0.2
+  baseui: ^12.0.0
   i18next: ^21.8.13
   install: ^0.13.0
   lodash: ^4.17.21
@@ -29,10 +26,10 @@ specifiers:
   react-redux: ^8.0.1
   react-router-dom: ^6.3.0
   resize-observer-polyfill: ^1.5.1
-  styletron-engine-atomic: ^1.4.8
-  styletron-react: ^6.0.2
+  styletron-engine-atomic: 1.5.0-beta.2
+  styletron-react: 6.1.0-beta.2
   typescript: ^4.6.3
-  vite: ^2.9.7
+  vite: ^3.0.0
 
 dependencies:
   '@layerhub-io/use-timer': 0.0.1_react@18.2.0
@@ -41,7 +38,7 @@ dependencies:
   '@scenify/react-custom-scrollbar': 0.1.0_react@18.2.0
   '@types/node': 17.0.45
   axios: 0.27.2
-  baseui: 11.1.2_qbfaqwa32pfwcmmaxgd4gbwvvy
+  baseui: 12.0.0_vx6l3m7grhdjsdty3rfvukcune
   i18next: 21.8.13
   install: 0.13.0
   lodash: 4.17.21
@@ -54,8 +51,8 @@ dependencies:
   react-redux: 8.0.2_fzknh3pugl53jp7xsetxkg5ani
   react-router-dom: 6.3.0_biqbaboplfbrettd7655fr4n2y
   resize-observer-polyfill: 1.5.1
-  styletron-engine-atomic: 1.4.8
-  styletron-react: 6.0.2_react@18.2.0
+  styletron-engine-atomic: 1.5.0-beta.2
+  styletron-react: 6.1.0-beta.2_react@18.2.0
 
 devDependencies:
   '@scenify/types': 2.4.3
@@ -63,12 +60,9 @@ devDependencies:
   '@types/mime': 2.0.3
   '@types/react': 18.0.14
   '@types/react-dom': 18.0.5
-  '@types/styletron-engine-atomic': 1.1.1
-  '@types/styletron-react': 5.0.3
-  '@types/styletron-standard': 2.0.2
-  '@vitejs/plugin-react': 1.3.2
+  '@vitejs/plugin-react': 2.0.0_vite@3.0.2
   typescript: 4.7.4
-  vite: 2.9.13
+  vite: 3.0.2
 
 packages:
 
@@ -441,14 +435,6 @@ packages:
       reselect: 4.1.6
     dev: false
 
-  /@rollup/pluginutils/4.2.1:
-    resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
-    engines: {node: '>= 8.0.0'}
-    dependencies:
-      estree-walker: 2.0.2
-      picomatch: 2.3.1
-    dev: true
-
   /@rtsao/csstype/2.6.5-forked.0:
     resolution: {integrity: sha512-0HwnY8uPWcCloTgdbbaJG3MbDUfNf6yKWZfCKxFv9yj2Sbp4mSKaIjC7Cr/5L4hMxvrrk85CU3wlAg7EtBBJ1Q==}
     dev: false
@@ -539,6 +525,18 @@ packages:
     dependencies:
       '@types/react': 18.0.14
 
+  /@types/react-virtualized-auto-sizer/1.0.1:
+    resolution: {integrity: sha512-GH8sAnBEM5GV9LTeiz56r4ZhMOUSrP43tAQNSRVxNexDjcNKLCEtnxusAItg1owFUFE6k0NslV26gqVClVvong==}
+    dependencies:
+      '@types/react': 18.0.14
+    dev: false
+
+  /@types/react-window/1.8.5:
+    resolution: {integrity: sha512-V9q3CvhC9Jk9bWBOysPGaWy/Z0lxYcTXLtLipkt2cnRj1JOSFNF7wqGpkScSXMgBwC+fnVRg/7shwgddBG5ICw==}
+    dependencies:
+      '@types/react': 18.0.14
+    dev: false
+
   /@types/react/18.0.14:
     resolution: {integrity: sha512-x4gGuASSiWmo0xjDLpm5mPb52syZHJx02VKbqUKdLmKtAwIh63XClGsiTI1K6DO5q7ox4xAsQrU+Gl3+gGXF9Q==}
     dependencies:
@@ -549,41 +547,24 @@ packages:
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
 
-  /@types/styletron-engine-atomic/1.1.1:
-    resolution: {integrity: sha512-Jthl51uLiVZHkY0HRBGtDOjjtI4H0nYaERZtzzdDgnJSa+PqQG55ScMQPmSAu6ikzYWp6+jJbbtuIX+TqVfFeg==}
-    dependencies:
-      '@types/styletron-standard': 2.0.2
-    dev: true
-
-  /@types/styletron-react/5.0.3:
-    resolution: {integrity: sha512-mNM8WrFrCYWXNxudjdMMeHZmGdXLfVF/fQmj1Qnz7E99niL2d7IcQubbx731FX3YEVGoF9Au1J6uBkPoEzqypw==}
-    dependencies:
-      '@types/react': 18.0.14
-      '@types/styletron-standard': 2.0.2
-    dev: true
-
-  /@types/styletron-standard/2.0.2:
-    resolution: {integrity: sha512-ZpPB8k2Yhskq/oggg2wjWeP/bBxRDfwIzRrHbdksVOQXfHOLf4rRqs2tlWLK/NRJvWU3E3MlXeNcoVSZjuAPiQ==}
-    dependencies:
-      csstype: 3.1.0
-    dev: true
-
   /@types/use-sync-external-store/0.0.3:
     resolution: {integrity: sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==}
     dev: false
 
-  /@vitejs/plugin-react/1.3.2:
-    resolution: {integrity: sha512-aurBNmMo0kz1O4qRoY+FM4epSA39y3ShWGuqfLRA/3z0oEJAdtoSfgA3aO98/PCCHAqMaduLxIxErWrVKIFzXA==}
-    engines: {node: '>=12.0.0'}
+  /@vitejs/plugin-react/2.0.0_vite@3.0.2:
+    resolution: {integrity: sha512-zHkRR+X4zqEPNBbKV2FvWSxK7Q6crjMBVIAYroSU8Nbb4M3E5x4qOiLoqJBHtXgr27kfednXjkwr3lr8jS6Wrw==}
+    engines: {node: '>=14.18.0'}
+    peerDependencies:
+      vite: ^3.0.0
     dependencies:
       '@babel/core': 7.18.6
       '@babel/plugin-transform-react-jsx': 7.18.6_@babel+core@7.18.6
       '@babel/plugin-transform-react-jsx-development': 7.18.6_@babel+core@7.18.6
       '@babel/plugin-transform-react-jsx-self': 7.18.6_@babel+core@7.18.6
       '@babel/plugin-transform-react-jsx-source': 7.18.6_@babel+core@7.18.6
-      '@rollup/pluginutils': 4.2.1
-      react-refresh: 0.13.0
-      resolve: 1.22.1
+      magic-string: 0.26.2
+      react-refresh: 0.14.0
+      vite: 3.0.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -671,11 +652,9 @@ packages:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
     dev: false
 
-  /attr-accept/1.1.3:
-    resolution: {integrity: sha512-iT40nudw8zmCweivz6j58g+RT33I4KbaIvRUhjNmDwO2WmsQUxFEZZYZ5w3vXe5x5MX9D7mfvA/XaLOZYFR9EQ==}
+  /attr-accept/2.2.2:
+    resolution: {integrity: sha512-7prDjvt9HmqiZ0cl5CRjtS84sEyhsHP2coDkaZKRKVfCDo9s7iw7ChVmar78Gu9pC4SoR/28wFu/G5JJhTnqEg==}
     engines: {node: '>=4'}
-    dependencies:
-      core-js: 2.6.12
     dev: false
 
   /axios/0.27.2:
@@ -691,16 +670,18 @@ packages:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
     dev: false
 
-  /baseui/11.1.2_qbfaqwa32pfwcmmaxgd4gbwvvy:
-    resolution: {integrity: sha512-vpKjp/TZBSbdd5Auh0vqhktVV/z7egJl3uPtDN8cZpO/hxFI2OebgDgo0+KFDU6yGP2de1uP6jMrR00UvtdKXA==}
+  /baseui/12.0.0_vx6l3m7grhdjsdty3rfvukcune:
+    resolution: {integrity: sha512-gmYcDlmkJPAtvUJj+bP3lkh/I+/ul1SyxL75Tf7h3AwyBdL3UbSzJBIMMMyIDq6MWLORlgKoU4JdtR6gTR6Cjg==}
     engines: {node: '>=10.x'}
     requiresBuild: true
     peerDependencies:
       react: '>= 16.8.0 < 19'
       react-dom: '>= 16.8.0 < 19'
-      styletron-react: '>=5.2.2 < 7'
+      styletron-react: '>=6.1.0 < 7'
     dependencies:
       '@date-io/date-fns': 2.14.0_date-fns@2.28.0
+      '@types/react-virtualized-auto-sizer': 1.0.1
+      '@types/react-window': 1.8.5
       card-validator: 6.2.0
       d3: 6.7.0
       date-fns: 2.28.0
@@ -713,7 +694,7 @@ packages:
       popper.js: 1.16.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      react-dropzone: 9.0.0_react@18.2.0
+      react-dropzone: 10.2.2_react@18.2.0
       react-focus-lock: 2.9.1_luyos4mouogwq6z3wafb3re4ce
       react-input-mask: 2.0.4_biqbaboplfbrettd7655fr4n2y
       react-is: 16.13.1
@@ -725,7 +706,7 @@ packages:
       react-virtualized-auto-sizer: 1.0.6_biqbaboplfbrettd7655fr4n2y
       react-window: 1.8.7_biqbaboplfbrettd7655fr4n2y
       resize-observer-polyfill: 1.5.1
-      styletron-react: 6.0.2_react@18.2.0
+      styletron-react: 6.1.0-beta.2_react@18.2.0
     transitivePeerDependencies:
       - '@types/react'
     dev: false
@@ -838,12 +819,6 @@ packages:
     dependencies:
       safe-buffer: 5.1.2
     dev: true
-
-  /core-js/2.6.12:
-    resolution: {integrity: sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==}
-    deprecated: core-js@<3.23.3 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Some versions have web compatibility issues. Please, upgrade your dependencies to the actual version of core-js.
-    requiresBuild: true
-    dev: false
 
   /credit-card-type/8.3.0:
     resolution: {integrity: sha512-czfZUpQ7W9CDxZL4yFLb1kFtM/q2lTOY975hL2aO+DC8+GRNDVSXVCHXhVFZPxiUKmQCZbFP8vIhxx5TBQaThw==}
@@ -1447,10 +1422,6 @@ packages:
     dev: false
     optional: true
 
-  /estree-walker/2.0.2:
-    resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
-    dev: true
-
   /esutils/2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
@@ -1810,6 +1781,13 @@ packages:
     dev: false
     optional: true
 
+  /magic-string/0.26.2:
+    resolution: {integrity: sha512-NzzlXpclt5zAbmo6h6jNc8zl2gNRGHvmsZW4IvZhTC4W7k4OlLP+S5YLussa/r3ixNT66KOQfNORlXHSOy/X4A==}
+    engines: {node: '>=12'}
+    dependencies:
+      sourcemap-codec: 1.4.8
+    dev: true
+
   /make-dir/3.1.0:
     resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}
     engines: {node: '>=8'}
@@ -1980,11 +1958,6 @@ packages:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
     dev: true
 
-  /picomatch/2.3.1:
-    resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
-    engines: {node: '>=8.6'}
-    dev: true
-
   /polished/3.7.2:
     resolution: {integrity: sha512-pQKtpZGmsZrW8UUpQMAnR7s3ppHeMQVNyMDKtUyKwuvDmklzcEyM5Kllb3JyE/sE/x7arDmyd35i+4vp99H6sQ==}
     engines: {node: '>=10'}
@@ -2015,16 +1988,6 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: false
     optional: true
-
-  /prop-types-extra/1.1.1_react@18.2.0:
-    resolution: {integrity: sha512-59+AHNnHYCdiC+vMwY52WmvP5dM3QLeoumYuEyceQDi9aEhtwN9zIQ2ZNo25sMyXnbh32h+P1ezDsUpUH3JAew==}
-    peerDependencies:
-      react: '>=0.14.0'
-    dependencies:
-      react: 18.2.0
-      react-is: 16.13.1
-      warning: 4.0.3
-    dev: false
 
   /prop-types/15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
@@ -2080,16 +2043,15 @@ packages:
       scheduler: 0.23.0
     dev: false
 
-  /react-dropzone/9.0.0_react@18.2.0:
-    resolution: {integrity: sha512-wZ2o9B2qkdE3RumWhfyZT9swgJYJPeU5qHEcMU8weYpmLex1eeWX0CC32/Y0VutB+BBi2D+iePV/YZIiB4kZGw==}
-    engines: {node: '>= 6'}
+  /react-dropzone/10.2.2_react@18.2.0:
+    resolution: {integrity: sha512-U5EKckXVt6IrEyhMMsgmHQiWTGLudhajPPG77KFSvgsMqNEHSyGpqWvOMc5+DhEah/vH4E1n+J5weBNLd5VtyA==}
+    engines: {node: '>= 8'}
     peerDependencies:
-      react: '>=0.14.0'
+      react: '>= 16.8'
     dependencies:
-      attr-accept: 1.1.3
+      attr-accept: 2.2.2
       file-selector: 0.1.19
       prop-types: 15.8.1
-      prop-types-extra: 1.1.1_react@18.2.0
       react: 18.2.0
     dev: false
 
@@ -2215,8 +2177,8 @@ packages:
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
-  /react-refresh/0.13.0:
-    resolution: {integrity: sha512-XP8A9BT0CpRBD+NYLLeIhld/RqG9+gktUjW1FkE+Vm7OCinbG1SshcK5tb9ls4kzvjZr9mOQc7HYgBngEyPAXg==}
+  /react-refresh/0.14.0:
+    resolution: {integrity: sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==}
     engines: {node: '>=0.10.0'}
     dev: true
 
@@ -2444,6 +2406,10 @@ packages:
     dev: false
     optional: true
 
+  /sourcemap-codec/1.4.8:
+    resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
+    dev: true
+
   /string-width/4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
     engines: {node: '>=8'}
@@ -2469,27 +2435,28 @@ packages:
     dev: false
     optional: true
 
-  /styletron-engine-atomic/1.4.8:
-    resolution: {integrity: sha512-KLyDkigcIrIMzUlX0usBfO/BBwnh1yC/48+DqP4LSZn8UgGP00oStxoezAH8pYhal1amvBJ7tLVs7tNZDUTAdg==}
+  /styletron-engine-atomic/1.5.0-beta.2:
+    resolution: {integrity: sha512-JsS2+HhCe23IHXCwdsqvBCqIb4/pOQbvKiDg4IUSpp5GNt9hhyGgwTzjNpy1Po6Ihmmj3VS50ZwaSNGYmYcf0g==}
     dependencies:
       inline-style-prefixer: 5.1.2
-      styletron-standard: 3.0.5
+      styletron-standard: 3.1.0-beta.2
     dev: false
 
-  /styletron-react/6.0.2_react@18.2.0:
-    resolution: {integrity: sha512-xMRnM8CUMbo8q/7BQlh7DfmNB0SDFixIHpzGqdfia9QF+haU/z+podgcJvnA4BWG6Gt2ZmrxZ6Qhrfvaalcyyg==}
+  /styletron-react/6.1.0-beta.2_react@18.2.0:
+    resolution: {integrity: sha512-ohaOWaA1xJ+mrCpySOcRi2281+57xOOJuxvH5/B/3tTTHA+xhLbb+YUp4pMgjAMqJchCDPsk0PRejsB+HmVuDQ==}
     peerDependencies:
       react: '>=16.8.0'
     dependencies:
       prop-types: 15.8.1
       react: 18.2.0
-      styletron-standard: 3.0.5
+      styletron-standard: 3.1.0-beta.2
     dev: false
 
-  /styletron-standard/3.0.5:
-    resolution: {integrity: sha512-0paxpsQg2QnlapGLnM49yEPZ015VEi/ovys9Hu0wBduimKshYUZLLl1Emfs5jx1LHVXrDn4j+DYVclJGWJC7Jw==}
+  /styletron-standard/3.1.0-beta.2:
+    resolution: {integrity: sha512-qR1EdYu4xGcmH+qXmBueA/34UOavcgG3J6jGOr9BQiqwRFSNehNnGFXmLYyoyAlyidrcYuXXcUaGvREc6v1qdQ==}
     dependencies:
       '@rtsao/csstype': 2.6.5-forked.0
+      csstype: 3.1.0
       inline-style-prefixer: 5.1.2
     dev: false
 
@@ -2646,20 +2613,23 @@ packages:
     dev: false
     optional: true
 
-  /vite/2.9.13:
-    resolution: {integrity: sha512-AsOBAaT0AD7Mhe8DuK+/kE4aWYFMx/i0ZNi98hJclxb4e0OhQcZYUrvLjIaQ8e59Ui7txcvKMiJC1yftqpQoDw==}
-    engines: {node: '>=12.2.0'}
+  /vite/3.0.2:
+    resolution: {integrity: sha512-TAqydxW/w0U5AoL5AsD9DApTvGb2iNbGs3sN4u2VdT1GFkQVUfgUldt+t08TZgi23uIauh1TUOQJALduo9GXqw==}
+    engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
       less: '*'
       sass: '*'
       stylus: '*'
+      terser: ^5.4.0
     peerDependenciesMeta:
       less:
         optional: true
       sass:
         optional: true
       stylus:
+        optional: true
+      terser:
         optional: true
     dependencies:
       esbuild: 0.14.47
