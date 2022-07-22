@@ -8,18 +8,26 @@ import { nanoid } from "nanoid"
 import { defaultTemplate } from "~/constants/design-editor"
 import { useEditor } from "@scenify/react"
 import { Block } from "baseui/block"
+import { useTimer } from "@layerhub-io/use-timer"
 
 const Container = styled<{}, "div", Theme>("div", ({ $theme }) => ({
   background: $theme.colors.white,
   // padding: "0.25rem",
 }))
+const scaleFactor = 1
+const maxWidth = 120000
 
 export default function () {
+  const { time } = useTimer()
   const pages = useDesignEditorPages()
   const { setPages, setCurrentPage, currentPage } = React.useContext(DesignEditorContext)
   const editor = useEditor()
   const [css] = useStyletron()
   const [currentPreview, setCurrentPreview] = React.useState("")
+  const [position, setPosition] = React.useState({
+    x: 0,
+    y: 0,
+  })
 
   React.useEffect(() => {
     let watcher = async () => {
@@ -36,6 +44,12 @@ export default function () {
       }
     }
   }, [editor])
+
+  React.useEffect(() => {
+    if (time * scaleFactor <= maxWidth) {
+      setPosition({ ...position, x: (time * scaleFactor) / 50, y: 0 })
+    }
+  }, [time])
 
   React.useEffect(() => {
     if (editor) {
@@ -97,7 +111,7 @@ export default function () {
     },
     [editor, pages, currentPage]
   )
-
+  console.log(position.x)
   return (
     <Container>
       <div className={css({ display: "flex", alignItems: "center" })}>
@@ -106,18 +120,40 @@ export default function () {
             $style={{
               position: "absolute",
               zIndex: "4",
-              background: "#333333",
-              left: 0,
-              top: 0,
-              height: "10px",
-              width: "10px",
+              left: `${position.x}px`,
+              top: "-2px",
+              width: "2px",
+              bottom: "0px",
             }}
-          ></Block>
+          >
+            <Block
+              $style={{
+                width: 0,
+                height: 0,
+                borderLeft: "9px solid transparent",
+                borderRight: "9px solid transparent",
+                borderTop: "11px solid #333333",
+                borderRadius: "5px",
+                transform: "translate(-8px, -1px)",
+              }}
+            />
+
+            <Block
+              id="markerLine"
+              $style={{
+                height: "84px",
+                width: "2px",
+                backgroundColor: "#333333",
+                transform: "translate(0, -2px)",
+              }}
+            />
+          </Block>
           <Block $style={{ display: "flex", alignItems: "center", position: "relative", padding: "1rem 0" }}>
             {pages.map((page, index) => (
               <div
                 style={{
                   background: page.id === currentPage?.id ? "rgb(243,244,246)" : "#ffffff",
+                  width: "200px",
                 }}
                 key={index}
               >
