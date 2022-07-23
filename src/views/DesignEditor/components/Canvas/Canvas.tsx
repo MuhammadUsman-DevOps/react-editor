@@ -1,9 +1,13 @@
 import React from "react"
 import { Canvas } from "@scenify/react"
+import Playback from "../Playback"
+import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 
 export default function () {
+  const { displayPlayback } = useDesignEditorContext()
   return (
-    <div style={{ flex: 1, display: "flex", padding: "1px" }}>
+    <div style={{ flex: 1, display: "flex", position: "relative" }}>
+      {displayPlayback && <Playback />}
       <Canvas
         config={{
           background: "#f1f2f6",

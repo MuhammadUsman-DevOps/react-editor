@@ -9,8 +9,9 @@ import { defaultTemplate } from "~/constants/design-editor"
 import { useEditor } from "@scenify/react"
 import { Block } from "baseui/block"
 import { useTimer } from "@layerhub-io/use-timer"
+import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 
-const Container = styled<{}, "div", Theme>("div", ({ $theme }) => ({
+const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   background: $theme.colors.white,
   // padding: "0.25rem",
 }))
@@ -20,6 +21,7 @@ const maxWidth = 120000
 export default function () {
   const { time } = useTimer()
   const pages = useDesignEditorPages()
+  const { setDisplayPlayback } = useDesignEditorContext()
   const { setPages, setCurrentPage, currentPage } = React.useContext(DesignEditorContext)
   const editor = useEditor()
   const [css] = useStyletron()
@@ -32,7 +34,7 @@ export default function () {
   React.useEffect(() => {
     let watcher = async () => {
       const updatedTemplate = editor.design.exportToJSON()
-      const updatedPreview = await editor.renderer.render(updatedTemplate)
+      const updatedPreview = (await editor.renderer.render(updatedTemplate)) as any
       setCurrentPreview(updatedPreview)
     }
     if (editor) {
@@ -111,7 +113,7 @@ export default function () {
     },
     [editor, pages, currentPage]
   )
-  console.log(position.x)
+
   return (
     <Container>
       <div className={css({ display: "flex", alignItems: "center" })}>

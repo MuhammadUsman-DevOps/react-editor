@@ -7,20 +7,31 @@ import { Block } from "baseui/block"
 import PlaySolid from "~/components/Icons/PlaySolid"
 import { useTimer } from "@layerhub-io/use-timer"
 import Pause from "~/components/Icons/Pause"
+import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 
-const Container = styled<{}, "div", Theme>("div", ({ $theme }) => ({
+const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   background: $theme.colors.white,
 }))
 
 export default function () {
   const { pause, start, status } = useTimer()
-
+  const { setDisplayPlayback } = useDesignEditorContext()
   return (
     <Container>
       <Block $style={{ display: "flex", alignItems: "center" }}>
         <Block $style={{ padding: "0 1rem" }}>
           <Block
-            onClick={status === "RUNNING" ? pause : start}
+            onClick={
+              status === "RUNNING"
+                ? () => {
+                    pause()
+                    setDisplayPlayback(false)
+                  }
+                : () => {
+                    start()
+                    setDisplayPlayback(true)
+                  }
+            }
             $style={{
               height: "56px",
               width: "56px",

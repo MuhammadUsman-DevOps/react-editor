@@ -13,7 +13,9 @@ import { getPixabayResources } from "~/store/slices/resources/actions"
 import useEditorType from "~/hooks/useEditorType"
 import SelectEditor from "./SelectEditor"
 
-const Container = styled<{}, "div", Theme>("div", ({ $theme }) => ({
+type CustomTheme = Theme & { extraProp: string }
+
+const Container = styled<"div", {}, CustomTheme>("div", ({ $theme }) => ({
   width: "100vw",
   height: "100vh",
   display: "flex",

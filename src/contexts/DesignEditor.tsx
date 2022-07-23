@@ -1,6 +1,5 @@
 import React from "react"
 import { Page } from "~/interfaces/DesignEditor"
-
 import { DesignType } from "~/interfaces/DesignEditor"
 
 interface IDesignEditorContext {
@@ -12,6 +11,8 @@ interface IDesignEditorContext {
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>
   editorType: DesignType
   setEditorType: React.Dispatch<React.SetStateAction<DesignType>>
+  displayPlayback: boolean
+  setDisplayPlayback: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const DesignEditorContext = React.createContext<IDesignEditorContext>({
@@ -23,6 +24,8 @@ export const DesignEditorContext = React.createContext<IDesignEditorContext>({
   setIsSidebarOpen: () => {},
   editorType: "NONE",
   setEditorType: () => {},
+  displayPlayback: false,
+  setDisplayPlayback: () => {},
 })
 
 export const DesignEditorProvider = ({ children }: { children: React.ReactNode }) => {
@@ -30,6 +33,7 @@ export const DesignEditorProvider = ({ children }: { children: React.ReactNode }
   const [currentPage, setCurrentPage] = React.useState(null)
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(true)
   const [editorType, setEditorType] = React.useState<DesignType>("NONE")
+  const [displayPlayback, setDisplayPlayback] = React.useState<boolean>(false)
   const context = {
     pages,
     setPages,
@@ -39,6 +43,8 @@ export const DesignEditorProvider = ({ children }: { children: React.ReactNode }
     setIsSidebarOpen,
     editorType,
     setEditorType,
+    displayPlayback,
+    setDisplayPlayback,
   }
   return <DesignEditorContext.Provider value={context}>{children}</DesignEditorContext.Provider>
 }
