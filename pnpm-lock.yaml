@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@layerhub-io/use-timer': ^0.0.1
   '@reduxjs/toolkit': ^1.8.1
-  '@scenify/react': ^2.6.0
+  '@scenify/react': ^2.6.1
   '@scenify/react-custom-scrollbar': ^0.1.0
   '@scenify/types': ^2.6.0
   '@types/lodash': ^4.14.182
@@ -34,7 +34,7 @@ specifiers:
 dependencies:
   '@layerhub-io/use-timer': 0.0.1_react@18.2.0
   '@reduxjs/toolkit': 1.8.2_kkwg4cbsojnjnupd3btipussee
-  '@scenify/react': 2.6.0
+  '@scenify/react': 2.6.1
   '@scenify/react-custom-scrollbar': 0.1.0_react@18.2.0
   '@types/node': 17.0.45
   axios: 0.27.2
@@ -439,8 +439,8 @@ packages:
     resolution: {integrity: sha512-0HwnY8uPWcCloTgdbbaJG3MbDUfNf6yKWZfCKxFv9yj2Sbp4mSKaIjC7Cr/5L4hMxvrrk85CU3wlAg7EtBBJ1Q==}
     dev: false
 
-  /@scenify/core/2.6.0:
-    resolution: {integrity: sha512-zFXBsrR08QaUr8WiCyFmZKoMPaqupJcwk1AAxtC0q6tnZOnnBOHEupVCpbDLaX+vKhO1G1XwmVgO01QloXWoUQ==}
+  /@scenify/core/2.6.1:
+    resolution: {integrity: sha512-ftrbvLgFdEEvlOX60HmjTqlsptimk79wQBDNMOTnoOIJyI7ZKeNhIkh+eAh4GXFOQEI7Z8TT5MuHP/7K3au3Jg==}
     dependencies:
       '@scenify/objects': 2.5.0_fabric@5.2.1
       '@scenify/types': 2.6.0
@@ -475,10 +475,10 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@scenify/react/2.6.0:
-    resolution: {integrity: sha512-LvjuePSEtQwnHFM1Rl78XA/uEC91NTxip68j7dKZEE7Up24f/Gc9r5fFJ9ti6D0Dy0CBFkNbEW6O3R8A5c1acw==}
+  /@scenify/react/2.6.1:
+    resolution: {integrity: sha512-7FPfA8reyMd2ZSPFDXNRlrstdRTuesoZQOFzzHtg3ZC3r5bHAUxI5v8uSSXWrUQoKaez4seSicagKAqO+/Yucw==}
     dependencies:
-      '@scenify/core': 2.6.0
+      '@scenify/core': 2.6.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       resize-observer-polyfill: 1.5.1
