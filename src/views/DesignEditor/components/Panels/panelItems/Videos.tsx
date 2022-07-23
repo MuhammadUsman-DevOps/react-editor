@@ -21,14 +21,14 @@ export default function () {
   }, [])
 
   const addObject = React.useCallback(
-    (video: any) => {
+    (options: any) => {
       if (editor) {
-        console.log({ video })
+        // console.log({ video })
         // const options = {
         //   type: "StaticImage",
         //   src: url,
         // }
-        // editor.objects.add(options)
+        editor.objects.add(options)
       }
     },
     [editor]
