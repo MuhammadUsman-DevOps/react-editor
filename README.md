@@ -1,4 +1,5 @@
 # Layerhub
+[WIP] React editor for graphics, presentations and videos. It should be an alternative to canva.com.
 
 ## Layerhub components
 
