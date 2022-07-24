@@ -141,14 +141,71 @@ class PlaybackController {
   }
 
   /**
+   * renders the content in the webgl layer
+   * @param progress Time Progress
+   * @returns
+   * @public
+   */
+  public render = (progress: number) => {
+    for (let [key, value] of this.audioResources) {
+      if (progress > value.startAt && progress < value.endAt) {
+        value.audio.play()
+        if (value.audio.paused) {
+          value.audio.play()
+        }
+      } else {
+        value.audio.pause()
+      }
+    }
+    for (let [key, value] of this.resources) {
+      if (progress > value.startAt && progress < value.endAt!) {
+        this.applySpriteOptions(value.sprite, { visible: true })
+      } else {
+        this.applySpriteOptions(value.sprite, { visible: false })
+      }
+    }
+  }
+
+  /**
+   * Show the resource content in the webgl layer
+   * @public
+   * @returns
+   */
+  public play = () => {
+    for (let [key, value] of this.resources) {
+      this.applySpriteOptions(value.sprite, value.position)
+      if (value.type === "StaticVideo") {
+        value.video.muted = false
+        value.video.currentTime = 0
+      }
+
+      value.sprite.visible = true
+      this.app.stage.addChild(value.sprite)
+    }
+  }
+  /**
+   * Changes the sprite options
+   * Used to show or hide elements
+   * @param sprite Pixi Sprite
+   * @param {Object} options Object that contains the option values
+   */
+  private applySpriteOptions = (sprite: PIXI.Sprite, options: Record<string, any>) => {
+    console.log(sprite, options)
+    for (const property in options) {
+      // @ts-ignore
+      sprite[property] = options[property]
+    }
+  }
+
+  /**
    * Creates the Pixi app instance and appends it to the HTML Div container
    * @returns
    * @private
    */
   private initializeApplication = () => {
     let app = new PIXI.Application({
-      width: 1920,
-      height: 540,
+      width: 1200,
+      height: 1200,
       resizeTo: this.el,
       backgroundColor: 0xffffff,
       backgroundAlpha: 1,
@@ -164,6 +221,7 @@ class PlaybackController {
    */
   private initializeResources = async () => {
     const data = this.options.data
+    // console.log({ data })
     const loader = new PIXI.Loader()
     for (const item of data) {
       if (item.type === "StaticVideo" || item.type === "StaticGIF" || item.type === "StaticAudio") {
@@ -183,40 +241,27 @@ class PlaybackController {
     }
     return new Promise((resolve) => {
       loader.load((loader, resources) => {
-        // for (const [key, resource] of Object.entries(resources)) {
-        //   const element = this.options.data.find((i) => i.id === key)
-        //   if (element.type.includes("StaticAudio")) {
-        //     const object = resource.data
-        //     this.audioResources.set(element.id, {
-        //       ...element,
-        //       audio: object,
-        //     })
-        //   } else {
-        //     const object = resource.data
-        //     if (element.type === "StaticVideo") {
-        //       object.muted = true
-        //     }
+        for (const [key, resource] of Object.entries(resources)) {
+          const element = this.options.data.find((i) => i.id === key) as Element
 
-        //     let texture: PIXI.Texture<PIXI.Resource>
+          const object = resource.data
+          if (element.type === "StaticVideo") {
+            object.muted = true
+          }
 
-        //     if (element.type === "StaticGIF") {
-        //       texture = resource.animation.texture
-        //     } else {
-        //       texture = PIXI.Texture.from(object)
-        //     }
+          let texture: PIXI.Texture<PIXI.Resource> = PIXI.Texture.from(object)
 
-        //     let sprite = new PIXI.Sprite(texture)
-        //     this.resources.set(key, {
-        //       ...element,
-        //       sprite: element.type !== "StaticGIF" ? sprite : resource.animation,
-        //       video: object,
-        //     })
+          let sprite = new PIXI.Sprite(texture)
+          this.resources.set(key, {
+            ...element,
+            sprite: sprite,
+            video: object,
+          })
 
-        //     if (element.type === "StaticGIF") {
-        //       this.gifsResourceData.push({ key, objectId: element.objectId })
-        //     }
-        //   }
-        // }
+          // if (element.type === "StaticGIF") {
+          //   this.gifsResourceData.push({ key, objectId: element.objectId })
+          // }
+        }
         resolve(true)
       })
     })

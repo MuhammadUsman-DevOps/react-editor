@@ -8,18 +8,42 @@ const Playback = () => {
   const editor = useEditor()
   const controller = React.useRef<PlaybackController>()
   const frameBoundingRect = editor.frame.getBoundingClientRect()
-  const { time } = useTimer()
+  const [initialized, setInitialized] = React.useState(false)
+
+  const { time, start } = useTimer()
+
+  const loadFrames = React.useCallback(async () => {
+    const template = editor.design.exportToJSON()
+    console.log(template)
+    const layers = await editor.design.exportLayers()
+    console.log({ layers })
+    controller.current = new PlaybackController("scenify_playback_container", {
+      data: layers,
+    })
+    // console.log({ layers })
+    console.log(controller.current?.initialized)
+    setTimeout(() => {
+      console.log(controller.current?.initialized)
+      setInitialized(true)
+    }, 1000)
+  }, [editor])
 
   React.useEffect(() => {
     if (editor) {
       console.log("initialized")
-      controller.current = new PlaybackController("scenify_playback_container", {
-        data: [],
-      })
+      loadFrames()
+      // console.log({ layers })
     }
   }, [editor])
 
-  console.log({ frameBoundingRect })
+  React.useEffect(() => {
+    if (controller.current && initialized) {
+      // console.log("")
+      controller.current!.play()
+      start()
+    }
+  }, [initialized, controller])
+
   return (
     <Block
       id="scenify_playback_container"
@@ -32,9 +56,7 @@ const Playback = () => {
         height: `${frameBoundingRect.height}px`,
         width: `${frameBoundingRect.width}px`,
       }}
-    >
-      Hello world
-    </Block>
+    ></Block>
   )
 }
 
