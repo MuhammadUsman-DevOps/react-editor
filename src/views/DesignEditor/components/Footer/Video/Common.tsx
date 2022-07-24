@@ -42,6 +42,9 @@ export default function () {
       </Block>
       <Block $style={{ display: "flex", alignItems: "center", justifyContent: "end" }}>
         <Button kind={KIND.tertiary} size={SIZE.compact}>
+          {options.zoomRatio}
+        </Button>
+        <Button kind={KIND.tertiary} size={SIZE.compact}>
           <Icons.Refresh size={16} />
         </Button>
         <Button kind={KIND.tertiary} size={SIZE.compact}>

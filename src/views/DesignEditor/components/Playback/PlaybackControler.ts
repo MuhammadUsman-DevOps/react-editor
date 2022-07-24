@@ -192,9 +192,13 @@ class PlaybackController {
   private applySpriteOptions = (sprite: PIXI.Sprite, options: Record<string, any>) => {
     console.log(sprite, options)
     for (const property in options) {
+      console.log(options[property])
       // @ts-ignore
       sprite[property] = options[property]
     }
+
+    sprite.width = options.width * options.scaleX
+    sprite.height = options.height * options.scaleY
   }
 
   /**

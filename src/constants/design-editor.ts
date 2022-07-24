@@ -4,8 +4,8 @@ import { IDesign } from "@scenify/types"
 export const defaultTemplate: IDesign = {
   id: nanoid(),
   frame: {
-    width: 400,
-    height: 400,
+    width: 560,
+    height: 560,
   },
   layers: [
     {
@@ -13,8 +13,8 @@ export const defaultTemplate: IDesign = {
       name: "Initial Frame",
       left: 0,
       top: 0,
-      width: 400,
-      height: 400,
+      width: 560,
+      height: 560,
       type: "Background",
       fill: "#ffffff",
       metadata: {},

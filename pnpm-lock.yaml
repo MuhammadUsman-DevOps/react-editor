@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@layerhub-io/use-timer': ^0.0.1
   '@reduxjs/toolkit': ^1.8.1
-  '@scenify/react': ^2.7.0
+  '@scenify/react': ^2.7.1
   '@scenify/react-custom-scrollbar': ^0.1.0
   '@scenify/types': ^2.6.0
   '@types/lodash': ^4.14.182
@@ -35,7 +35,7 @@ specifiers:
 dependencies:
   '@layerhub-io/use-timer': 0.0.1_react@18.2.0
   '@reduxjs/toolkit': 1.8.2_kkwg4cbsojnjnupd3btipussee
-  '@scenify/react': 2.7.0
+  '@scenify/react': 2.7.1
   '@scenify/react-custom-scrollbar': 0.1.0_react@18.2.0
   '@types/node': 17.0.45
   axios: 0.27.2
@@ -875,11 +875,11 @@ packages:
     resolution: {integrity: sha512-0HwnY8uPWcCloTgdbbaJG3MbDUfNf6yKWZfCKxFv9yj2Sbp4mSKaIjC7Cr/5L4hMxvrrk85CU3wlAg7EtBBJ1Q==}
     dev: false
 
-  /@scenify/core/2.7.0:
-    resolution: {integrity: sha512-rpd75UIQzEJSAWLngc8MbdNjMsyK70vFiROC+ZR7776vg8aG7PNAj+3L7etTgZ6GD7vbEWDsikM4IwhyGQ0SJA==}
+  /@scenify/core/2.7.1:
+    resolution: {integrity: sha512-hkDzHCp1F3rq70dL+LLbAqzYKIEAEDiiQq6m4//IROgwNxn+/aI854s5c4Mn3wfhz1qsxBhT5trsgI0cg8QSxw==}
     dependencies:
       '@scenify/objects': 2.6.0_fabric@5.2.1
-      '@scenify/types': 2.6.0
+      '@scenify/types': 2.6.1
       fabric: 5.2.1
       lodash: 4.17.21
       nanoid: 3.3.4
@@ -911,10 +911,10 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@scenify/react/2.7.0:
-    resolution: {integrity: sha512-D+ggNViQtJB/SKx73Ft5HaD23YxPYBLWpn3i7v0swE4veNqtjqqxTtYZLt3PEvJGu4Y9NLlJZHbktKukjyiY2A==}
+  /@scenify/react/2.7.1:
+    resolution: {integrity: sha512-G4rlfQ4WyB6xNRNXIa0GN61Hdr9rvaet5Rltu2ByHiI8aUBfaMo1F9+kwz9WsAd+G+YkZVo6NQx7LZ0X8oum9g==}
     dependencies:
-      '@scenify/core': 2.7.0
+      '@scenify/core': 2.7.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       resize-observer-polyfill: 1.5.1
@@ -927,6 +927,11 @@ packages:
 
   /@scenify/types/2.6.0:
     resolution: {integrity: sha512-OKiKyKalSrdtdGcUcBns6Ng8+kz4IeXXJEp38LB9xFTfcPvK9fee8EaPugYbCAcaXwPlDm3EiquyeUO5SZisww==}
+    dev: true
+
+  /@scenify/types/2.6.1:
+    resolution: {integrity: sha512-+Vob0n1VhVu/qpZtvZXbNntruGopZ3Z0CLATDP6fHPcMJM2BzCrks/wn1DRoGmCLtDlce3c/OnENicOskjipJQ==}
+    dev: false
 
   /@tootallnate/once/2.0.0:
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}

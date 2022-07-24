@@ -13,17 +13,14 @@ const Playback = () => {
   const { time, start } = useTimer()
 
   const loadFrames = React.useCallback(async () => {
-    const template = editor.design.exportToJSON()
-    console.log(template)
     const layers = await editor.design.exportLayers()
-    console.log({ layers })
     controller.current = new PlaybackController("scenify_playback_container", {
       data: layers,
     })
     // console.log({ layers })
-    console.log(controller.current?.initialized)
+    // console.log(controller.current?.initialized)
     setTimeout(() => {
-      console.log(controller.current?.initialized)
+      // console.log(controller.current?.initialized)
       setInitialized(true)
     }, 1000)
   }, [editor])
