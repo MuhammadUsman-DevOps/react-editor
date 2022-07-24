@@ -190,9 +190,7 @@ class PlaybackController {
    * @param {Object} options Object that contains the option values
    */
   private applySpriteOptions = (sprite: PIXI.Sprite, options: Record<string, any>) => {
-    console.log(sprite, options)
     for (const property in options) {
-      console.log(options[property])
       // @ts-ignore
       sprite[property] = options[property]
     }
@@ -225,11 +223,9 @@ class PlaybackController {
    */
   private initializeResources = async () => {
     const data = this.options.data
-    // console.log({ data })
     const loader = new PIXI.Loader()
     for (const item of data) {
       if (item.type === "StaticVideo" || item.type === "StaticGIF" || item.type === "StaticAudio") {
-        // console.log({ item })
         loader.add(item.id, item.url)
       } else {
         // Handle if it is an image

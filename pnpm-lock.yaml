@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@layerhub-io/use-timer': ^0.0.1
   '@reduxjs/toolkit': ^1.8.1
-  '@scenify/react': ^2.7.1
+  '@scenify/react': ^2.8.0
   '@scenify/react-custom-scrollbar': ^0.1.0
   '@scenify/types': ^2.6.0
   '@types/lodash': ^4.14.182
@@ -35,7 +35,7 @@ specifiers:
 dependencies:
   '@layerhub-io/use-timer': 0.0.1_react@18.2.0
   '@reduxjs/toolkit': 1.8.2_kkwg4cbsojnjnupd3btipussee
-  '@scenify/react': 2.7.1
+  '@scenify/react': 2.8.0
   '@scenify/react-custom-scrollbar': 0.1.0_react@18.2.0
   '@types/node': 17.0.45
   axios: 0.27.2
@@ -875,11 +875,11 @@ packages:
     resolution: {integrity: sha512-0HwnY8uPWcCloTgdbbaJG3MbDUfNf6yKWZfCKxFv9yj2Sbp4mSKaIjC7Cr/5L4hMxvrrk85CU3wlAg7EtBBJ1Q==}
     dev: false
 
-  /@scenify/core/2.7.1:
-    resolution: {integrity: sha512-hkDzHCp1F3rq70dL+LLbAqzYKIEAEDiiQq6m4//IROgwNxn+/aI854s5c4Mn3wfhz1qsxBhT5trsgI0cg8QSxw==}
+  /@scenify/core/2.8.0:
+    resolution: {integrity: sha512-qvqxyhXs04dztFPB3hWxmaU4maX1i39RmfPgaHhy8TvRrXa0xKAMbKLKyOE7o/7DF+7q157dwMrNn6nwsWmDiw==}
     dependencies:
-      '@scenify/objects': 2.6.0_fabric@5.2.1
-      '@scenify/types': 2.6.1
+      '@scenify/objects': 2.7.0_fabric@5.2.1
+      '@scenify/types': 2.7.0
       fabric: 5.2.1
       lodash: 4.17.21
       nanoid: 3.3.4
@@ -891,8 +891,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@scenify/objects/2.6.0_fabric@5.2.1:
-    resolution: {integrity: sha512-rjhIZ4xZPlqvzEuwcEyJ6lekaWjClvaVnLVFQqaHipKsm0lfAkw1xp388LOvjhd336pc84X/EbRV2A0FGvM17A==}
+  /@scenify/objects/2.7.0_fabric@5.2.1:
+    resolution: {integrity: sha512-qYalNnTmgvhUcCYK8rFsjo6mFwagD0IeckScX2DN+Hr+zfOEr1F1jB7OJq6iFi1mlnjHoiaseZwI6BhmsjpMbw==}
     peerDependencies:
       fabric: ^5.2.1
     dependencies:
@@ -911,10 +911,10 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@scenify/react/2.7.1:
-    resolution: {integrity: sha512-G4rlfQ4WyB6xNRNXIa0GN61Hdr9rvaet5Rltu2ByHiI8aUBfaMo1F9+kwz9WsAd+G+YkZVo6NQx7LZ0X8oum9g==}
+  /@scenify/react/2.8.0:
+    resolution: {integrity: sha512-Pf/1A7961+fPtf/3audVVjnmyeZ6XmWA6/sTi1rDB6U4YiWTV+zSe7Yxs7acwrZBQ2vMx82ITppZEmpW9YPeag==}
     dependencies:
-      '@scenify/core': 2.7.1
+      '@scenify/core': 2.8.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       resize-observer-polyfill: 1.5.1
@@ -929,8 +929,8 @@ packages:
     resolution: {integrity: sha512-OKiKyKalSrdtdGcUcBns6Ng8+kz4IeXXJEp38LB9xFTfcPvK9fee8EaPugYbCAcaXwPlDm3EiquyeUO5SZisww==}
     dev: true
 
-  /@scenify/types/2.6.1:
-    resolution: {integrity: sha512-+Vob0n1VhVu/qpZtvZXbNntruGopZ3Z0CLATDP6fHPcMJM2BzCrks/wn1DRoGmCLtDlce3c/OnENicOskjipJQ==}
+  /@scenify/types/2.7.0:
+    resolution: {integrity: sha512-/aj30nUnCaBNfe2pIW/a79/LESkeMlvtt0Oy5SGWI1fH9BAARUHTnLKCSTki34+x0VUItv7JaohcXl7h8l9seg==}
     dev: false
 
   /@tootallnate/once/2.0.0:
