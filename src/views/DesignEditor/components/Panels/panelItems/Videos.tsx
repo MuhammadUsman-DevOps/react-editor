@@ -13,7 +13,7 @@ export default function () {
   const [videos, setVideos] = React.useState<any[]>([])
 
   const loadPixabayVideos = async () => {
-    const videos = await getPixabayVideos("nature")
+    const videos = await getPixabayVideos("people")
     setVideos(videos)
   }
   React.useEffect(() => {
