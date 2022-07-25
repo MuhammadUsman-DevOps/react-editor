@@ -52,6 +52,7 @@ export const data: Element[] = [
 ]
 
 interface Options {
+  zoomRatio?: number
   /**
    * Fabric Object list
    */
@@ -101,7 +102,7 @@ class PlaybackController {
    */
   private options: Required<Options>
   private status: string = "STOPPED"
-
+  private zoomRatio: number = 1
   /**
    * Whether the pixi app has been initialized
    */
@@ -114,6 +115,7 @@ class PlaybackController {
     this.clipResources = new Map()
     this.initialized = false
     this.options = { ...this.options, data: options!.data ? options!.data : [] }
+    this.zoomRatio = options?.zoomRatio!
     this.initialize()
   }
 
@@ -195,8 +197,14 @@ class PlaybackController {
       sprite[property] = options[property]
     }
 
-    sprite.width = options.width * options.scaleX
-    sprite.height = options.height * options.scaleY
+    console.log({
+      x: options.x * 0.47,
+      y: options.y * 0.47,
+    })
+    sprite.x = options.x * this.zoomRatio
+    sprite.y = options.y * this.zoomRatio
+    sprite.width = options.width * options.scaleX * this.zoomRatio
+    sprite.height = options.height * options.scaleY * this.zoomRatio
   }
 
   /**
@@ -206,10 +214,10 @@ class PlaybackController {
    */
   private initializeApplication = () => {
     let app = new PIXI.Application({
-      width: 1200,
-      height: 1200,
+      width: 1200 * this.zoomRatio,
+      height: 1200 * this.zoomRatio,
       resizeTo: this.el,
-      backgroundColor: 0xffffff,
+      backgroundColor: 0x2980b9,
       backgroundAlpha: 1,
     })
     this.el.appendChild(app.view)
@@ -223,6 +231,7 @@ class PlaybackController {
    */
   private initializeResources = async () => {
     const data = this.options.data
+    // console.log({ data })
     const loader = new PIXI.Loader()
     for (const item of data) {
       if (item.type === "StaticVideo" || item.type === "StaticGIF" || item.type === "StaticAudio") {

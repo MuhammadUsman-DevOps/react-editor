@@ -36,7 +36,7 @@ export function getPixabayVideos(query: string): Promise<PixabayImage[]> {
         const videos = hits.map((hit: any) => ({
           id: hit.id,
           type: "StaticVideo",
-          src: hit.videos.medium.url,
+          src: hit.videos.tiny.url,
           preview: hit.videos.tiny.url,
           duration: hit.duration,
         }))
