@@ -10,7 +10,7 @@ import Timeline from "./Timeline"
 import Common from "./Common"
 import Pages from "./Pages"
 
-const Container = styled<{}, "div", Theme>("div", ({ $theme }) => ({
+const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   // height: "56px",
   background: $theme.colors.white,
   // display: "grid",

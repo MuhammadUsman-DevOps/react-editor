@@ -28,7 +28,7 @@ export default function () {
                     setDisplayPlayback(false)
                   }
                 : () => {
-                    start()
+                    // start()
                     setDisplayPlayback(true)
                   }
             }

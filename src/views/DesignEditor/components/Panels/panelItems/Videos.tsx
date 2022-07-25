@@ -23,11 +23,6 @@ export default function () {
   const addObject = React.useCallback(
     (options: any) => {
       if (editor) {
-        // console.log({ video })
-        // const options = {
-        //   type: "StaticImage",
-        //   src: url,
-        // }
         editor.objects.add(options)
       }
     },

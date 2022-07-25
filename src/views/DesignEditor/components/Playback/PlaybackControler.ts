@@ -197,10 +197,6 @@ class PlaybackController {
       sprite[property] = options[property]
     }
 
-    console.log({
-      x: options.x * 0.47,
-      y: options.y * 0.47,
-    })
     sprite.x = options.x * this.zoomRatio
     sprite.y = options.y * this.zoomRatio
     sprite.width = options.width * options.scaleX * this.zoomRatio
@@ -217,7 +213,7 @@ class PlaybackController {
       width: 1200 * this.zoomRatio,
       height: 1200 * this.zoomRatio,
       resizeTo: this.el,
-      backgroundColor: 0x2980b9,
+      backgroundColor: 0xffffff,
       backgroundAlpha: 1,
     })
     this.el.appendChild(app.view)
@@ -231,7 +227,6 @@ class PlaybackController {
    */
   private initializeResources = async () => {
     const data = this.options.data
-    // console.log({ data })
     const loader = new PIXI.Loader()
     for (const item of data) {
       if (item.type === "StaticVideo" || item.type === "StaticGIF" || item.type === "StaticAudio") {

@@ -8,7 +8,7 @@ import { nanoid } from "nanoid"
 import { defaultTemplate } from "~/constants/design-editor"
 import { useEditor } from "@scenify/react"
 
-const Container = styled<{}, "div", Theme>("div", ({ $theme }) => ({
+const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   background: $theme.colors.white,
   padding: "0.25rem 0.75rem",
 }))
@@ -23,7 +23,7 @@ export default function () {
   React.useEffect(() => {
     let watcher = async () => {
       const updatedTemplate = editor.design.exportToJSON()
-      const updatedPreview = await editor.renderer.render(updatedTemplate)
+      const updatedPreview = (await editor.renderer.render(updatedTemplate)) as string
       setCurrentPreview(updatedPreview)
     }
     if (editor) {
