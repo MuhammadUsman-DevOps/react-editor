@@ -18,9 +18,12 @@ const Playback = () => {
       data: layers,
       zoomRatio,
     })
-
-    setTimeout(() => {
-      setInitialized(true)
+    let interval: any
+    interval = setInterval(() => {
+      if (controller.current?.initialized) {
+        clearInterval(interval)
+        setInitialized(true)
+      }
     }, 1000)
   }, [editor])
 
