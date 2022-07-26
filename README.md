@@ -1,9 +1,16 @@
-# Layerhub
+# React editor
+
 [WIP] React editor for graphics, presentations and videos. It should be an alternative to canva.com.
 
-## Layerhub components
+<p>
+    <a href="https://discord.gg/7jxnh8rHDV">
+        <img src="https://discordapp.com/api/guilds/1001450881448951838/widget.png?style=banner2" alt="Discord Banner 2"/>
+    </a>
+</p>
 
-Layerhub created editors for graphics, presentations and video.
+## Editor components
+
+React editor created editors for graphics, presentations and video.
 
 ### Select editor
 
