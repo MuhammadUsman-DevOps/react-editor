@@ -12,6 +12,8 @@ import { getUploads } from "~/store/slices/uploads/actions"
 import { getPixabayResources } from "~/store/slices/resources/actions"
 import useEditorType from "~/hooks/useEditorType"
 import SelectEditor from "./SelectEditor"
+import useDesignEditorContext from "~/hooks/useDesignEditorContext"
+import Preview from "./components/Preview"
 
 type CustomTheme = Theme & { extraProp: string }
 
@@ -27,22 +29,27 @@ const Container = styled<"div", {}, CustomTheme>("div", ({ $theme }) => ({
 function VideoEditor() {
   const [designType, setDesignType] = React.useState<DesignType>("GRAPHIC")
   const editorType = useEditorType()
+  const { displayPreview, setDisplayPreview } = useDesignEditorContext()
 
   if (editorType === "NONE") {
     return <SelectEditor />
   }
   return (
-    <Container>
-      <Navbar />
-      <div style={{ display: "flex", flex: 1 }}>
-        <Panels />
-        <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-          <Toolbox />
-          <Canvas />
-          <Footer />
+    <>
+      {displayPreview && <Preview isOpen={displayPreview} setIsOpen={setDisplayPreview} />}
+
+      <Container>
+        <Navbar />
+        <div style={{ display: "flex", flex: 1 }}>
+          <Panels />
+          <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+            <Toolbox />
+            <Canvas />
+            <Footer />
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </>
   )
 }
 

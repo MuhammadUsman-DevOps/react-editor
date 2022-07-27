@@ -1,11 +1,12 @@
-function Loading() {
+function Loading({ text }: { text?: string }) {
   return (
     <div
       style={{
         flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
       }}
     >
       <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100">
@@ -19,6 +20,7 @@ function Loading() {
           <animate attributeName="r" values="0;5;0" dur="1.2s" begin="0.8s" repeatCount="indefinite" />
         </circle>
       </svg>
+      {text && text}
     </div>
   )
 }
