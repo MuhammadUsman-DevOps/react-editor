@@ -8,6 +8,7 @@ import PreviewModal from "./PreviewModal"
 import Download from "~/components/Icons/Download"
 import { useEditor } from "@scenify/react"
 import useEditorType from "~/hooks/useEditorType"
+import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   height: "64px",
@@ -20,6 +21,7 @@ const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
 
 export default function () {
   const [isPreviewOpen, setIsPreviewOpen] = React.useState(false)
+  const { setDisplayPreview } = useDesignEditorContext()
   const editorType = useEditorType()
   const editor = useEditor()
   const [video, setVideo] = React.useState<string | null>(null)
@@ -81,7 +83,7 @@ export default function () {
         <Button
           startEnhancer={<Download size={24} />}
           size="compact"
-          onClick={handleDownload}
+          onClick={() => setDisplayPreview(true)}
           kind={KIND.primary}
           overrides={{
             StartEnhancer: {
@@ -93,7 +95,7 @@ export default function () {
         >
           Download
         </Button>
-        {isPreviewOpen && <PreviewModal isOpen={isPreviewOpen} setIsOpen={setIsPreviewOpen} />}
+        {/* {isPreviewOpen && <PreviewModal isOpen={isPreviewOpen} setIsOpen={setIsPreviewOpen} />} */}
       </Container>
     </ThemeProvider>
   )

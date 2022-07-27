@@ -7,13 +7,12 @@ import Canvas from "./components/Canvas"
 import Footer from "./components/Footer"
 import Toolbox from "./components/Toolbox"
 import { DesignType } from "~/interfaces/DesignEditor"
-import { useAppDispatch } from "~/store/store"
-import { getUploads } from "~/store/slices/uploads/actions"
-import { getPixabayResources } from "~/store/slices/resources/actions"
 import useEditorType from "~/hooks/useEditorType"
 import SelectEditor from "./SelectEditor"
+import useDesignEditorContext from "~/hooks/useDesignEditorContext"
+import Preview from "./components/Preview"
 
-const Container = styled<{}, "div", Theme>("div", ({ $theme }) => ({
+const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   width: "100vw",
   height: "100vh",
   display: "flex",
@@ -25,22 +24,25 @@ const Container = styled<{}, "div", Theme>("div", ({ $theme }) => ({
 function GraphicEditor() {
   const [designType, setDesignType] = React.useState<DesignType>("GRAPHIC")
   const editorType = useEditorType()
-
+  const { displayPreview, setDisplayPreview } = useDesignEditorContext()
   if (editorType === "NONE") {
     return <SelectEditor />
   }
   return (
-    <Container>
-      <Navbar />
-      <div style={{ display: "flex", flex: 1 }}>
-        <Panels />
-        <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-          <Toolbox />
-          <Canvas />
-          <Footer />
+    <>
+      {displayPreview && <Preview isOpen={displayPreview} setIsOpen={setDisplayPreview} />}
+      <Container>
+        <Navbar />
+        <div style={{ display: "flex", flex: 1 }}>
+          <Panels />
+          <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+            <Toolbox />
+            <Canvas />
+            <Footer />
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </>
   )
 }
 
