@@ -29,3 +29,7 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+#sam-sam video {
+    max-height: 540px;
+}

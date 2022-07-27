@@ -5,6 +5,7 @@ import { useEditor } from "@scenify/react"
 import { Block } from "baseui/block"
 import { Button } from "baseui/button"
 import Loading from "~/components/Loading"
+import VideoPreview from "./VideoPreview"
 
 interface ComponentProps {
   isOpen: boolean
@@ -123,7 +124,8 @@ export default function ({ isOpen, setIsOpen }: ComponentProps) {
             flex: 1,
           }}
         >
-          {preview ? <video style={{ maxHeight: "680px" }} src={preview} /> : <Loading text="Generating preview" />}
+          {/* {preview ? <video style={{ maxHeight: "680px" }} src={preview} /> : <Loading text="Generating preview" />} */}
+          {preview ? <VideoPreview src={preview} /> : <Loading text="Generating preview" />}
         </Block>
         <Block
           $style={{
