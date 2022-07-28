@@ -43,7 +43,6 @@ export default function () {
         ],
       }
 
-      // console.log({ objects })
       fetch("https://render.layerhub.io/render", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -54,7 +53,6 @@ export default function () {
         })
         .then((blob) => {
           const element = window.URL.createObjectURL(blob)
-          // console.log({ element })
           const a = document.createElement("a")
           // @ts-ignore
           a.href = element

@@ -45,7 +45,6 @@ export default function ({ isOpen, setIsOpen }: ComponentProps) {
       })
       .then((blob) => {
         const element = window.URL.createObjectURL(blob)
-        console.log({ element })
         setPreview(element)
       })
       .catch((err) => console.error(err))

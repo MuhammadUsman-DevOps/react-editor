@@ -6,6 +6,7 @@ import Scrollable from "~/components/Scrollable"
 import { useEditor } from "@scenify/react"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import { getPixabayVideos } from "~/services/pixabay"
+import { getPexelsVideos } from "~/services/pexels"
 
 export default function () {
   const editor = useEditor()
@@ -16,8 +17,13 @@ export default function () {
     const videos = await getPixabayVideos("people")
     setVideos(videos)
   }
+
+  const loadPexelsVideos = async () => {
+    const videos = (await getPexelsVideos("people")) as any
+    setVideos(videos)
+  }
   React.useEffect(() => {
-    loadPixabayVideos()
+    loadPexelsVideos()
   }, [])
 
   const addObject = React.useCallback(
@@ -50,16 +56,7 @@ export default function () {
         <Block padding={"0 1.5rem"}>
           <div style={{ display: "grid", gap: "8px", gridTemplateColumns: "1fr 1fr" }}>
             {videos.map((video, index) => {
-              return (
-                <video
-                  onClick={() => addObject(video)}
-                  key={video.id}
-                  crossOrigin="anonymous"
-                  style={{ height: "100%", objectFit: "cover", borderRadius: "10px", width: "100%" }}
-                >
-                  <source src={video.preview} type="video/mp4" />
-                </video>
-              )
+              return <img width={"120px"} key={index} src={video.preview} onClick={() => addObject(video)} />
             })}
           </div>
         </Block>
