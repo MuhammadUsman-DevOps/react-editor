@@ -45,10 +45,11 @@ const Playback = () => {
       $style={{
         display: "flex",
         flex: 1,
-        background: "red",
+        background: "#f1f2f6",
         width: "100%",
         height: "100%",
         position: "absolute",
+        zIndex: 4,
       }}
     >
       <Block $style={{ height: "100%", width: "100%", position: "relative" }}>
