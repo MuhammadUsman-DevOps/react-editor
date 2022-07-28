@@ -30,6 +30,6 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-#sam-sam video {
-    max-height: 540px;
+.react-player video {
+    max-height: 740px;
 }
