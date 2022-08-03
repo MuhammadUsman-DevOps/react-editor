@@ -33,3 +33,11 @@ input::-webkit-inner-spin-button {
 .react-player video {
     max-height: 740px;
 }
+
+.clockc img {
+    /* display: flex; */
+    max-height: 520px;
+    /* max-height: 540px;
+    background: red;
+    display: none; */
+}

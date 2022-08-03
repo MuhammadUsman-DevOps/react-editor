@@ -20,56 +20,7 @@ const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
 }))
 
 export default function () {
-  const [isPreviewOpen, setIsPreviewOpen] = React.useState(false)
   const { setDisplayPreview } = useDesignEditorContext()
-  const editorType = useEditorType()
-  const editor = useEditor()
-  const [video, setVideo] = React.useState<string | null>(null)
-
-  const handleDownload = async () => {
-    if (editorType === "VIDEO") {
-      const template = editor.design.exportToJSON()
-      const options = {
-        outPath: "./position.mp4",
-        verbose: false,
-        duration: 5,
-        fps: 25,
-        dimension: template.frame,
-        clips: [
-          {
-            duration: 5,
-            layers: template.layers,
-          },
-        ],
-      }
-
-      fetch("https://render.layerhub.io/render", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(options),
-      })
-        .then((res) => {
-          return res.blob()
-        })
-        .then((blob) => {
-          const element = window.URL.createObjectURL(blob)
-          const a = document.createElement("a")
-          // @ts-ignore
-          a.href = element
-          a.download = "drawing.mp4"
-          a.click()
-          setVideo(element)
-        })
-        .catch((err) => console.error(err))
-    } else {
-      const template = editor.design.exportToJSON()
-      const image = (await editor.renderer.render(template)) as string
-      const a = document.createElement("a")
-      a.href = image
-      a.download = "drawing.png"
-      a.click()
-    }
-  }
 
   return (
     // @ts-ignore
@@ -93,7 +44,6 @@ export default function () {
         >
           Download
         </Button>
-        {/* {isPreviewOpen && <PreviewModal isOpen={isPreviewOpen} setIsOpen={setIsPreviewOpen} />} */}
       </Container>
     </ThemeProvider>
   )

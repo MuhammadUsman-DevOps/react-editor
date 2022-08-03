@@ -9,6 +9,8 @@ import Toolbox from "./components/Toolbox"
 import { DesignType } from "~/interfaces/DesignEditor"
 import useEditorType from "~/hooks/useEditorType"
 import SelectEditor from "./SelectEditor"
+import useDesignEditorContext from "~/hooks/useDesignEditorContext"
+import Preview from "./components/Preview"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   width: "100vw",
@@ -22,22 +24,27 @@ const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
 function PresentationEditor() {
   const [designType, setDesignType] = React.useState<DesignType>("GRAPHIC")
   const editorType = useEditorType()
+  const { displayPreview, setDisplayPreview } = useDesignEditorContext()
 
   if (editorType === "NONE") {
     return <SelectEditor />
   }
   return (
-    <Container>
-      <Navbar />
-      <div style={{ display: "flex", flex: 1 }}>
-        <Panels />
-        <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-          <Toolbox />
-          <Canvas />
-          <Footer />
+    <>
+      {displayPreview && <Preview isOpen={displayPreview} setIsOpen={setDisplayPreview} />}
+
+      <Container>
+        <Navbar />
+        <div style={{ display: "flex", flex: 1 }}>
+          <Panels />
+          <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+            <Toolbox />
+            <Canvas />
+            <Footer />
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </>
   )
 }
 
