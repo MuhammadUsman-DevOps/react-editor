@@ -7,11 +7,10 @@ import Canvas from "./components/Canvas"
 import Footer from "./components/Footer"
 import Toolbox from "./components/Toolbox"
 import { DesignType } from "~/interfaces/DesignEditor"
-import { useAppDispatch } from "~/store/store"
 import useEditorType from "~/hooks/useEditorType"
 import SelectEditor from "./SelectEditor"
 
-const Container = styled<{}, "div", Theme>("div", ({ $theme }) => ({
+const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   width: "100vw",
   height: "100vh",
   display: "flex",

@@ -27,6 +27,7 @@
     "react-i18next": "^11.18.0",
     "react-player": "^2.10.1",
     "react-redux": "^8.0.1",
+    "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.3.0",
     "resize-observer-polyfill": "^1.5.1",
     "styletron-engine-atomic": "1.5.0-beta.2",

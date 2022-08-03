@@ -24,8 +24,10 @@ specifiers:
   react-colorful: ^5.5.1
   react-dom: ^18.0.0
   react-i18next: ^11.18.0
+  react-image-gallery: ^1.2.9
   react-player: ^2.10.1
   react-redux: ^8.0.1
+  react-responsive-carousel: ^3.2.23
   react-router-dom: ^6.3.0
   resize-observer-polyfill: ^1.5.1
   styletron-engine-atomic: 1.5.0-beta.2
@@ -51,8 +53,10 @@ dependencies:
   react-colorful: 5.5.1_biqbaboplfbrettd7655fr4n2y
   react-dom: 18.2.0_react@18.2.0
   react-i18next: 11.18.0_zqwsj3zkvc6lj2if6vhvnllc7u
+  react-image-gallery: 1.2.9_react@18.2.0
   react-player: 2.10.1_react@18.2.0
   react-redux: 8.0.2_fzknh3pugl53jp7xsetxkg5ani
+  react-responsive-carousel: 3.2.23
   react-router-dom: 6.3.0_biqbaboplfbrettd7655fr4n2y
   resize-observer-polyfill: 1.5.1
   styletron-engine-atomic: 1.5.0-beta.2
@@ -1223,6 +1227,10 @@ packages:
     engines: {node: '>=10'}
     dev: false
     optional: true
+
+  /classnames/2.3.1:
+    resolution: {integrity: sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==}
+    dev: false
 
   /clsx/1.1.1:
     resolution: {integrity: sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==}
@@ -2577,6 +2585,13 @@ packages:
       react: 18.2.0
     dev: false
 
+  /react-easy-swipe/0.0.21:
+    resolution: {integrity: sha512-OeR2jAxdoqUMHIn/nS9fgreI5hSpgGoL5ezdal4+oO7YSSgJR8ga+PkYGJrSrJ9MKlPcQjMQXnketrD7WNmNsg==}
+    engines: {node: '>= 6'}
+    dependencies:
+      prop-types: 15.8.1
+    dev: false
+
   /react-fast-compare/3.2.0:
     resolution: {integrity: sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==}
     dev: false
@@ -2618,6 +2633,14 @@ packages:
       i18next: 21.8.13
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /react-image-gallery/1.2.9_react@18.2.0:
+    resolution: {integrity: sha512-19Wvp5MiDvS4jAmTWIfTRJR71Cnk5541/iBUW2VEjLI+uSd+HhQStVdIYy4PWYSxRa+G/97U2f7ac+WRkOGszg==}
+    peerDependencies:
+      react: ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-input-mask/2.0.4_biqbaboplfbrettd7655fr4n2y:
@@ -2720,6 +2743,14 @@ packages:
     resolution: {integrity: sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /react-responsive-carousel/3.2.23:
+    resolution: {integrity: sha512-pqJLsBaKHWJhw/ItODgbVoziR2z4lpcJg+YwmRlSk4rKH32VE633mAtZZ9kDXjy4wFO+pgUZmDKPsPe1fPmHCg==}
+    dependencies:
+      classnames: 2.3.1
+      prop-types: 15.8.1
+      react-easy-swipe: 0.0.21
+    dev: false
 
   /react-router-dom/6.3.0_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-uaJj7LKytRxZNQV8+RbzJWnJ8K2nPsOOEuX7aQstlMZKQT0164C+X2w6bnkqU3sjtLvpd5ojrezAyfZ1+0sStw==}
