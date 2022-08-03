@@ -24,7 +24,6 @@ specifiers:
   react-colorful: ^5.5.1
   react-dom: ^18.0.0
   react-i18next: ^11.18.0
-  react-image-gallery: ^1.2.9
   react-player: ^2.10.1
   react-redux: ^8.0.1
   react-responsive-carousel: ^3.2.23
@@ -53,7 +52,6 @@ dependencies:
   react-colorful: 5.5.1_biqbaboplfbrettd7655fr4n2y
   react-dom: 18.2.0_react@18.2.0
   react-i18next: 11.18.0_zqwsj3zkvc6lj2if6vhvnllc7u
-  react-image-gallery: 1.2.9_react@18.2.0
   react-player: 2.10.1_react@18.2.0
   react-redux: 8.0.2_fzknh3pugl53jp7xsetxkg5ani
   react-responsive-carousel: 3.2.23
@@ -2633,14 +2631,6 @@ packages:
       i18next: 21.8.13
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-    dev: false
-
-  /react-image-gallery/1.2.9_react@18.2.0:
-    resolution: {integrity: sha512-19Wvp5MiDvS4jAmTWIfTRJR71Cnk5541/iBUW2VEjLI+uSd+HhQStVdIYy4PWYSxRa+G/97U2f7ac+WRkOGszg==}
-    peerDependencies:
-      react: ^16.0.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      react: 18.2.0
     dev: false
 
   /react-input-mask/2.0.4_biqbaboplfbrettd7655fr4n2y:

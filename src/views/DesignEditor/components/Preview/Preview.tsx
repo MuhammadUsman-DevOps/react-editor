@@ -1,10 +1,7 @@
 import React from "react"
-import { Modal, ModalHeader, ModalBody, ModalFooter, ModalButton, SIZE, ROLE } from "baseui/modal"
+import { Modal, ModalBody, SIZE, ROLE } from "baseui/modal"
 import useEditorType from "~/hooks/useEditorType"
-import { useEditor } from "@scenify/react"
 import { Block } from "baseui/block"
-import { Button } from "baseui/button"
-import Loading from "~/components/Loading"
 import Video from "./Video"
 import Presentation from "./Presentation"
 import Graphic from "./Graphic"
@@ -15,65 +12,6 @@ interface ComponentProps {
 }
 export default function ({ isOpen, setIsOpen }: ComponentProps) {
   const editorType = useEditorType()
-  // const editor = useEditor()
-  // const [preview, setPreview] = React.useState<string>("")
-
-  // const makeVideoPreview = React.useCallback(async () => {
-  //   const template = editor.design.exportToJSON()
-  //   const options = {
-  //     outPath: "./position.mp4",
-  //     verbose: false,
-  //     duration: 5,
-  //     fps: 25,
-  //     dimension: template.frame,
-  //     clips: [
-  //       {
-  //         duration: 5,
-  //         layers: template.layers,
-  //       },
-  //     ],
-  //   }
-
-  //   fetch("https://render.layerhub.io/render", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(options),
-  //   })
-  //     .then((res) => {
-  //       return res.blob()
-  //     })
-  //     .then((blob) => {
-  //       const element = window.URL.createObjectURL(blob)
-  //       setPreview(element)
-  //     })
-  //     .catch((err) => console.error(err))
-  // }, [editor])
-
-  // const makeGraphicPreview = React.useCallback(async () => {
-  //   const template = editor.design.exportToJSON()
-  //   const image = (await editor.renderer.render(template)) as string
-  //   setPreview(image)
-  // }, [editor])
-
-  // const makeDownload = React.useCallback(() => {
-  //   if (preview) {
-  //     const a = document.createElement("a")
-  //     a.href = preview
-  //     a.download = "drawing.png"
-  //     a.click()
-  //   }
-  // }, [preview])
-
-  // React.useEffect(() => {
-  //   if (editor) {
-  //     if (editorType === "GRAPHIC") {
-  //       makeGraphicPreview()
-  //     } else if (editorType === "VIDEO") {
-  //       makeVideoPreview()
-  //     }
-  //   }
-  // }, [editor, editorType])
-
   return (
     <Modal
       onClose={() => setIsOpen(false)}
@@ -126,7 +64,10 @@ export default function ({ isOpen, setIsOpen }: ComponentProps) {
         >
           {
             {
-              video: <Video />,
+              GRAPHIC: <Graphic />,
+              PRESENTATION: <Presentation />,
+              VIDEO: <Video />,
+              NONE: <></>,
             }[editorType]
           }
         </Block>
