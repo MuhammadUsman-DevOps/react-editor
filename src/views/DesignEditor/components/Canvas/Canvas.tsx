@@ -15,7 +15,7 @@ export default function () {
             rotation: "BOTTOM",
           },
           shadow: {
-            blur: 1,
+            blur: 4,
             color: "#fcfcfc",
             offsetX: 0,
             offsetY: 0,
