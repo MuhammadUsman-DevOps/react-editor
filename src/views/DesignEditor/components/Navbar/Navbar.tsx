@@ -1,14 +1,10 @@
-import React from "react"
 import { styled, ThemeProvider, DarkTheme } from "baseui"
-
 import { Theme } from "baseui/theme"
 import { Button, KIND } from "baseui/button"
 import Logo from "~/components/Icons/Logo"
-import PreviewModal from "./PreviewModal"
 import Download from "~/components/Icons/Download"
-import { useEditor } from "@scenify/react"
-import useEditorType from "~/hooks/useEditorType"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
+import Play from "~/components/Icons/Play"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   height: "64px",
@@ -29,7 +25,7 @@ export default function () {
         <div style={{ color: "#ffffff" }}>
           <Logo size={36} />
         </div>
-        <Button
+        {/* <Button
           startEnhancer={<Download size={24} />}
           size="compact"
           onClick={() => setDisplayPreview(true)}
@@ -43,6 +39,20 @@ export default function () {
           }}
         >
           Download
+        </Button> */}
+        <Button
+          size="compact"
+          onClick={() => setDisplayPreview(true)}
+          kind={KIND.tertiary}
+          overrides={{
+            StartEnhancer: {
+              style: {
+                marginRight: "4px",
+              },
+            },
+          }}
+        >
+          <Play size={24} />
         </Button>
       </Container>
     </ThemeProvider>
