@@ -155,7 +155,7 @@ export default function () {
               <div
                 style={{
                   background: page.id === currentPage?.id ? "rgb(243,244,246)" : "#ffffff",
-                  width: "400px",
+                  width: "200px",
                   // 200px
                 }}
                 key={index}

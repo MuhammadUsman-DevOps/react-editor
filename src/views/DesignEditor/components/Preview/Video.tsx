@@ -3,9 +3,11 @@ import { Block } from "baseui/block"
 import ReactPlayer from "react-player"
 import { useEditor } from "@scenify/react"
 import Loading from "~/components/Loading"
+import useDesignEditorPages from "~/hooks/useDesignEditorPages"
 
 function Video() {
   const editor = useEditor()
+  const pages = useDesignEditorPages()
   const [loading, setLoading] = React.useState(true)
   const [state, setState] = React.useState({
     video: "",
@@ -13,18 +15,29 @@ function Video() {
 
   const makePreview = React.useCallback(async () => {
     const template = editor.design.exportToJSON()
+
+    const clips = pages.map((page) => {
+      const currentTemplate = editor.design.exportToJSON()
+      if (page.id === currentTemplate.id) {
+        return {
+          duration: 5,
+          layers: currentTemplate.layers,
+        }
+      }
+      return {
+        duration: 5,
+        // @ts-ignore
+        layers: page.layers,
+      }
+    })
+
     const options = {
       outPath: "./position.mp4",
       verbose: false,
       duration: 5,
       fps: 25,
       dimension: template.frame,
-      clips: [
-        {
-          duration: 5,
-          layers: template.layers,
-        },
-      ],
+      clips: clips,
     }
 
     fetch("https://render.layerhub.io/render", {
