@@ -3,6 +3,7 @@ import { Block } from "baseui/block"
 import { useEditor, useZoomRatio } from "@scenify/react"
 import { useTimer } from "@layerhub-io/use-timer"
 import PlaybackController from "./PlaybackControler"
+import useDesignEditorPages from "~/hooks/useDesignEditorPages"
 
 const Playback = () => {
   const editor = useEditor()
@@ -11,9 +12,12 @@ const Playback = () => {
   const [initialized, setInitialized] = React.useState(false)
   const zoomRatio = useZoomRatio() as number
   const { start } = useTimer()
+  const pages = useDesignEditorPages()
 
   const loadFrames = React.useCallback(async () => {
     const layers = await editor.design.exportLayers()
+    console.log({ layers })
+    // console.log({ pages })
     controller.current = new PlaybackController("scenify_playback_container", {
       data: layers,
       zoomRatio,
@@ -25,7 +29,7 @@ const Playback = () => {
         setInitialized(true)
       }
     }, 1000)
-  }, [editor])
+  }, [editor, pages])
 
   React.useEffect(() => {
     if (editor) {

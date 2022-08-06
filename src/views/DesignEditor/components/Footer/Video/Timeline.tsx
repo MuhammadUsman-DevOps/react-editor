@@ -9,7 +9,6 @@ import { defaultTemplate } from "~/constants/design-editor"
 import { useEditor, useFrame } from "@scenify/react"
 import { Block } from "baseui/block"
 import { useTimer } from "@layerhub-io/use-timer"
-import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   background: $theme.colors.white,
@@ -21,7 +20,6 @@ const maxWidth = 120000
 export default function () {
   const { time } = useTimer()
   const pages = useDesignEditorPages()
-  const { setDisplayPlayback } = useDesignEditorContext()
   const { setPages, setCurrentPage, currentPage } = React.useContext(DesignEditorContext)
   const frame = useFrame()
   const editor = useEditor()
@@ -50,7 +48,7 @@ export default function () {
 
   React.useEffect(() => {
     if (time * scaleFactor <= maxWidth) {
-      setPosition({ ...position, x: (time * scaleFactor) / 50, y: 0 })
+      setPosition({ ...position, x: (time * scaleFactor) / 40, y: 0 })
     }
   }, [time])
 
@@ -152,11 +150,10 @@ export default function () {
           </Block>
           <Block $style={{ display: "flex", alignItems: "center", position: "relative", padding: "1rem 0" }}>
             {pages.map((page, index) => (
-              <div
-                style={{
+              <Block
+                $style={{
                   background: page.id === currentPage?.id ? "rgb(243,244,246)" : "#ffffff",
-                  width: "200px",
-                  // 200px
+                  width: "125px",
                 }}
                 key={index}
               >
@@ -175,7 +172,6 @@ export default function () {
                       backgroundImage: `url(${
                         currentPreview && page.id === currentPage?.id ? currentPreview : page.preview
                       })`,
-                      // @ts-ignore
                       backgroundSize: `${frame ? (frame.width * 70) / frame.height : 70}px 70px`,
                       backgroundRepeat: "repeat",
                       height: "70px",
@@ -200,14 +196,13 @@ export default function () {
                     {index + 1}
                   </Block>
                 </Block>
-              </div>
+              </Block>
             ))}
           </Block>
         </Block>
         <div
           style={{
             background: "#ffffff",
-            // padding: "1rem 1rem 1rem 0.5rem",
           }}
         >
           <div
