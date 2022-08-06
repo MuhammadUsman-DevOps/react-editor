@@ -8,6 +8,52 @@ import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import { getPixabayVideos } from "~/services/pixabay"
 import { getPexelsVideos } from "~/services/pexels"
 
+const loadVideoResource = (videoSrc: string): Promise<HTMLVideoElement> => {
+  return new Promise(function (resolve, reject) {
+    var video = document.createElement("video")
+    video.src = videoSrc
+    video.crossOrigin = "anonymous"
+    video.addEventListener("loadedmetadata", function (event) {
+      video.currentTime = 1
+    })
+
+    video.addEventListener("seeked", function () {
+      resolve(video)
+    })
+
+    video.addEventListener("error", function (error) {
+      reject(error)
+    })
+  })
+}
+
+const captureFrame = (video: HTMLVideoElement) => {
+  return new Promise(function (resolve) {
+    var canvas = document.createElement("canvas") as HTMLCanvasElement
+    canvas.width = video.videoWidth
+    canvas.height = video.videoHeight
+    canvas.getContext("2d")!.drawImage(video, 0, 0, canvas.width, canvas.height)
+    URL.revokeObjectURL(video.src)
+
+    const data = canvas.toDataURL()
+
+    fetch(data)
+      .then((res) => {
+        return res.blob()
+      })
+      .then((blob) => {
+        const url = URL.createObjectURL(blob)
+        resolve(url)
+      })
+  })
+}
+
+const captureDuration = (video: HTMLVideoElement) => {
+  return new Promise((resolve) => {
+    resolve(video.duration)
+  })
+}
+
 export default function () {
   const editor = useEditor()
   const setIsSidebarOpen = useSetIsSidebarOpen()
@@ -27,9 +73,12 @@ export default function () {
   }, [])
 
   const addObject = React.useCallback(
-    (options: any) => {
+    async (options: any) => {
       if (editor) {
-        editor.objects.add(options)
+        const video = await loadVideoResource(options.src)
+        const frame = await captureFrame(video)
+        const duration = await captureDuration(video)
+        editor.objects.add({ ...options, duration, preview: frame })
       }
     },
     [editor]
