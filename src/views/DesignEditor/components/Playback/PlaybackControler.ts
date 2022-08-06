@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid"
 import * as PIXI from "pixi.js"
 
 PIXI.settings.SORTABLE_CHILDREN = true
@@ -23,11 +24,12 @@ export interface Element {
 }
 
 interface Options {
-  zoomRatio?: number
+  zoomRatio: number
   /**
    * Fabric Object list
    */
   data?: Element[]
+  template: any
 }
 
 interface ElementWithSprite extends Element {
@@ -64,22 +66,22 @@ class PlaybackController {
   /**
    * Required options used to hold the elements data
    */
-  private options: Required<Options>
   private status: string = "STOPPED"
   private zoomRatio: number = 1
   /**
    * Whether the pixi app has been initialized
    */
   public initialized: Boolean
+  private template: any
 
-  constructor(id: string, options?: Options) {
+  constructor(id: string, options: Options) {
     this.id = id
     this.resources = new Map()
     this.audioResources = new Map()
     this.clipResources = new Map()
     this.initialized = false
-    this.options = { ...this.options, data: options!.data ? options!.data : [] }
-    this.zoomRatio = options?.zoomRatio!
+    this.zoomRatio = options.zoomRatio
+    this.template = options.template
     this.initialize()
   }
 
@@ -189,9 +191,19 @@ class PlaybackController {
    * @private
    */
   private initializeResources = async () => {
-    const data = this.options.data
+    let layers: any[] = []
+    for (const clip of this.template.clips) {
+      layers = layers.concat(clip.layers)
+    }
+    const updatedLayers = layers.map((layer) => {
+      return {
+        ...layer,
+        id: nanoid(),
+      }
+    })
+
     const loader = new PIXI.Loader()
-    for (const item of data) {
+    for (const item of updatedLayers) {
       if (item.type === "StaticVideo" || item.type === "StaticAudio") {
         loader.add(item.id, item.url)
       } else {
@@ -206,10 +218,11 @@ class PlaybackController {
         }
       }
     }
+
     return new Promise((resolve) => {
       loader.load((loader, resources) => {
         for (const [key, resource] of Object.entries(resources)) {
-          const element = this.options.data.find((i) => i.id === key) as Element
+          const element = updatedLayers.find((i) => i.id === key) as Element
 
           const object = resource.data
           if (element.type === "StaticVideo") {

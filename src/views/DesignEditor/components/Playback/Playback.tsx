@@ -17,7 +17,7 @@ const Playback = () => {
 
   const loadFrames = React.useCallback(async () => {
     const currentTemplate = editor.design.exportToJSON()
-
+    let refTime = 0
     const templates = pages.map((page) => {
       const currentTemplate = editor.design.exportToJSON()
       if (page.id === currentTemplate.id) {
@@ -29,16 +29,35 @@ const Playback = () => {
     let clips = []
     for (const template of templates) {
       const layers = await editor.design.exportLayers(template)
-      clips.push({
-        duration: 5,
-        layers: layers,
+      const timedLayers = layers.map((layer) => {
+        return {
+          ...layer,
+          display: {
+            from: refTime,
+            to: refTime + 5000,
+          },
+        }
       })
+      clips.push({
+        duration: 5000,
+        layers: timedLayers,
+      })
+      refTime += 5000
+    }
+
+    // console.log({ clips })
+    const videoTemplate = {
+      name: currentTemplate.name,
+      frame: currentTemplate.frame,
+      clips: clips,
     }
 
     const layers = await editor.design.exportLayers(currentTemplate)
 
+    // console.log({ template })
     controller.current = new PlaybackController("scenify_playback_container", {
       data: layers,
+      template: videoTemplate,
       zoomRatio,
     })
     let interval: any
