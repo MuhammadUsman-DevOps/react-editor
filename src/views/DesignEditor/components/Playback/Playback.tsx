@@ -13,11 +13,30 @@ const Playback = () => {
   const zoomRatio = useZoomRatio() as number
   const { start } = useTimer()
   const pages = useDesignEditorPages()
+  const { time } = useTimer()
 
   const loadFrames = React.useCallback(async () => {
-    const layers = await editor.design.exportLayers()
-    console.log({ layers })
-    // console.log({ pages })
+    const currentTemplate = editor.design.exportToJSON()
+
+    const templates = pages.map((page) => {
+      const currentTemplate = editor.design.exportToJSON()
+      if (page.id === currentTemplate.id) {
+        return currentTemplate
+      }
+      return page
+    })
+
+    let clips = []
+    for (const template of templates) {
+      const layers = await editor.design.exportLayers(template)
+      clips.push({
+        duration: 5,
+        layers: layers,
+      })
+    }
+
+    const layers = await editor.design.exportLayers(currentTemplate)
+
     controller.current = new PlaybackController("scenify_playback_container", {
       data: layers,
       zoomRatio,
@@ -28,8 +47,14 @@ const Playback = () => {
         clearInterval(interval)
         setInitialized(true)
       }
-    }, 1000)
+    }, 50)
   }, [editor, pages])
+
+  React.useEffect(() => {
+    if (initialized && time && controller.current) {
+      controller.current.render(time)
+    }
+  }, [time, initialized, controller])
 
   React.useEffect(() => {
     if (editor) {

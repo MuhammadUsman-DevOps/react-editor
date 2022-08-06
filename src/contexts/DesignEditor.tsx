@@ -1,11 +1,11 @@
+import { IDesign } from "@scenify/types"
 import React from "react"
-import { Page } from "~/interfaces/DesignEditor"
 import { DesignType } from "~/interfaces/DesignEditor"
 
 interface IDesignEditorContext {
-  pages: Page[]
-  setPages: (value: ((prevState: Page[]) => Page[]) | Page[]) => void
-  currentPage: Page | null
+  pages: IDesign[]
+  setPages: (value: ((prevState: IDesign[]) => IDesign[]) | IDesign[]) => void
+  currentPage: IDesign | null
   setCurrentPage: (value: ((prevState: null) => null) | null) => void
   isSidebarOpen: boolean
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -33,7 +33,7 @@ export const DesignEditorContext = React.createContext<IDesignEditorContext>({
 })
 
 export const DesignEditorProvider = ({ children }: { children: React.ReactNode }) => {
-  const [pages, setPages] = React.useState<Page[]>([])
+  const [pages, setPages] = React.useState<IDesign[]>([])
   const [currentPage, setCurrentPage] = React.useState(null)
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(true)
   const [editorType, setEditorType] = React.useState<DesignType>("NONE")

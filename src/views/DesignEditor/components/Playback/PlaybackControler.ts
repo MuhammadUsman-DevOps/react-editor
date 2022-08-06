@@ -6,8 +6,14 @@ export interface Element {
   id: string
   type: string
   url: string
-  startAt: number
-  endAt?: number
+  display: {
+    from: number
+    to: number
+  }
+  cut: {
+    from: number
+    to: number
+  }
   position: {
     x: number
     y: number
@@ -15,41 +21,6 @@ export interface Element {
   }
   objectId?: string
 }
-export const data: Element[] = [
-  {
-    id: "1",
-    type: "StaticVideo",
-    url: "https://player.vimeo.com/external/342571552.sd.mp4?s=e0df43853c25598dfd0ec4d3f413bce1e002deef&profile_id=139&oauth2_token_id=57447761",
-    startAt: 2500,
-    position: {
-      x: 100,
-      y: 50,
-      zIndex: 1,
-    },
-  },
-  {
-    id: "2",
-    type: "StaticVideo",
-    url: "https://player.vimeo.com/external/269971860.sd.mp4?s=a3036bd1a9f15c1b31daedad98c06a3b24cdd747&profile_id=165&oauth2_token_id=57447761",
-    position: {
-      x: 0,
-      y: 0,
-      zIndex: 0,
-    },
-    startAt: 0,
-  },
-  {
-    id: "3",
-    type: "StaticVideo",
-    url: "https://player.vimeo.com/external/291648067.sd.mp4?s=7f9ee1f8ec1e5376027e4a6d1d05d5738b2fbb29&profile_id=165&oauth2_token_id=57447761",
-    position: {
-      x: 480,
-      y: 16,
-      zIndex: 2,
-    },
-    startAt: 3000,
-  },
-]
 
 interface Options {
   zoomRatio?: number
@@ -60,14 +31,7 @@ interface Options {
 }
 
 interface ElementWithSprite extends Element {
-  /**
-   * Pixi animation sprite
-   */
   sprite: PIXI.Sprite
-
-  /**
-   * HTML Video Element
-   */
   video: HTMLVideoElement
 }
 
@@ -148,24 +112,23 @@ class PlaybackController {
    * @returns
    * @public
    */
-  public render = (progress: number) => {
-    for (let [key, value] of this.audioResources) {
-      if (progress > value.startAt && progress < value.endAt) {
-        value.audio.play()
-        if (value.audio.paused) {
-          value.audio.play()
+  public render = (time: number) => {
+    for (let [key, resource] of this.resources) {
+      if (time > resource.display.from && time < resource.display.to!) {
+        this.applySpriteOptions(resource.sprite, { visible: true })
+      } else {
+        if (resource.type === "StaticVideo") {
+          this.hideAndMuteVideo(resource)
+        } else {
+          this.applySpriteOptions(resource.sprite, { visible: false })
         }
-      } else {
-        value.audio.pause()
       }
     }
-    for (let [key, value] of this.resources) {
-      if (progress > value.startAt && progress < value.endAt!) {
-        this.applySpriteOptions(value.sprite, { visible: true })
-      } else {
-        this.applySpriteOptions(value.sprite, { visible: false })
-      }
-    }
+  }
+
+  public hideAndMuteVideo = (resource: ElementWithSprite) => {
+    resource.sprite.visible = false
+    resource.video.muted = true
   }
 
   /**
@@ -197,10 +160,10 @@ class PlaybackController {
       sprite[property] = options[property]
     }
 
-    sprite.x = options.x * this.zoomRatio
-    sprite.y = options.y * this.zoomRatio
-    sprite.width = options.width * options.scaleX * this.zoomRatio
-    sprite.height = options.height * options.scaleY * this.zoomRatio
+    if (options.x) sprite.x = options.x * this.zoomRatio
+    if (options.y) sprite.y = options.y * this.zoomRatio
+    if (options.width) sprite.width = options.width * options.scaleX * this.zoomRatio
+    if (options.height) sprite.height = options.height * options.scaleY * this.zoomRatio
   }
 
   /**
@@ -229,7 +192,7 @@ class PlaybackController {
     const data = this.options.data
     const loader = new PIXI.Loader()
     for (const item of data) {
-      if (item.type === "StaticVideo" || item.type === "StaticGIF" || item.type === "StaticAudio") {
+      if (item.type === "StaticVideo" || item.type === "StaticAudio") {
         loader.add(item.id, item.url)
       } else {
         // Handle if it is an image
@@ -261,10 +224,6 @@ class PlaybackController {
             sprite: sprite,
             video: object,
           })
-
-          // if (element.type === "StaticGIF") {
-          //   this.gifsResourceData.push({ key, objectId: element.objectId })
-          // }
         }
         resolve(true)
       })
