@@ -6,7 +6,7 @@ import useDesignEditorPages from "~/hooks/useDesignEditorPages"
 import { DesignEditorContext } from "~/contexts/DesignEditor"
 import { nanoid } from "nanoid"
 import { defaultTemplate } from "~/constants/design-editor"
-import { useEditor } from "@scenify/react"
+import { useEditor, useFrame } from "@scenify/react"
 import { Block } from "baseui/block"
 import { useTimer } from "@layerhub-io/use-timer"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
@@ -23,6 +23,7 @@ export default function () {
   const pages = useDesignEditorPages()
   const { setDisplayPlayback } = useDesignEditorContext()
   const { setPages, setCurrentPage, currentPage } = React.useContext(DesignEditorContext)
+  const frame = useFrame()
   const editor = useEditor()
   const [css] = useStyletron()
   const [currentPreview, setCurrentPreview] = React.useState("")
@@ -113,7 +114,6 @@ export default function () {
     },
     [editor, pages, currentPage]
   )
-
   return (
     <Container>
       <div className={css({ display: "flex", alignItems: "center" })}>
@@ -155,7 +155,8 @@ export default function () {
               <div
                 style={{
                   background: page.id === currentPage?.id ? "rgb(243,244,246)" : "#ffffff",
-                  width: "200px",
+                  width: "400px",
+                  // 200px
                 }}
                 key={index}
               >
@@ -169,10 +170,17 @@ export default function () {
                     borderRadius: "8px",
                   }}
                 >
-                  <img
-                    style={{ maxWidth: "90px", maxHeight: "80px", display: "flex" }}
-                    src={currentPreview && page.id === currentPage?.id ? currentPreview : page.preview}
-                  />
+                  <Block
+                    $style={{
+                      backgroundImage: `url(${
+                        currentPreview && page.id === currentPage?.id ? currentPreview : page.preview
+                      })`,
+                      // @ts-ignore
+                      backgroundSize: `${frame ? (frame.width * 70) / frame.height : 70}px 70px`,
+                      backgroundRepeat: "repeat",
+                      height: "70px",
+                    }}
+                  ></Block>
                   <Block
                     $style={{
                       position: "absolute",
