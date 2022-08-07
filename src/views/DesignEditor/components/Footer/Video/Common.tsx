@@ -1,14 +1,14 @@
-// @ts-nocheck
 import React from "react"
 import { styled } from "baseui"
 import { Theme } from "baseui/theme"
 import Icons from "~/components/Icons"
 import { Button, KIND, SIZE } from "baseui/button"
-import { useEditor, useZoomRatio } from "@scenify/react"
+import { useZoomRatio } from "@scenify/react"
 import { useTimer } from "@layerhub-io/use-timer"
 import { Block } from "baseui/block"
+import useDesignEditorPages from "~/hooks/useDesignEditorPages"
 
-const Container = styled<{}, "div", Theme>("div", ({ $theme }) => ({
+const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   height: "50px",
   background: $theme.colors.white,
   display: "flex",
@@ -22,10 +22,10 @@ interface Options {
 
 export default function () {
   const { time } = useTimer()
+  const pages = useDesignEditorPages()
   const [options, setOptions] = React.useState<Options>({
     zoomRatio: 20,
   })
-  const editor = useEditor()
   const zoomRatio: number = useZoomRatio()
 
   React.useEffect(() => {
@@ -38,7 +38,9 @@ export default function () {
         <Button kind={KIND.tertiary} size={SIZE.compact}>
           <Icons.Layers size={20} />
         </Button>
-        <Block>{new Date(time).toISOString().slice(14, 19)} / 00:05</Block>
+        <Block>
+          {new Date(time).toISOString().slice(14, 19)} / {new Date(pages.length * 5000).toISOString().slice(14, 19)}
+        </Block>
       </Block>
       <Block $style={{ display: "flex", alignItems: "center", justifyContent: "end" }}>
         <Button kind={KIND.tertiary} size={SIZE.compact}>

@@ -2,29 +2,29 @@ import React from "react"
 import { styled, useStyletron } from "baseui"
 import { Theme } from "baseui/theme"
 import Add from "~/components/Icons/Add"
-import useDesignEditorPages from "~/hooks/useDesignEditorPages"
 import { DesignEditorContext } from "~/contexts/DesignEditor"
 import { nanoid } from "nanoid"
 import { defaultTemplate } from "~/constants/design-editor"
 import { useEditor, useFrame } from "@scenify/react"
 import { Block } from "baseui/block"
 import { useTimer } from "@layerhub-io/use-timer"
+import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   background: $theme.colors.white,
-  // padding: "0.25rem",
 }))
 const scaleFactor = 1
-const maxWidth = 120000
 
 export const getXfromDomElement = (domRef: HTMLElement) => {
   return Number(domRef?.style.left.split("px")[0])
 }
 
 export default function () {
-  const { time, setTime } = useTimer()
-  const pages = useDesignEditorPages()
-  const { setPages, setCurrentPage, currentPage } = React.useContext(DesignEditorContext)
+  const { time, setTime, pause } = useTimer()
+  const [maxTime, setMaxTime] = React.useState(5000)
+  const { setPages, setCurrentPage, currentPage, pages } = React.useContext(DesignEditorContext)
+  const { setDisplayPlayback } = useDesignEditorContext()
+
   const frame = useFrame()
   const editor = useEditor()
   const [css] = useStyletron()
@@ -51,10 +51,19 @@ export default function () {
   }, [editor])
 
   React.useEffect(() => {
-    if (time * scaleFactor <= maxWidth) {
+    if (time * scaleFactor <= maxTime) {
       setPosition({ ...position, x: (time * scaleFactor) / 40, y: 0 })
+    } else {
+      pause()
+      setDisplayPlayback(false)
     }
   }, [time])
+
+  React.useEffect(() => {
+    if (pages) {
+      setMaxTime(pages.length * 5000)
+    }
+  }, [pages])
 
   React.useEffect(() => {
     if (editor) {
@@ -131,7 +140,7 @@ export default function () {
     const onDrag = (ev: MouseEvent) => {
       let x = ev.clientX - initialX - panelItemsWidth
       let newX = initialX + x * 40
-      if (newX + 2 <= 0 || newX >= maxWidth) return
+      if (newX + 2 <= 0 || newX >= maxTime) return
       setTime(newX)
     }
 

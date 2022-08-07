@@ -14,7 +14,7 @@ const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
 }))
 
 export default function () {
-  const { pause, start, status } = useTimer()
+  const { pause, status } = useTimer()
   const { setDisplayPlayback } = useDesignEditorContext()
   return (
     <Container>
@@ -22,14 +22,13 @@ export default function () {
         <Block id={"EditorPlayControl"} $style={{ padding: "0 1rem" }}>
           <Block
             onClick={
-              status === "RUNNING"
+              status === "STOPPED" || status === "PAUSED"
                 ? () => {
-                    pause()
-                    setDisplayPlayback(false)
+                    setDisplayPlayback(true)
                   }
                 : () => {
-                    // start()
-                    setDisplayPlayback(true)
+                    pause()
+                    setDisplayPlayback(false)
                   }
             }
             $style={{
@@ -43,7 +42,7 @@ export default function () {
               boxShadow: "0 0 0 1px rgba(64,87,109,0.07),0 2px 12px rgba(53,71,90,0.2)",
             }}
           >
-            {status === "RUNNING" ? <Pause size={24} /> : <PlaySolid size={24} />}
+            {status === "STOPPED" || status === "PAUSED" ? <PlaySolid size={24} /> : <Pause size={24} />}
           </Block>
         </Block>
         <Timeline />

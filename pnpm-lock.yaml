@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@layerhub-io/use-timer': ^0.1.0
+  '@layerhub-io/use-timer': ^0.1.1
   '@reduxjs/toolkit': ^1.8.1
   '@scenify/react': ^3.0.2
   '@scenify/react-custom-scrollbar': ^0.1.0
@@ -35,7 +35,7 @@ specifiers:
   vite: ^3.0.0
 
 dependencies:
-  '@layerhub-io/use-timer': 0.1.0_react@18.2.0
+  '@layerhub-io/use-timer': 0.1.1_react@18.2.0
   '@reduxjs/toolkit': 1.8.2_kkwg4cbsojnjnupd3btipussee
   '@scenify/react': 3.0.2
   '@scenify/react-custom-scrollbar': 0.1.0_react@18.2.0
@@ -394,8 +394,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@layerhub-io/use-timer/0.1.0_react@18.2.0:
-    resolution: {integrity: sha512-F6Mg7ihED7hC+X4Jsou+/lwBPVEcDIDHZCeezD/B50//x/uH66Dd2IPuQ8G8V7WjGhUvYkM9GWn7T2M00mooCQ==}
+  /@layerhub-io/use-timer/0.1.1_react@18.2.0:
+    resolution: {integrity: sha512-t/fZ3UfCNcuMPaTfn8ppMtgyYgUDVRjSuYWDdij1S2Cewdsn46V5w8F5zYLd6IY7xNj/XjYlxW8WZbsiqG/ZXA==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=16'
