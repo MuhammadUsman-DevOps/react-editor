@@ -2,12 +2,12 @@ import React from "react"
 import { Block } from "baseui/block"
 import { useEditor, useZoomRatio } from "@scenify/react"
 import { useTimer } from "@layerhub-io/use-timer"
-import PlaybackController from "./PlaybackControler"
+import Controller from "./Controler"
 import useDesignEditorPages from "~/hooks/useDesignEditorPages"
 
 const Playback = () => {
   const editor = useEditor()
-  const controller = React.useRef<PlaybackController>()
+  const controller = React.useRef<Controller>()
   const frameBoundingRect = editor.frame.getBoundingClientRect()
   const [initialized, setInitialized] = React.useState(false)
   const zoomRatio = useZoomRatio() as number
@@ -53,7 +53,7 @@ const Playback = () => {
 
     const layers = await editor.design.exportLayers(currentTemplate)
 
-    controller.current = new PlaybackController("scenify_playback_container", {
+    controller.current = new Controller("scenify_playback_container", {
       data: layers,
       template: videoTemplate,
       zoomRatio,

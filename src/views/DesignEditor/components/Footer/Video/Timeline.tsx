@@ -20,7 +20,7 @@ export const getXfromDomElement = (domRef: HTMLElement) => {
 }
 
 export default function () {
-  const { time, setTime, pause } = useTimer()
+  const { time, setTime, pause, status } = useTimer()
   const [maxTime, setMaxTime] = React.useState(5000)
   const { setPages, setCurrentPage, currentPage, pages } = React.useContext(DesignEditorContext)
   const { setDisplayPlayback } = useDesignEditorContext()
@@ -124,6 +124,15 @@ export default function () {
     },
     [editor, pages, currentPage]
   )
+  React.useEffect(() => {
+    if (editor && pages && currentPage && status !== "RUNNING") {
+      const currentSceneIndex = Math.floor(time / 5000)
+      const currentIndex = pages.findIndex((page) => page.id === currentPage.id)
+      if (currentSceneIndex !== currentIndex && pages[currentSceneIndex]) {
+        changePage(pages[currentSceneIndex])
+      }
+    }
+  }, [editor, pages, time, currentPage, status])
 
   const onStart = () => {
     const playHeadDomRef = document.getElementById("EditorPlayHead") as HTMLDivElement
