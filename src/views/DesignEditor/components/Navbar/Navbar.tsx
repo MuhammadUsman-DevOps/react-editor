@@ -1,3 +1,4 @@
+import React from "react"
 import { styled, ThemeProvider, DarkTheme } from "baseui"
 import { Theme } from "baseui/theme"
 import { Button, KIND } from "baseui/button"
@@ -52,6 +53,7 @@ export default function () {
   const editorType = useEditorType()
   const scenes = useDesignEditorScenes()
   const editor = useEditor()
+  const inputFileRef = React.useRef<HTMLInputElement>(null)
 
   const parseGraphicJSON = () => {
     const design = editor.design.exportToJSON()
@@ -74,7 +76,6 @@ export default function () {
       }
     })
 
-    // const updatedScenes = editor.des
     const template = {
       name: currentDesign.name,
       frame: currentDesign.frame,
@@ -82,6 +83,7 @@ export default function () {
     }
     makeDownload(template)
   }
+
   const parseVideoJSON = () => {
     const currentDesign = editor.design.exportToJSON()
 
@@ -98,7 +100,6 @@ export default function () {
       }
     })
 
-    // const updatedScenes = editor.des
     const template = {
       name: currentDesign.name,
       frame: currentDesign.frame,
@@ -127,6 +128,27 @@ export default function () {
     }
   }
 
+  const handleInputFileRefClick = () => {
+    inputFileRef.current?.click()
+  }
+
+  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files![0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (res) => {
+        const result = res.target!.result as string
+        const design = JSON.parse(result)
+        console.log({ design })
+      }
+      reader.onerror = (err) => {
+        console.log(err)
+      }
+
+      reader.readAsText(file)
+    }
+  }
+
   return (
     // @ts-ignore
     <ThemeProvider theme={DarkTheme}>
@@ -135,9 +157,17 @@ export default function () {
           <Logo size={36} />
         </div>
         <Block $style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <input
+            multiple={false}
+            onChange={handleFileInput}
+            type="file"
+            id="file"
+            ref={inputFileRef}
+            style={{ display: "none" }}
+          />
           <Button
             size="compact"
-            onClick={() => setDisplayPreview(true)}
+            onClick={handleInputFileRefClick}
             kind={KIND.tertiary}
             overrides={{
               StartEnhancer: {

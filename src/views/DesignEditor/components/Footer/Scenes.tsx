@@ -2,12 +2,12 @@ import React from "react"
 import { styled, useStyletron } from "baseui"
 import { Theme } from "baseui/theme"
 import Add from "~/components/Icons/Add"
-import useDesignEditorScenes from "~/hooks/useDesignEditorScenes"
+import useDesignEditorPages from "~/hooks/useDesignEditorScenes"
 import { DesignEditorContext } from "~/contexts/DesignEditor"
 import { nanoid } from "nanoid"
 import { defaultTemplate } from "~/constants/design-editor"
 import { useEditor } from "@scenify/react"
-import { Block } from "baseui/block"
+import { IDesign } from "@scenify/types"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   background: $theme.colors.white,
@@ -15,7 +15,7 @@ const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
 }))
 
 export default function () {
-  const pages = useDesignEditorScenes()
+  const pages = useDesignEditorPages()
   const { setScenes, setCurrentScene, currentScene } = React.useContext(DesignEditorContext)
   const editor = useEditor()
   const [css] = useStyletron()
@@ -40,10 +40,7 @@ export default function () {
   React.useEffect(() => {
     if (editor) {
       if (currentScene) {
-        // @ts-ignore
-        editor.design.importFromJSON(currentPage).catch(() => {
-          console.log("COULD NOT IMPORT TEMPLATE")
-        })
+        updateCurrentScene(currentScene)
       } else {
         editor.design
           .importFromJSON(defaultTemplate)
@@ -58,6 +55,15 @@ export default function () {
       }
     }
   }, [editor, currentScene])
+
+  const updateCurrentScene = React.useCallback(
+    async (design: IDesign) => {
+      await editor.design.importFromJSON(design)
+      const updatedPreview = (await editor.renderer.render(design)) as string
+      setCurrentPreview(updatedPreview)
+    },
+    [editor, currentScene]
+  )
 
   const addPage = React.useCallback(async () => {
     setCurrentPreview("")
@@ -101,48 +107,47 @@ export default function () {
   return (
     <Container>
       <div className={css({ display: "flex", alignItems: "center" })}>
-        <Block $style={{ display: "flex", alignItems: "center" }}>
-          {pages.map((page, index) => (
+        {pages.map((page, index) => (
+          <div
+            style={{
+              background: page.id === currentScene?.id ? "rgb(243,244,246)" : "#ffffff",
+              padding: "1rem 0.5rem",
+            }}
+            key={index}
+          >
             <div
-              style={{
-                background: page.id === currentScene?.id ? "rgb(243,244,246)" : "#ffffff",
-              }}
-              key={index}
+              onClick={() => changePage(page)}
+              className={css({
+                cursor: "pointer",
+                position: "relative",
+                border: page.id === currentScene?.id ? "2px solid #7158e2" : "2px solid rgba(0,0,0,.15)",
+              })}
             >
+              <img
+                style={{ maxWidth: "90px", maxHeight: "80px", display: "flex" }}
+                src={currentPreview && page.id === currentScene?.id ? currentPreview : page.preview}
+              />
               <div
-                onClick={() => changePage(page)}
                 className={css({
-                  cursor: "pointer",
-                  position: "relative",
-                  border: page.id === currentScene?.id ? "2px solid #7158e2" : "2px solid rgba(0,0,0,.15)",
+                  position: "absolute",
+                  bottom: "4px",
+                  right: "4px",
+                  background: "rgba(0,0,0,0.4)",
+                  color: "#fff",
+                  fontSize: "10px",
+                  borderRadius: "2px",
+                  height: "16px",
+                  width: "16px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 })}
               >
-                <img
-                  style={{ maxWidth: "90px", maxHeight: "80px", display: "flex" }}
-                  src={currentPreview && page.id === currentScene?.id ? currentPreview : page.preview}
-                />
-                <div
-                  className={css({
-                    position: "absolute",
-                    bottom: "4px",
-                    right: "4px",
-                    background: "rgba(0,0,0,0.4)",
-                    color: "#fff",
-                    fontSize: "10px",
-                    borderRadius: "2px",
-                    height: "16px",
-                    width: "16px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  })}
-                >
-                  {index + 1}
-                </div>
+                {index + 1}
               </div>
             </div>
-          ))}
-        </Block>
+          </div>
+        ))}
         <div
           style={{
             background: "#ffffff",

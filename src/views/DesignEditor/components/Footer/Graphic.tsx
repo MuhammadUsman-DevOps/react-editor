@@ -1,12 +1,6 @@
 import React from "react"
 import { styled } from "baseui"
 import { Theme } from "baseui/theme"
-import Icons from "~/components/Icons"
-import { Button, KIND, SIZE } from "baseui/button"
-import { Slider } from "baseui/slider"
-import { Input } from "baseui/input"
-import { useEditor, useZoomRatio } from "@scenify/react"
-import Timeline from "./Timeline"
 import Controls from "./Controls"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({

@@ -1,20 +1,20 @@
 import React from "react"
 import { useEditor } from "@scenify/react"
 import { Block } from "baseui/block"
-// import { template } from "~/constants/templates"
 import { loadFonts } from "~/utils/fonts"
 import Scrollable from "~/components/Scrollable"
 import AngleDoubleLeft from "~/components/Icons/AngleDoubleLeft"
 import { useStyletron } from "baseui"
 import { SAMPLE_TEMPLATES } from "~/constants/editor"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
-
-const ITEMS = new Array(15).fill(1)
-const SRC = "https://ik.imagekit.io/scenify/ASlpJqQtzWOY5yMjPTOcrzOo.png"
+import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 
 export default function () {
   const editor = useEditor()
   const setIsSidebarOpen = useSetIsSidebarOpen()
+
+  const { setCurrentScene, currentScene } = useDesignEditorContext()
+
   const loadTemplate = React.useCallback(
     async (template: any) => {
       if (editor) {
@@ -32,11 +32,10 @@ export default function () {
         if (filteredFonts.length > 0) {
           await loadFonts(filteredFonts)
         }
-        // @ts-ignore
-        editor.design.importFromJSON(template)
+        setCurrentScene({ ...template, id: currentScene?.id })
       }
     },
-    [editor]
+    [editor, currentScene]
   )
 
   return (
