@@ -4,6 +4,10 @@ import { Button, KIND } from "baseui/button"
 import Logo from "~/components/Icons/Logo"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 import Play from "~/components/Icons/Play"
+import { Block } from "baseui/block"
+import { useEditor } from "@scenify/react"
+import useEditorType from "~/hooks/useEditorType"
+import useDesignEditorScenes from "~/hooks/useDesignEditorScenes"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   height: "64px",
@@ -14,8 +18,114 @@ const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   alignItems: "center",
 }))
 
+interface GraphicEditor {
+  name: string
+  frame: string
+}
+
+interface PresentatinoEditor {
+  name: string
+  frame: string
+  scenes: [
+    {
+      duration: number
+      layers: []
+    }
+  ]
+}
+
+interface Scene {
+  duration: number
+  layers: []
+}
+
+interface VideoEditor {
+  id: string
+  name: string
+  frame: string
+  duration: string
+  scenes: Scene
+}
+
 export default function () {
   const { setDisplayPreview } = useDesignEditorContext()
+  const editorType = useEditorType()
+  const scenes = useDesignEditorScenes()
+  const editor = useEditor()
+
+  const parseGraphicJSON = () => {
+    const design = editor.design.exportToJSON()
+    makeDownload(design)
+  }
+
+  const parsePresentationJSON = () => {
+    const currentDesign = editor.design.exportToJSON()
+
+    const updatedScenes = scenes.map((scn) => {
+      if (scn.id === currentDesign.id) {
+        return {
+          duration: 5000,
+          layers: currentDesign.layers,
+        }
+      }
+      return {
+        duration: 5000,
+        layers: scn.layers,
+      }
+    })
+
+    // const updatedScenes = editor.des
+    const template = {
+      name: currentDesign.name,
+      frame: currentDesign.frame,
+      scenes: updatedScenes,
+    }
+    makeDownload(template)
+  }
+  const parseVideoJSON = () => {
+    const currentDesign = editor.design.exportToJSON()
+
+    const updatedScenes = scenes.map((scn) => {
+      if (scn.id === currentDesign.id) {
+        return {
+          duration: 5000,
+          layers: currentDesign.layers,
+        }
+      }
+      return {
+        duration: 5000,
+        layers: scn.layers,
+      }
+    })
+
+    // const updatedScenes = editor.des
+    const template = {
+      name: currentDesign.name,
+      frame: currentDesign.frame,
+      scenes: updatedScenes,
+    }
+    makeDownload(template)
+  }
+
+  const makeDownload = (data: Object) => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data))
+    const a = document.createElement("a")
+    a.href = dataStr
+    a.download = "template.json"
+    a.click()
+  }
+
+  const makeDownloadTemplate = async () => {
+    if (editor) {
+      if (editorType === "GRAPHIC") {
+        return parseGraphicJSON()
+      } else if (editorType === "PRESENTATION") {
+        return parsePresentationJSON()
+      } else {
+        return parseVideoJSON()
+      }
+    }
+  }
 
   return (
     // @ts-ignore
@@ -24,20 +134,51 @@ export default function () {
         <div style={{ color: "#ffffff" }}>
           <Logo size={36} />
         </div>
-        <Button
-          size="compact"
-          onClick={() => setDisplayPreview(true)}
-          kind={KIND.tertiary}
-          overrides={{
-            StartEnhancer: {
-              style: {
-                marginRight: "4px",
+        <Block $style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <Button
+            size="compact"
+            onClick={() => setDisplayPreview(true)}
+            kind={KIND.tertiary}
+            overrides={{
+              StartEnhancer: {
+                style: {
+                  marginRight: "4px",
+                },
               },
-            },
-          }}
-        >
-          <Play size={24} />
-        </Button>
+            }}
+          >
+            Import
+          </Button>
+
+          <Button
+            size="compact"
+            onClick={makeDownloadTemplate}
+            kind={KIND.tertiary}
+            overrides={{
+              StartEnhancer: {
+                style: {
+                  marginRight: "4px",
+                },
+              },
+            }}
+          >
+            Export
+          </Button>
+          <Button
+            size="compact"
+            onClick={() => setDisplayPreview(true)}
+            kind={KIND.tertiary}
+            overrides={{
+              StartEnhancer: {
+                style: {
+                  marginRight: "4px",
+                },
+              },
+            }}
+          >
+            <Play size={24} />
+          </Button>
+        </Block>
       </Container>
     </ThemeProvider>
   )

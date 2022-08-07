@@ -40,7 +40,7 @@ export default function () {
     if (editor) {
       if (currentScene) {
         // @ts-ignore
-        editor.design.importFromJSON(currentPage).catch(() => {
+        editor.design.importFromJSON(currentScene).catch(() => {
           console.log("COULD NOT IMPORT TEMPLATE")
         })
       } else {
