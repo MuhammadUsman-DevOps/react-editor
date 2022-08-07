@@ -9,15 +9,13 @@ import { useEditor, useFrame } from "@scenify/react"
 import { Block } from "baseui/block"
 import { useTimer } from "@layerhub-io/use-timer"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
+import { IDesign } from "@scenify/types"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   background: $theme.colors.white,
 }))
-const scaleFactor = 1
 
-export const getXfromDomElement = (domRef: HTMLElement) => {
-  return Number(domRef?.style.left.split("px")[0])
-}
+const SCALE_FACTOR = 1
 
 export default function () {
   const { time, setTime, pause, status } = useTimer()
@@ -51,8 +49,8 @@ export default function () {
   }, [editor])
 
   React.useEffect(() => {
-    if (time * scaleFactor <= maxTime) {
-      setPosition({ ...position, x: (time * scaleFactor) / 40, y: 0 })
+    if (time * SCALE_FACTOR <= maxTime) {
+      setPosition({ ...position, x: (time * SCALE_FACTOR) / 40, y: 0 })
     } else {
       pause()
       setDisplayPlayback(false)
@@ -68,9 +66,7 @@ export default function () {
   React.useEffect(() => {
     if (editor) {
       if (currentScene) {
-        editor.design.importFromJSON(currentScene).catch(() => {
-          console.log("COULD NOT IMPORT TEMPLATE")
-        })
+        updateCurrentScene(currentScene)
       } else {
         editor.design
           .importFromJSON(defaultTemplate)
@@ -85,6 +81,15 @@ export default function () {
       }
     }
   }, [editor, currentScene])
+
+  const updateCurrentScene = React.useCallback(
+    async (design: IDesign) => {
+      await editor.design.importFromJSON(design)
+      const updatedPreview = (await editor.renderer.render(design)) as string
+      setCurrentPreview(updatedPreview)
+    },
+    [editor, currentScene]
+  )
 
   const addScene = React.useCallback(async () => {
     setCurrentPreview("")

@@ -26,7 +26,6 @@ function Video() {
       }
       return {
         duration: 5,
-        // @ts-ignore
         layers: page.layers,
       }
     })
