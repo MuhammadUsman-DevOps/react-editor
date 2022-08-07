@@ -29,6 +29,7 @@ function PanelsList() {
 
   return (
     <Block
+      id="EditorPanelItem"
       $style={{
         background: "#ffffff",
         width: isSidebarOpen ? "300px" : 0,

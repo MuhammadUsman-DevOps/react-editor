@@ -2,12 +2,12 @@ import { useStyletron } from "baseui"
 import { BASE_ITEMS, VIDEO_PANEL_ITEMS } from "~/constants/app-options"
 import useAppContext from "~/hooks/useAppContext"
 import { styled } from "baseui"
-import { useEditor } from "@scenify/react"
 import Icons from "~/components/Icons"
 import { useTranslation } from "react-i18next"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import useEditorType from "~/hooks/useEditorType"
 import Scrollable from "~/components/Scrollable"
+import { Block } from "baseui/block"
 
 const Container = styled("div", (props) => ({
   width: "80px",
@@ -40,17 +40,17 @@ function PanelsList() {
 function PanelListItem({ label, icon, activePanel, name }: any) {
   const { setActivePanel } = useAppContext()
   const setIsSidebarOpen = useSetIsSidebarOpen()
-  const editor = useEditor()
   const [css, theme] = useStyletron()
   // @ts-ignore
   const Icon = Icons[icon]
   return (
-    <div
+    <Block
+      id={"EditorPanelList"}
       onClick={() => {
         setIsSidebarOpen(true)
         setActivePanel(name)
       }}
-      className={css({
+      $style={{
         width: "80px",
         height: "80px",
         backgroundColor: name === activePanel ? theme.colors.white : theme.colors.primary100,
@@ -69,11 +69,11 @@ function PanelListItem({ label, icon, activePanel, name }: any) {
           backgroundColor: theme.colors.white,
           transition: "all 1s",
         },
-      })}
+      }}
     >
       <Icon size={24} />
       <div>{label}</div>
-    </div>
+    </Block>
   )
 }
 

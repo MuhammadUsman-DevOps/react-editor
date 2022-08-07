@@ -14,6 +14,7 @@ import useEditorType from "~/hooks/useEditorType"
 import SelectEditor from "./SelectEditor"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 import Preview from "./components/Preview"
+import { Block } from "baseui/block"
 
 type CustomTheme = Theme & { extraProp: string }
 

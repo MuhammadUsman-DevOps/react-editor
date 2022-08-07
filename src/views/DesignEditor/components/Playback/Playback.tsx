@@ -45,7 +45,6 @@ const Playback = () => {
       refTime += 5000
     }
 
-    // console.log({ clips })
     const videoTemplate = {
       name: currentTemplate.name,
       frame: currentTemplate.frame,
@@ -54,7 +53,6 @@ const Playback = () => {
 
     const layers = await editor.design.exportLayers(currentTemplate)
 
-    // console.log({ template })
     controller.current = new PlaybackController("scenify_playback_container", {
       data: layers,
       template: videoTemplate,

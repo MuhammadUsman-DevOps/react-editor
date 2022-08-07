@@ -19,7 +19,7 @@ export default function () {
   return (
     <Container>
       <Block $style={{ display: "flex", alignItems: "center" }}>
-        <Block $style={{ padding: "0 1rem" }}>
+        <Block id={"EditorPlayControl"} $style={{ padding: "0 1rem" }}>
           <Block
             onClick={
               status === "RUNNING"

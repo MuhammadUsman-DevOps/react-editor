@@ -17,8 +17,12 @@ const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
 const scaleFactor = 1
 const maxWidth = 120000
 
+export const getXfromDomElement = (domRef: HTMLElement) => {
+  return Number(domRef?.style.left.split("px")[0])
+}
+
 export default function () {
-  const { time } = useTimer()
+  const { time, setTime } = useTimer()
   const pages = useDesignEditorPages()
   const { setPages, setCurrentPage, currentPage } = React.useContext(DesignEditorContext)
   const frame = useFrame()
@@ -55,7 +59,6 @@ export default function () {
   React.useEffect(() => {
     if (editor) {
       if (currentPage) {
-        // @ts-ignore
         editor.design.importFromJSON(currentPage).catch(() => {
           console.log("COULD NOT IMPORT TEMPLATE")
         })
@@ -112,43 +115,74 @@ export default function () {
     },
     [editor, pages, currentPage]
   )
+
+  const onStart = () => {
+    const playHeadDomRef = document.getElementById("EditorPlayHead") as HTMLDivElement
+    const initialX = playHeadDomRef.offsetLeft
+    const panelsListRef = document.getElementById("EditorPanelList") as HTMLDivElement
+    const panelItemRef = document.getElementById("EditorPanelItem") as HTMLDivElement
+    const playControlRef = document.getElementById("EditorPlayControl") as HTMLDivElement
+
+    const panelItemsWidth =
+      panelsListRef.getBoundingClientRect().width +
+      panelItemRef.getBoundingClientRect().width +
+      playControlRef.getBoundingClientRect().width
+
+    const onDrag = (ev: MouseEvent) => {
+      let x = ev.clientX - initialX - panelItemsWidth
+      let newX = initialX + x * 40
+      if (newX + 2 <= 0 || newX >= maxWidth) return
+      setTime(newX)
+    }
+
+    const onStop = () => {
+      window.removeEventListener("mousemove", onDrag)
+      window.removeEventListener("mouseup", onStop)
+    }
+
+    window.addEventListener("mousemove", onDrag)
+    window.addEventListener("mouseup", onStop)
+  }
+
   return (
     <Container>
       <div className={css({ display: "flex", alignItems: "center" })}>
         <Block $style={{ display: "flex", alignItems: "center", position: "relative", flex: 1 }}>
-          <Block
-            $style={{
-              position: "absolute",
-              zIndex: "4",
-              left: `${position.x}px`,
-              top: "-2px",
-              width: "2px",
-              bottom: "0px",
-            }}
-          >
-            <Block
-              $style={{
-                width: 0,
-                height: 0,
-                borderLeft: "9px solid transparent",
-                borderRight: "9px solid transparent",
-                borderTop: "11px solid #333333",
-                borderRadius: "5px",
-                transform: "translate(-8px, -1px)",
-              }}
-            />
-
-            <Block
-              id="markerLine"
-              $style={{
-                height: "84px",
-                width: "2px",
-                backgroundColor: "#333333",
-                transform: "translate(0, -2px)",
-              }}
-            />
-          </Block>
           <Block $style={{ display: "flex", alignItems: "center", position: "relative", padding: "1rem 0" }}>
+            <Block
+              onMouseDown={onStart}
+              $style={{
+                position: "absolute",
+                zIndex: "4",
+                left: `${position.x}px`,
+                top: "-2px",
+                width: "2px",
+                bottom: "0px",
+              }}
+            >
+              <Block
+                id={"EditorPlayHead"}
+                $style={{
+                  width: 0,
+                  height: 0,
+                  borderLeft: "9px solid transparent",
+                  borderRight: "9px solid transparent",
+                  borderTop: "11px solid #333333",
+                  borderRadius: "5px",
+                  transform: "translate(-8px, -1px)",
+                }}
+              />
+
+              <Block
+                id="markerLine"
+                $style={{
+                  height: "84px",
+                  width: "2px",
+                  backgroundColor: "#333333",
+                  transform: "translate(0, -2px)",
+                }}
+              />
+            </Block>
             {pages.map((page, index) => (
               <Block
                 $style={{
@@ -205,9 +239,9 @@ export default function () {
             background: "#ffffff",
           }}
         >
-          <div
+          <Block
             onClick={addPage}
-            className={css({
+            $style={{
               width: "100px",
               height: "56px",
               background: "rgb(243,244,246)",
@@ -215,10 +249,10 @@ export default function () {
               alignItems: "center",
               justifyContent: "center",
               cursor: "pointer",
-            })}
+            }}
           >
             <Add size={20} />
-          </div>
+          </Block>
         </div>
       </div>
     </Container>
