@@ -1,20 +1,16 @@
-// @ts-nocheck
 import React from "react"
 import { styled } from "baseui"
 import { Theme } from "baseui/theme"
 import Icons from "~/components/Icons"
 import { Button, KIND, SIZE } from "baseui/button"
-import { Slider } from "baseui/slider"
-import { Input } from "baseui/input"
 import { useEditor, useZoomRatio } from "@scenify/react"
 
-const Container = styled<{}, "div", Theme>("div", ({ $theme }) => ({
+const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   height: "50px",
   background: $theme.colors.white,
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  // padding: "0 0.5rem",
 }))
 
 interface Options {
