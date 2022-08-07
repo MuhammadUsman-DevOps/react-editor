@@ -7,10 +7,12 @@ import Icons from "~/components/Icons"
 import { useTranslation } from "react-i18next"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import useEditorType from "~/hooks/useEditorType"
+import Scrollable from "~/components/Scrollable"
 
 const Container = styled("div", (props) => ({
   width: "80px",
   backgroundColor: props.$theme.colors.primary100,
+  display: "flex",
 }))
 
 function PanelsList() {
@@ -20,15 +22,17 @@ function PanelsList() {
   const PANEL_ITEMS = editorType === "VIDEO" ? VIDEO_PANEL_ITEMS : BASE_ITEMS
   return (
     <Container>
-      {PANEL_ITEMS.map((panelListItem) => (
-        <PanelListItem
-          label={t(`panels.panelsList.${panelListItem.id}`)}
-          name={panelListItem.name}
-          key={panelListItem.name}
-          icon={panelListItem.name}
-          activePanel={activePanel}
-        />
-      ))}
+      <Scrollable autoHide={true}>
+        {PANEL_ITEMS.map((panelListItem) => (
+          <PanelListItem
+            label={t(`panels.panelsList.${panelListItem.id}`)}
+            name={panelListItem.name}
+            key={panelListItem.name}
+            icon={panelListItem.name}
+            activePanel={activePanel}
+          />
+        ))}
+      </Scrollable>
     </Container>
   )
 }
