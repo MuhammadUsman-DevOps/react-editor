@@ -22,9 +22,9 @@ export const getXfromDomElement = (domRef: HTMLElement) => {
 export default function () {
   const { time, setTime, pause, status } = useTimer()
   const [maxTime, setMaxTime] = React.useState(5000)
-  const { setPages, setCurrentPage, currentPage, pages } = React.useContext(DesignEditorContext)
+  const { setScenes, setCurrentScene, currentScene, scenes } = React.useContext(DesignEditorContext)
   const { setDisplayPlayback } = useDesignEditorContext()
-
+  const [markerRefPosition, setMarkerRefPosition] = React.useState({ y: 0 })
   const frame = useFrame()
   const editor = useEditor()
   const [css] = useStyletron()
@@ -60,15 +60,15 @@ export default function () {
   }, [time])
 
   React.useEffect(() => {
-    if (pages) {
-      setMaxTime(pages.length * 5000)
+    if (scenes) {
+      setMaxTime(scenes.length * 5000)
     }
-  }, [pages])
+  }, [scenes])
 
   React.useEffect(() => {
     if (editor) {
-      if (currentPage) {
-        editor.design.importFromJSON(currentPage).catch(() => {
+      if (currentScene) {
+        editor.design.importFromJSON(currentScene).catch(() => {
           console.log("COULD NOT IMPORT TEMPLATE")
         })
       } else {
@@ -77,21 +77,21 @@ export default function () {
           .then(() => {
             const initialDesign = editor.design.exportToJSON() as any
             editor.renderer.render(initialDesign).then((data) => {
-              setCurrentPage({ ...initialDesign, preview: data })
-              setPages([{ ...initialDesign, preview: data }])
+              setCurrentScene({ ...initialDesign, preview: data })
+              setScenes([{ ...initialDesign, preview: data }])
             })
           })
           .catch(console.log)
       }
     }
-  }, [editor, currentPage])
+  }, [editor, currentScene])
 
   const addPage = React.useCallback(async () => {
     setCurrentPreview("")
     const updatedTemplate = editor.design.exportToJSON()
     const updatedPreview = await editor.renderer.render(updatedTemplate)
 
-    const updatedPages = pages.map((p) => {
+    const updatedPages = scenes.map((p) => {
       if (p.id === updatedTemplate.id) {
         return { ...updatedTemplate, preview: updatedPreview }
       }
@@ -100,9 +100,9 @@ export default function () {
     const newPreview = await editor.renderer.render(defaultTemplate)
     const newPage = { ...defaultTemplate, id: nanoid(), preview: newPreview } as any
     const newPages = [...updatedPages, newPage] as any[]
-    setPages(newPages)
-    setCurrentPage(newPage)
-  }, [pages])
+    setScenes(newPages)
+    setCurrentScene(newPage)
+  }, [scenes])
 
   const changePage = React.useCallback(
     async (page: any) => {
@@ -111,28 +111,29 @@ export default function () {
         const updatedTemplate = editor.design.exportToJSON()
         const updatedPreview = await editor.renderer.render(updatedTemplate)
 
-        const updatedPages = pages.map((p) => {
+        const updatedPages = scenes.map((p) => {
           if (p.id === updatedTemplate.id) {
             return { ...updatedTemplate, preview: updatedPreview }
           }
           return p
         }) as any[]
 
-        setPages(updatedPages)
-        setCurrentPage(page)
+        setScenes(updatedPages)
+        setCurrentScene(page)
       }
     },
-    [editor, pages, currentPage]
+    [editor, scenes, currentScene]
   )
+
   React.useEffect(() => {
-    if (editor && pages && currentPage && status !== "RUNNING") {
+    if (editor && scenes && currentScene && status !== "RUNNING") {
       const currentSceneIndex = Math.floor(time / 5000)
-      const currentIndex = pages.findIndex((page) => page.id === currentPage.id)
-      if (currentSceneIndex !== currentIndex && pages[currentSceneIndex]) {
-        changePage(pages[currentSceneIndex])
+      const currentIndex = scenes.findIndex((page) => page.id === currentScene.id)
+      if (currentSceneIndex !== currentIndex && scenes[currentSceneIndex]) {
+        changePage(scenes[currentSceneIndex])
       }
     }
-  }, [editor, pages, time, currentPage, status])
+  }, [editor, scenes, time, currentScene, status])
 
   const onStart = () => {
     const playHeadDomRef = document.getElementById("EditorPlayHead") as HTMLDivElement
@@ -162,6 +163,21 @@ export default function () {
     window.addEventListener("mouseup", onStop)
   }
 
+  const onMouseMoveItem = (e: MouseEvent) => {
+    // console.log(e.clientX)
+    const playHeadDomRef = document.getElementById("EditorPlayHead") as HTMLDivElement
+    const initialX = playHeadDomRef.offsetLeft
+    const panelsListRef = document.getElementById("EditorPanelList") as HTMLDivElement
+    const panelItemRef = document.getElementById("EditorPanelItem") as HTMLDivElement
+    const playControlRef = document.getElementById("EditorPlayControl") as HTMLDivElement
+
+    const panelItemsWidth =
+      panelsListRef.getBoundingClientRect().width +
+      panelItemRef.getBoundingClientRect().width +
+      playControlRef.getBoundingClientRect().width
+
+    setMarkerRefPosition({ y: e.clientX - panelItemsWidth })
+  }
   return (
     <Container>
       <div className={css({ display: "flex", alignItems: "center" })}>
@@ -201,10 +217,32 @@ export default function () {
                 }}
               />
             </Block>
-            {pages.map((page, index) => (
+            <Block
+              onClick={() => {
+                setTime(markerRefPosition.y * 40)
+              }}
+              $style={{
+                position: "absolute",
+                zIndex: "4",
+                left: `${markerRefPosition.y}px`,
+                top: "12px",
+                bottom: "0px",
+                height: "84px",
+                width: "2px",
+                backgroundColor: "#333333",
+                transform: "translate(0, -2px)",
+                cursor: "pointer",
+              }}
+            ></Block>
+            {scenes.map((page, index) => (
               <Block
+                // @ts-ignore
+                onMouseMove={onMouseMoveItem}
+                // onMouseLeave={() => {
+                //   setMarkerRefPosition({ y: -1000 })
+                // }}
                 $style={{
-                  background: page.id === currentPage?.id ? "rgb(243,244,246)" : "#ffffff",
+                  background: page.id === currentScene?.id ? "rgb(243,244,246)" : "#ffffff",
                   width: "125px",
                 }}
                 key={index}
@@ -214,7 +252,7 @@ export default function () {
                   $style={{
                     cursor: "pointer",
                     position: "relative",
-                    border: page.id === currentPage?.id ? "2px solid #7158e2" : "1px solid rgba(0,0,0,.15)",
+                    border: page.id === currentScene?.id ? "2px solid #7158e2" : "1px solid rgba(0,0,0,.15)",
                     overflow: "hidden",
                     borderRadius: "8px",
                   }}
@@ -222,7 +260,7 @@ export default function () {
                   <Block
                     $style={{
                       backgroundImage: `url(${
-                        currentPreview && page.id === currentPage?.id ? currentPreview : page.preview
+                        currentPreview && page.id === currentScene?.id ? currentPreview : page.preview
                       })`,
                       backgroundSize: `${frame ? (frame.width * 70) / frame.height : 70}px 70px`,
                       backgroundRepeat: "repeat",

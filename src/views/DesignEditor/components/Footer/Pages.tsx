@@ -2,7 +2,7 @@ import React from "react"
 import { styled, useStyletron } from "baseui"
 import { Theme } from "baseui/theme"
 import Add from "~/components/Icons/Add"
-import useDesignEditorPages from "~/hooks/useDesignEditorPages"
+import useDesignEditorPages from "~/hooks/useDesignEditorScenes"
 import { DesignEditorContext } from "~/contexts/DesignEditor"
 import { nanoid } from "nanoid"
 import { defaultTemplate } from "~/constants/design-editor"
@@ -15,7 +15,7 @@ const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
 
 export default function () {
   const pages = useDesignEditorPages()
-  const { setPages, setCurrentPage, currentPage } = React.useContext(DesignEditorContext)
+  const { setScenes, setCurrentScene, currentScene } = React.useContext(DesignEditorContext)
   const editor = useEditor()
   const [css] = useStyletron()
   const [currentPreview, setCurrentPreview] = React.useState("")
@@ -38,7 +38,7 @@ export default function () {
 
   React.useEffect(() => {
     if (editor) {
-      if (currentPage) {
+      if (currentScene) {
         // @ts-ignore
         editor.design.importFromJSON(currentPage).catch(() => {
           console.log("COULD NOT IMPORT TEMPLATE")
@@ -49,14 +49,14 @@ export default function () {
           .then(() => {
             const initialDesign = editor.design.exportToJSON() as any
             editor.renderer.render(initialDesign).then((data) => {
-              setCurrentPage({ ...initialDesign, preview: data })
-              setPages([{ ...initialDesign, preview: data }])
+              setCurrentScene({ ...initialDesign, preview: data })
+              setScenes([{ ...initialDesign, preview: data }])
             })
           })
           .catch(console.log)
       }
     }
-  }, [editor, currentPage])
+  }, [editor, currentScene])
 
   const addPage = React.useCallback(async () => {
     setCurrentPreview("")
@@ -72,8 +72,8 @@ export default function () {
     const newPreview = await editor.renderer.render(defaultTemplate)
     const newPage = { ...defaultTemplate, id: nanoid(), preview: newPreview } as any
     const newPages = [...updatedPages, newPage] as any[]
-    setPages(newPages)
-    setCurrentPage(newPage)
+    setScenes(newPages)
+    setCurrentScene(newPage)
   }, [pages])
 
   const changePage = React.useCallback(
@@ -90,11 +90,11 @@ export default function () {
           return p
         }) as any[]
 
-        setPages(updatedPages)
-        setCurrentPage(page)
+        setScenes(updatedPages)
+        setCurrentScene(page)
       }
     },
-    [editor, pages, currentPage]
+    [editor, pages, currentScene]
   )
 
   return (
@@ -103,7 +103,7 @@ export default function () {
         {pages.map((page, index) => (
           <div
             style={{
-              background: page.id === currentPage?.id ? "rgb(243,244,246)" : "#ffffff",
+              background: page.id === currentScene?.id ? "rgb(243,244,246)" : "#ffffff",
               padding: "1rem 0.5rem",
             }}
             key={index}
@@ -113,12 +113,12 @@ export default function () {
               className={css({
                 cursor: "pointer",
                 position: "relative",
-                border: page.id === currentPage?.id ? "2px solid #7158e2" : "2px solid rgba(0,0,0,.15)",
+                border: page.id === currentScene?.id ? "2px solid #7158e2" : "2px solid rgba(0,0,0,.15)",
               })}
             >
               <img
                 style={{ maxWidth: "90px", maxHeight: "80px", display: "flex" }}
-                src={currentPreview && page.id === currentPage?.id ? currentPreview : page.preview}
+                src={currentPreview && page.id === currentScene?.id ? currentPreview : page.preview}
               />
               <div
                 className={css({

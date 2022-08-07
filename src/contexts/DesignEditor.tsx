@@ -3,10 +3,10 @@ import React from "react"
 import { DesignType } from "~/interfaces/DesignEditor"
 
 interface IDesignEditorContext {
-  pages: IDesign[]
-  setPages: (value: ((prevState: IDesign[]) => IDesign[]) | IDesign[]) => void
-  currentPage: IDesign | null
-  setCurrentPage: (value: ((prevState: null) => null) | null) => void
+  scenes: IDesign[]
+  setScenes: (value: ((prevState: IDesign[]) => IDesign[]) | IDesign[]) => void
+  currentScene: IDesign | null
+  setCurrentScene: (value: ((prevState: null) => null) | null) => void
   isSidebarOpen: boolean
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>
   editorType: DesignType
@@ -18,10 +18,10 @@ interface IDesignEditorContext {
 }
 
 export const DesignEditorContext = React.createContext<IDesignEditorContext>({
-  pages: [],
-  currentPage: null,
-  setPages: () => {},
-  setCurrentPage: () => {},
+  scenes: [],
+  setScenes: () => {},
+  currentScene: null,
+  setCurrentScene: () => {},
   isSidebarOpen: true,
   setIsSidebarOpen: () => {},
   editorType: "NONE",
@@ -33,18 +33,18 @@ export const DesignEditorContext = React.createContext<IDesignEditorContext>({
 })
 
 export const DesignEditorProvider = ({ children }: { children: React.ReactNode }) => {
-  const [pages, setPages] = React.useState<IDesign[]>([])
-  const [currentPage, setCurrentPage] = React.useState(null)
+  const [scenes, setScenes] = React.useState<IDesign[]>([])
+  const [currentScene, setCurrentScene] = React.useState(null)
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(true)
   const [editorType, setEditorType] = React.useState<DesignType>("NONE")
   const [displayPlayback, setDisplayPlayback] = React.useState<boolean>(false)
   const [displayPreview, setDisplayPreview] = React.useState<boolean>(false)
 
   const context = {
-    pages,
-    setPages,
-    currentPage,
-    setCurrentPage,
+    scenes,
+    setScenes,
+    currentScene,
+    setCurrentScene,
     isSidebarOpen,
     setIsSidebarOpen,
     editorType,

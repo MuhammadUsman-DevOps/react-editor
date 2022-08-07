@@ -3,7 +3,7 @@ import { Block } from "baseui/block"
 import { useEditor, useZoomRatio } from "@scenify/react"
 import { useTimer } from "@layerhub-io/use-timer"
 import Controller from "./Controler"
-import useDesignEditorPages from "~/hooks/useDesignEditorPages"
+import useDesignEditorPages from "~/hooks/useDesignEditorScenes"
 
 const Playback = () => {
   const editor = useEditor()

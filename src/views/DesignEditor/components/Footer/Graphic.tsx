@@ -9,7 +9,7 @@ import { useEditor, useZoomRatio } from "@scenify/react"
 import Timeline from "./Timeline"
 import Controls from "./Controls"
 
-const Container = styled<{}, "div", Theme>("div", ({ $theme }) => ({
+const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   // height: "56px",
   background: $theme.colors.white,
   // display: "grid",

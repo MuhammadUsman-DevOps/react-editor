@@ -3,7 +3,7 @@ import { Block } from "baseui/block"
 import ReactPlayer from "react-player"
 import { useEditor } from "@scenify/react"
 import Loading from "~/components/Loading"
-import useDesignEditorPages from "~/hooks/useDesignEditorPages"
+import useDesignEditorPages from "~/hooks/useDesignEditorScenes"
 
 function Video() {
   const editor = useEditor()

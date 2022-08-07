@@ -1,7 +1,7 @@
 import React from "react"
 import { Block } from "baseui/block"
 import "react-responsive-carousel/lib/styles/carousel.min.css"
-import useDesignEditorPages from "~/hooks/useDesignEditorPages"
+import useDesignEditorPages from "~/hooks/useDesignEditorScenes"
 import { Carousel } from "react-responsive-carousel"
 
 export default function () {

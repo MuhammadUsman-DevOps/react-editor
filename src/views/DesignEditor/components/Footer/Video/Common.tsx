@@ -6,7 +6,7 @@ import { Button, KIND, SIZE } from "baseui/button"
 import { useZoomRatio } from "@scenify/react"
 import { useTimer } from "@layerhub-io/use-timer"
 import { Block } from "baseui/block"
-import useDesignEditorPages from "~/hooks/useDesignEditorPages"
+import useDesignEditorScenes from "~/hooks/useDesignEditorScenes"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   height: "50px",
@@ -22,7 +22,7 @@ interface Options {
 
 export default function () {
   const { time } = useTimer()
-  const pages = useDesignEditorPages()
+  const pages = useDesignEditorScenes()
   const [options, setOptions] = React.useState<Options>({
     zoomRatio: 20,
   })
