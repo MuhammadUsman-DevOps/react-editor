@@ -1,3 +1,7 @@
+* {
+    user-select: none;
+}
+
 .react-colorful__saturation-pointer {
     width: 20px !important;
     height: 20px !important;
@@ -12,7 +16,6 @@
 
 .react-colorful__pointer .react-colorful__hue-pointer {
     width: 20px;
-    /* height: inherit; */
     height: 20px;
     border-radius: 0 !important;
 }
@@ -32,12 +35,4 @@ input::-webkit-inner-spin-button {
 
 .react-player video {
     max-height: 740px;
-}
-
-.clockc img {
-    /* display: flex; */
-    max-height: 520px;
-    /* max-height: 540px;
-    background: red;
-    display: none; */
 }
