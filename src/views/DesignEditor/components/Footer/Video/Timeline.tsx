@@ -86,7 +86,7 @@ export default function () {
     }
   }, [editor, currentScene])
 
-  const addPage = React.useCallback(async () => {
+  const addScene = React.useCallback(async () => {
     setCurrentPreview("")
     const updatedTemplate = editor.design.exportToJSON()
     const updatedPreview = await editor.renderer.render(updatedTemplate)
@@ -101,11 +101,12 @@ export default function () {
     const newPage = { ...defaultTemplate, id: nanoid(), preview: newPreview } as any
     const newPages = [...updatedPages, newPage] as any[]
     setScenes(newPages)
-    setCurrentScene(newPage)
+    setTime(scenes.length * 5000)
   }, [scenes])
 
   const changePage = React.useCallback(
     async (page: any) => {
+      // console.log(page)
       setCurrentPreview("")
       if (editor) {
         const updatedTemplate = editor.design.exportToJSON()
@@ -164,9 +165,7 @@ export default function () {
   }
 
   const onMouseMoveItem = (e: MouseEvent) => {
-    // console.log(e.clientX)
     const playHeadDomRef = document.getElementById("EditorPlayHead") as HTMLDivElement
-    const initialX = playHeadDomRef.offsetLeft
     const panelsListRef = document.getElementById("EditorPanelList") as HTMLDivElement
     const panelItemRef = document.getElementById("EditorPanelItem") as HTMLDivElement
     const playControlRef = document.getElementById("EditorPlayControl") as HTMLDivElement
@@ -296,7 +295,7 @@ export default function () {
           }}
         >
           <Block
-            onClick={addPage}
+            onClick={addScene}
             $style={{
               width: "100px",
               height: "56px",
