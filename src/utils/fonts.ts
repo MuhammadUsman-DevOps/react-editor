@@ -1,4 +1,31 @@
 import { FontItem } from "~/interfaces/common"
+import { IDesign, ILayer, IStaticText } from "@scenify/types"
+
+const getFontsFromObjects = (objects: Partial<ILayer>[]) => {
+  let fonts: any[] = []
+  for (const object of objects) {
+    if (object.type === "StaticText" || object.type === "DynamicText") {
+      fonts.push({
+        name: (object as Required<IStaticText>).fontFamily,
+        url: (object as Required<IStaticText>).fontURL,
+      })
+    }
+    if (object.type === "Group") {
+      // @ts-ignore
+      let groupFonts = getFontsFromObjects(object.objects)
+
+      fonts = fonts.concat(groupFonts)
+    }
+  }
+  return fonts
+}
+
+export const loadTemplateFonts = async (design: IDesign) => {
+  const fonts = getFontsFromObjects(design.layers)
+  if (fonts.length > 0) {
+    await loadFonts(fonts)
+  }
+}
 
 export const loadFonts = (fonts: FontItem[]) => {
   const promisesList = fonts.map((font) => {

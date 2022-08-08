@@ -9,6 +9,9 @@ import { Block } from "baseui/block"
 import { useEditor } from "@scenify/react"
 import useEditorType from "~/hooks/useEditorType"
 import useDesignEditorScenes from "~/hooks/useDesignEditorScenes"
+import { nanoid } from "nanoid"
+import { IDesign } from "@scenify/types"
+import { loadTemplateFonts } from "~/utils/fonts"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   height: "64px",
@@ -49,7 +52,7 @@ interface VideoEditor {
 }
 
 export default function () {
-  const { setDisplayPreview } = useDesignEditorContext()
+  const { setDisplayPreview, setScenes } = useDesignEditorContext()
   const editorType = useEditorType()
   const scenes = useDesignEditorScenes()
   const editor = useEditor()
@@ -128,6 +131,27 @@ export default function () {
     }
   }
 
+  const handleImportTemplate = React.useCallback(
+    async (data: any) => {
+      const scenes = []
+      for (const scene of data.scenes) {
+        const design: IDesign = {
+          name: "Awesome template",
+          frame: data.frame,
+          id: nanoid(),
+          layers: scene.layers,
+          metadata: {},
+        }
+
+        const preview = (await editor.renderer.render(design)) as string
+        await loadTemplateFonts(design)
+        scenes.push({ ...design, preview })
+      }
+      setScenes(scenes)
+    },
+    [editor]
+  )
+
   const handleInputFileRefClick = () => {
     inputFileRef.current?.click()
   }
@@ -139,7 +163,7 @@ export default function () {
       reader.onload = (res) => {
         const result = res.target!.result as string
         const design = JSON.parse(result)
-        console.log({ design })
+        handleImportTemplate(design)
       }
       reader.onerror = (err) => {
         console.log(err)

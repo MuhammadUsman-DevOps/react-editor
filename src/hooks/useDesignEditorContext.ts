@@ -11,6 +11,8 @@ function useDesignEditorContext() {
     displayPreview,
     currentScene,
     setCurrentScene,
+    setScenes,
+    scenes,
   } = useContext(DesignEditorContext)
   return {
     editorType,
@@ -21,6 +23,8 @@ function useDesignEditorContext() {
     displayPreview,
     currentScene,
     setCurrentScene,
+    setScenes,
+    scenes,
   }
 }
 
