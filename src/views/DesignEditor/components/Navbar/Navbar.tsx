@@ -12,6 +12,7 @@ import useDesignEditorScenes from "~/hooks/useDesignEditorScenes"
 import { nanoid } from "nanoid"
 import { IDesign } from "@scenify/types"
 import { loadTemplateFonts } from "~/utils/fonts"
+import { loadVideoEditorAssets } from "~/utils/video"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   height: "64px",
@@ -142,10 +143,11 @@ export default function () {
           layers: scene.layers,
           metadata: {},
         }
+        const loadedDesign = await loadVideoEditorAssets(design)
 
-        const preview = (await editor.renderer.render(design)) as string
-        await loadTemplateFonts(design)
-        scenes.push({ ...design, preview })
+        const preview = (await editor.renderer.render(loadedDesign)) as string
+        await loadTemplateFonts(loadedDesign)
+        scenes.push({ ...loadedDesign, preview })
       }
       setScenes(scenes)
     },

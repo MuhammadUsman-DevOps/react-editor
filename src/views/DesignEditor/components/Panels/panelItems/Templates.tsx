@@ -9,6 +9,7 @@ import { SAMPLE_TEMPLATES } from "~/constants/editor"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 import useEditorType from "~/hooks/useEditorType"
+import { loadVideoEditorAssets } from "~/utils/video"
 
 export default function () {
   const editor = useEditor()
@@ -33,6 +34,7 @@ export default function () {
         if (filteredFonts.length > 0) {
           await loadFonts(filteredFonts)
         }
+
         if (editorType === "GRAPHIC") {
           editor.design.importFromJSON(template)
         } else {

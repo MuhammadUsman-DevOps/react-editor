@@ -14,7 +14,6 @@ const Playback = () => {
   const { start } = useTimer()
   const pages = useDesignEditorPages()
   const { time } = useTimer()
-
   const loadFrames = React.useCallback(async () => {
     const currentTemplate = editor.design.exportToJSON()
     let refTime = 0
