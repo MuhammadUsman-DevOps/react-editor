@@ -4,7 +4,7 @@ import Scrollable from "~/components/Scrollable"
 import { HexColorPicker } from "react-colorful"
 import { Delete } from "baseui/icon"
 import { throttle } from "lodash"
-import { useActiveObject, useEditor } from "@scenify/react"
+import { useActiveObject, useEditor } from "@layerhub-io/react"
 
 const PRESET_COLORS = [
   "#f44336",

@@ -1,5 +1,5 @@
 import React from "react"
-import { Provider as ScenifyProvider } from "@scenify/react"
+import { Provider as ScenifyProvider } from "@layerhub-io/react"
 import { Client as Styletron } from "styletron-engine-atomic"
 import { Provider as StyletronProvider } from "styletron-react"
 import { BaseProvider, LightTheme } from "baseui"

@@ -1,11 +1,11 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@layerhub-io/react': ^0.1.0
+  '@layerhub-io/react-custom-scrollbar': ^0.0.1
+  '@layerhub-io/types': ^0.1.0
   '@layerhub-io/use-timer': ^0.1.1
   '@reduxjs/toolkit': ^1.8.1
-  '@scenify/react': ^3.0.3
-  '@scenify/react-custom-scrollbar': ^0.1.0
-  '@scenify/types': ^3.0.3
   '@types/lodash': ^4.14.182
   '@types/mime': ^2.0.3
   '@types/node': ^17.0.35
@@ -35,10 +35,10 @@ specifiers:
   vite: ^3.0.0
 
 dependencies:
+  '@layerhub-io/react': 0.1.0
+  '@layerhub-io/react-custom-scrollbar': 0.0.1_react@18.2.0
   '@layerhub-io/use-timer': 0.1.1_react@18.2.0
   '@reduxjs/toolkit': 1.8.2_kkwg4cbsojnjnupd3btipussee
-  '@scenify/react': 3.0.3
-  '@scenify/react-custom-scrollbar': 0.1.0_react@18.2.0
   '@types/node': 17.0.45
   axios: 0.27.2
   baseui: 12.0.0_vx6l3m7grhdjsdty3rfvukcune
@@ -61,7 +61,7 @@ dependencies:
   styletron-react: 6.1.0-beta.2_react@18.2.0
 
 devDependencies:
-  '@scenify/types': 3.0.3
+  '@layerhub-io/types': 0.1.0
   '@types/lodash': 4.14.182
   '@types/mime': 2.0.3
   '@types/react': 18.0.14
@@ -393,6 +393,59 @@ packages:
       '@jridgewell/resolve-uri': 3.0.8
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
+
+  /@layerhub-io/core/0.1.0:
+    resolution: {integrity: sha512-zXRw5PiPc3FVLAhHMu2xdF++gRsJEV1Ef4VZO3DZz/X6/pvypz+A55hw3kPX/0JRlLAJh21rTiQ7qg1EIeziBw==}
+    dependencies:
+      '@layerhub-io/objects': 0.1.0_fabric@5.2.1
+      '@layerhub-io/types': 0.1.0
+      fabric: 5.2.1
+      lodash: 4.17.21
+      nanoid: 3.3.4
+      resize-observer-polyfill: 1.5.1
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /@layerhub-io/objects/0.1.0_fabric@5.2.1:
+    resolution: {integrity: sha512-EshK3jfnOp0o4O280agLrPBUg+FvcUwcAIMzFJo5VClesdCuVXI3s218d8nVGQVzrJCQdUgnETpLg1GtetPWBg==}
+    peerDependencies:
+      fabric: ^5.2.1
+    dependencies:
+      fabric: 5.2.1
+      lodash: 4.17.21
+    dev: false
+
+  /@layerhub-io/react-custom-scrollbar/0.0.1_react@18.2.0:
+    resolution: {integrity: sha512-I2sCOzD9WOyFm34vDjXHv29eAfSDrB+ihucLuXTr7dpnx+YETRnkq+aMyBsWugpwcIJvbpTiqsOGqbHfA704ZA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      dom-css: 2.1.0
+      raf: 3.4.1
+      react: 18.2.0
+    dev: false
+
+  /@layerhub-io/react/0.1.0:
+    resolution: {integrity: sha512-t9HmtrG9zApaqkbKfb3tJV6o2p/nXyh36EPJPVM3aeYLWeWJ+NhHEWpTFX5pe2Cb+Mu/ItS90lF5J0iJZyp/YA==}
+    dependencies:
+      '@layerhub-io/core': 0.1.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      resize-observer-polyfill: 1.5.1
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /@layerhub-io/types/0.1.0:
+    resolution: {integrity: sha512-hJOclg59vy1wUH6Fca+cl4/leSe1M6WtrLtAJ1ZQ749QrB+03TP/RBJzQln4cRt1t8vecpykiWZsb6RxMEFEDQ==}
 
   /@layerhub-io/use-timer/0.1.1_react@18.2.0:
     resolution: {integrity: sha512-t/fZ3UfCNcuMPaTfn8ppMtgyYgUDVRjSuYWDdij1S2Cewdsn46V5w8F5zYLd6IY7xNj/XjYlxW8WZbsiqG/ZXA==}
@@ -878,59 +931,6 @@ packages:
   /@rtsao/csstype/2.6.5-forked.0:
     resolution: {integrity: sha512-0HwnY8uPWcCloTgdbbaJG3MbDUfNf6yKWZfCKxFv9yj2Sbp4mSKaIjC7Cr/5L4hMxvrrk85CU3wlAg7EtBBJ1Q==}
     dev: false
-
-  /@scenify/core/3.0.3:
-    resolution: {integrity: sha512-6EcSp6tJnXh9TwYwmD5Ql6Xxd2VkwphqjqtSt9674dXCljNX3BxwYOjbuuB81pcD21s1qCXmJC69BgVeLhX6qQ==}
-    dependencies:
-      '@scenify/objects': 3.0.3_fabric@5.2.1
-      '@scenify/types': 3.0.3
-      fabric: 5.2.1
-      lodash: 4.17.21
-      nanoid: 3.3.4
-      resize-observer-polyfill: 1.5.1
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - supports-color
-      - utf-8-validate
-    dev: false
-
-  /@scenify/objects/3.0.3_fabric@5.2.1:
-    resolution: {integrity: sha512-mJ9QEMdmQWTWi80utFMhWPcHysBtRO0JDqWaq3uKwaV+6CdWoQmoZAWV3QSA/UUzXTAiuz38E8otkylTTkOJWA==}
-    peerDependencies:
-      fabric: ^5.2.1
-    dependencies:
-      fabric: 5.2.1
-      lodash: 4.17.21
-    dev: false
-
-  /@scenify/react-custom-scrollbar/0.1.0_react@18.2.0:
-    resolution: {integrity: sha512-bzSJkYGOh9uClD7cFM6BqsNGi7kHpi4/HqHrkP5+q1iuB3z2RdT4vOX9WQaQwYST7fiaQDbzSuc+1ONUj/HhJg==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      react: '>=16'
-    dependencies:
-      dom-css: 2.1.0
-      raf: 3.4.1
-      react: 18.2.0
-    dev: false
-
-  /@scenify/react/3.0.3:
-    resolution: {integrity: sha512-q8/rWLe2rpcABYx3Cz4jh2UK1IqSfsGsbYPmjRxzQ1ISR2oKSGF/LKe+J4cUqJ3loVf0SyzfqBL+DnGIFH3MOA==}
-    dependencies:
-      '@scenify/core': 3.0.3
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      resize-observer-polyfill: 1.5.1
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - supports-color
-      - utf-8-validate
-    dev: false
-
-  /@scenify/types/3.0.3:
-    resolution: {integrity: sha512-RPDth0WfFGdCQSoXS/Z+hS35LIuhX03bWIAYrmVEd99C/w4CD75rhUKsD7/WOyEsVPv/q/yHXz5JuExkFwaN1A==}
 
   /@tootallnate/once/2.0.0:
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}

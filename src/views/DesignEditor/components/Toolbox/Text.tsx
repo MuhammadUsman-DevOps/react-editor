@@ -1,5 +1,5 @@
 import React from "react"
-import { useActiveObject, useEditor } from "@scenify/react"
+import { useActiveObject, useEditor } from "@layerhub-io/react"
 // import getSelectionType from "~/utils/get-selection-type"
 import { Input } from "baseui/input"
 import { Block } from "baseui/block"
@@ -23,10 +23,10 @@ import { Slider } from "baseui/slider"
 import useAppContext from "~/hooks/useAppContext"
 import { FONT_SIZES, SAMPLE_FONTS } from "~/constants/editor"
 import getSelectionType from "~/utils/get-selection-type"
-import { IStaticText } from "@scenify/types"
+import { IStaticText } from "@layerhub-io/types"
 import { getTextProperties } from "../../utils/text"
 import { loadFonts } from "~/utils/fonts"
-import Scrollbar from "@scenify/react-custom-scrollbar"
+import Scrollbar from "@layerhub-io/react-custom-scrollbar"
 interface TextState {
   color: string
   bold: boolean

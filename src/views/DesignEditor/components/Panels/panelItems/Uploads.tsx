@@ -8,7 +8,7 @@ import { useAppDispatch } from "~/store/store"
 import { setUploading, uploadFile } from "~/store/slices/uploads/actions"
 import { useSelector } from "react-redux"
 import { selectUploading, selectUploads } from "~/store/slices/uploads/selectors"
-import { useEditor } from "@scenify/react"
+import { useEditor } from "@layerhub-io/react"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 
 export default function () {

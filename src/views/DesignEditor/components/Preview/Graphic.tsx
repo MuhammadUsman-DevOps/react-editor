@@ -1,6 +1,6 @@
 import React from "react"
 import { Block } from "baseui/block"
-import { useEditor } from "@scenify/react"
+import { useEditor } from "@layerhub-io/react"
 
 export default function () {
   const editor = useEditor()

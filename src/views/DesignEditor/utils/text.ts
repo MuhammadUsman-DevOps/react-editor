@@ -1,4 +1,4 @@
-import { IStaticText } from "@scenify/types"
+import { IStaticText } from "@layerhub-io/types"
 import { groupBy } from "lodash"
 
 export const getTextProperties = (object: Required<IStaticText>, fonts: any[]) => {

@@ -1,5 +1,5 @@
 import React from "react"
-import { useActiveObject, useEditor } from "@scenify/react"
+import { useActiveObject, useEditor } from "@layerhub-io/react"
 import { Block } from "baseui/block"
 import { Button, SIZE, KIND } from "baseui/button"
 import { PLACEMENT, StatefulPopover } from "baseui/popover"

@@ -1,4 +1,4 @@
-import { IDesign, ILayer } from "@scenify/types"
+import { IDesign, ILayer } from "@layerhub-io/types"
 
 export const loadVideoResource = (videoSrc: string): Promise<HTMLVideoElement> => {
   return new Promise(function (resolve, reject) {

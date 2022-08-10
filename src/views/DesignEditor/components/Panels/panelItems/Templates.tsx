@@ -1,5 +1,5 @@
 import React from "react"
-import { useEditor } from "@scenify/react"
+import { useEditor } from "@layerhub-io/react"
 import { Block } from "baseui/block"
 import { loadFonts } from "~/utils/fonts"
 import Scrollable from "~/components/Scrollable"

@@ -4,7 +4,7 @@ import { Block } from "baseui/block"
 import AngleDoubleLeft from "~/components/Icons/AngleDoubleLeft"
 import Scrollable from "~/components/Scrollable"
 import { images } from "~/constants/mock-data"
-import { useEditor } from "@scenify/react"
+import { useEditor } from "@layerhub-io/react"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 
 export default function () {

@@ -1,4 +1,4 @@
-import { IDesign } from "@scenify/types"
+import { IDesign } from "@layerhub-io/types"
 import React from "react"
 import { DesignType } from "~/interfaces/DesignEditor"
 

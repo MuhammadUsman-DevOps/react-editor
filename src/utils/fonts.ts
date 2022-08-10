@@ -1,5 +1,5 @@
 import { FontItem } from "~/interfaces/common"
-import { IDesign, ILayer, IStaticText } from "@scenify/types"
+import { IDesign, ILayer, IStaticText } from "@layerhub-io/types"
 
 const getFontsFromObjects = (objects: Partial<ILayer>[]) => {
   let fonts: any[] = []

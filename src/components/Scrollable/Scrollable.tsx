@@ -1,4 +1,4 @@
-import Scrollbars from "@scenify/react-custom-scrollbar"
+import Scrollbars from "@layerhub-io/react-custom-scrollbar"
 import React from "react"
 
 export default function ({ children, autoHide }: { children: React.ReactNode; autoHide?: boolean }) {

@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid"
-import { IDesign } from "@scenify/types"
+import { IDesign } from "@layerhub-io/types"
 
 export const defaultTemplate: IDesign = {
   id: nanoid(),

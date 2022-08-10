@@ -5,11 +5,11 @@ import Add from "~/components/Icons/Add"
 import { DesignEditorContext } from "~/contexts/DesignEditor"
 import { nanoid } from "nanoid"
 import { defaultTemplate } from "~/constants/design-editor"
-import { useEditor, useFrame } from "@scenify/react"
+import { useEditor, useFrame } from "@layerhub-io/react"
 import { Block } from "baseui/block"
 import { useTimer } from "@layerhub-io/use-timer"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
-import { IDesign } from "@scenify/types"
+import { IDesign } from "@layerhub-io/types"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   background: $theme.colors.white,

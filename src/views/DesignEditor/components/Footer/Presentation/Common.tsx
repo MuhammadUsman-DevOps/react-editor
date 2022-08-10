@@ -3,7 +3,7 @@ import { styled } from "baseui"
 import { Theme } from "baseui/theme"
 import Icons from "~/components/Icons"
 import { Button, KIND, SIZE } from "baseui/button"
-import { useEditor, useZoomRatio } from "@scenify/react"
+import { useEditor, useZoomRatio } from "@layerhub-io/react"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   height: "50px",

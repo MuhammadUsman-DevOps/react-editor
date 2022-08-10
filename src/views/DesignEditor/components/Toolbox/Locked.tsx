@@ -1,6 +1,6 @@
 import React from "react"
 import { Block } from "baseui/block"
-import { useEditor } from "@scenify/react"
+import { useEditor } from "@layerhub-io/react"
 import { PLACEMENT, StatefulTooltip } from "baseui/tooltip"
 import { Button, SIZE, KIND } from "baseui/button"
 import UnlockedIcon from "~/components/Icons/Unlocked"

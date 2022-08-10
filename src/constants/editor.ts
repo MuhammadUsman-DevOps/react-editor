@@ -1,4 +1,4 @@
-import { ILayer } from "@scenify/types"
+import { ILayer } from "@layerhub-io/types"
 
 export const SecondLevelMenus = ["FontFamily"]
 export const FirstLevelMenus = ["Background"]

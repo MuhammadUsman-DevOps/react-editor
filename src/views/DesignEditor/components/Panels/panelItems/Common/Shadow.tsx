@@ -4,7 +4,7 @@ import { StatefulPopover, PLACEMENT } from "baseui/popover"
 import { HexColorPicker } from "react-colorful"
 import { Slider } from "baseui/slider"
 import { Input } from "baseui/input"
-import { useActiveObject, useEditor } from "@scenify/react"
+import { useActiveObject, useEditor } from "@layerhub-io/react"
 
 interface Options {
   enabled: boolean

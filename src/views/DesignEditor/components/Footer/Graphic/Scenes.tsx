@@ -6,8 +6,8 @@ import useDesignEditorPages from "~/hooks/useDesignEditorScenes"
 import { DesignEditorContext } from "~/contexts/DesignEditor"
 import { nanoid } from "nanoid"
 import { defaultTemplate } from "~/constants/design-editor"
-import { useEditor } from "@scenify/react"
-import { IDesign } from "@scenify/types"
+import { useEditor } from "@layerhub-io/react"
+import { IDesign } from "@layerhub-io/types"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   background: $theme.colors.white,
