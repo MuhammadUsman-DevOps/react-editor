@@ -1,6 +1,8 @@
 # React editor
 
-[WIP] React editor for graphics, presentations and videos. It should be an alternative to canva.com.
+[WIP] React editor for graphics, presentations and videos. It should be an alternative to canva.com.  
+Try demo here [react-editor-core.vercel.app](https://react-editor-core.vercel.app/)
+
 
 <p>
     <a href="https://discord.gg/7jxnh8rHDV">
