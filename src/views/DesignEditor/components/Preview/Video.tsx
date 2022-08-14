@@ -20,7 +20,7 @@ function Video() {
       const currentTemplate = editor.design.exportToJSON()
       if (page.id === currentTemplate.id) {
         return {
-          duration: 5,
+          duration: page.duration! / 1000,
           layers: currentTemplate.layers,
         }
       }

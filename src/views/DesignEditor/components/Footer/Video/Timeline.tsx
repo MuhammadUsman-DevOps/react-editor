@@ -44,15 +44,6 @@ export default function () {
   }, [editor])
 
   React.useEffect(() => {
-    if (time * SCALE_FACTOR <= maxTime) {
-      setPosition({ ...position, x: (time * SCALE_FACTOR) / 40, y: 0 })
-    } else {
-      pause()
-      setDisplayPlayback(false)
-    }
-  }, [time])
-
-  React.useEffect(() => {
     if (editor) {
       if (currentScene) {
         updateCurrentScene(currentScene)
@@ -123,10 +114,23 @@ export default function () {
     },
     [editor, scenes, currentScene]
   )
+  const findSceneIndexByTime = (scenes: IDesign[], time: number) => {
+    let currentIndex = 0
+    let timeProgress = 0
+
+    for (const scene of scenes) {
+      if (scene.duration! > time - timeProgress) {
+        return currentIndex
+      }
+      timeProgress += scene.duration!
+      currentIndex += 1
+    }
+    return currentIndex
+  }
 
   React.useEffect(() => {
     if (editor && scenes && currentScene && status !== "RUNNING") {
-      const currentSceneIndex = Math.floor(time / 5000)
+      const currentSceneIndex = findSceneIndexByTime(scenes, time)
       const currentIndex = scenes.findIndex((page) => page.id === currentScene.id)
       if (currentSceneIndex !== currentIndex && scenes[currentSceneIndex]) {
         changePage(scenes[currentSceneIndex])
