@@ -6,7 +6,7 @@ import { Button, KIND, SIZE } from "baseui/button"
 import { useZoomRatio } from "@layerhub-io/react"
 import { useTimer } from "@layerhub-io/use-timer"
 import { Block } from "baseui/block"
-import useDesignEditorScenes from "~/hooks/useDesignEditorScenes"
+import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   height: "50px",
@@ -22,7 +22,7 @@ interface Options {
 
 export default function () {
   const { time } = useTimer()
-  const pages = useDesignEditorScenes()
+  const { maxTime } = useDesignEditorContext()
   const [options, setOptions] = React.useState<Options>({
     zoomRatio: 20,
   })
@@ -39,7 +39,7 @@ export default function () {
           <Icons.Layers size={20} />
         </Button>
         <Block>
-          {new Date(time).toISOString().slice(14, 19)} / {new Date(pages.length * 5000).toISOString().slice(14, 19)}
+          {new Date(time).toISOString().slice(14, 19)} / {new Date(maxTime).toISOString().slice(14, 19)}
         </Block>
       </Block>
       <Block $style={{ display: "flex", alignItems: "center", justifyContent: "end" }}>

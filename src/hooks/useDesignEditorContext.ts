@@ -13,6 +13,8 @@ function useDesignEditorContext() {
     setCurrentScene,
     setScenes,
     scenes,
+    maxTime,
+    setMaxTime
   } = useContext(DesignEditorContext)
   return {
     editorType,
@@ -25,6 +27,8 @@ function useDesignEditorContext() {
     setCurrentScene,
     setScenes,
     scenes,
+    maxTime,
+    setMaxTime
   }
 }
 

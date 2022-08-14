@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@layerhub-io/react': ^0.1.0
   '@layerhub-io/react-custom-scrollbar': ^0.0.1
-  '@layerhub-io/types': ^0.1.0
+  '@layerhub-io/types': ^0.1.1
   '@layerhub-io/use-timer': ^0.1.1
   '@reduxjs/toolkit': ^1.8.1
   '@types/lodash': ^4.14.182
@@ -61,7 +61,7 @@ dependencies:
   styletron-react: 6.1.0-beta.2_react@18.2.0
 
 devDependencies:
-  '@layerhub-io/types': 0.1.0
+  '@layerhub-io/types': 0.1.1
   '@types/lodash': 4.14.182
   '@types/mime': 2.0.3
   '@types/react': 18.0.14
@@ -398,7 +398,7 @@ packages:
     resolution: {integrity: sha512-zXRw5PiPc3FVLAhHMu2xdF++gRsJEV1Ef4VZO3DZz/X6/pvypz+A55hw3kPX/0JRlLAJh21rTiQ7qg1EIeziBw==}
     dependencies:
       '@layerhub-io/objects': 0.1.0_fabric@5.2.1
-      '@layerhub-io/types': 0.1.0
+      '@layerhub-io/types': 0.1.1
       fabric: 5.2.1
       lodash: 4.17.21
       nanoid: 3.3.4
@@ -444,8 +444,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@layerhub-io/types/0.1.0:
-    resolution: {integrity: sha512-hJOclg59vy1wUH6Fca+cl4/leSe1M6WtrLtAJ1ZQ749QrB+03TP/RBJzQln4cRt1t8vecpykiWZsb6RxMEFEDQ==}
+  /@layerhub-io/types/0.1.1:
+    resolution: {integrity: sha512-OALXwo/iB9TqyDZihCCfOVpBkV0UkPkTQCMvB/kZpqp0t1oiluAgxJ97amu+6E/092XnZqnnH0cb2KV4NxpnzA==}
 
   /@layerhub-io/use-timer/0.1.1_react@18.2.0:
     resolution: {integrity: sha512-t/fZ3UfCNcuMPaTfn8ppMtgyYgUDVRjSuYWDdij1S2Cewdsn46V5w8F5zYLd6IY7xNj/XjYlxW8WZbsiqG/ZXA==}

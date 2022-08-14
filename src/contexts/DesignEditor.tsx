@@ -15,6 +15,10 @@ interface IDesignEditorContext {
   setDisplayPlayback: React.Dispatch<React.SetStateAction<boolean>>
   displayPreview: boolean
   setDisplayPreview: React.Dispatch<React.SetStateAction<boolean>>
+  currentPreview: string
+  setCurrentPreview: React.Dispatch<React.SetStateAction<string>>
+  maxTime: number
+  setMaxTime: React.Dispatch<React.SetStateAction<number>>
 }
 
 export const DesignEditorContext = React.createContext<IDesignEditorContext>({
@@ -30,6 +34,10 @@ export const DesignEditorContext = React.createContext<IDesignEditorContext>({
   setDisplayPlayback: () => {},
   displayPreview: false,
   setDisplayPreview: () => {},
+  currentPreview: "",
+  setCurrentPreview: () => {},
+  maxTime: 0,
+  setMaxTime: () => {},
 })
 
 export const DesignEditorProvider = ({ children }: { children: React.ReactNode }) => {
@@ -39,7 +47,8 @@ export const DesignEditorProvider = ({ children }: { children: React.ReactNode }
   const [editorType, setEditorType] = React.useState<DesignType>("NONE")
   const [displayPlayback, setDisplayPlayback] = React.useState<boolean>(false)
   const [displayPreview, setDisplayPreview] = React.useState<boolean>(false)
-
+  const [currentPreview, setCurrentPreview] = React.useState<string>("")
+  const [maxTime, setMaxTime] = React.useState(5000)
   const context = {
     scenes,
     setScenes,
@@ -53,6 +62,10 @@ export const DesignEditorProvider = ({ children }: { children: React.ReactNode }
     setDisplayPlayback,
     displayPreview,
     setDisplayPreview,
+    currentPreview,
+    setCurrentPreview,
+    maxTime,
+    setMaxTime,
   }
   return <DesignEditorContext.Provider value={context}>{children}</DesignEditorContext.Provider>
 }
