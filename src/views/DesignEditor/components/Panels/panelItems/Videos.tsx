@@ -7,6 +7,7 @@ import { useEditor } from "@layerhub-io/react"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import { getPixabayVideos } from "~/services/pixabay"
 import { getPexelsVideos } from "~/services/pexels"
+import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 
 const loadVideoResource = (videoSrc: string): Promise<HTMLVideoElement> => {
   return new Promise(function (resolve, reject) {
@@ -48,7 +49,7 @@ const captureFrame = (video: HTMLVideoElement) => {
   })
 }
 
-const captureDuration = (video: HTMLVideoElement) => {
+const captureDuration = (video: HTMLVideoElement): Promise<number> => {
   return new Promise((resolve) => {
     resolve(video.duration)
   })
@@ -58,7 +59,7 @@ export default function () {
   const editor = useEditor()
   const setIsSidebarOpen = useSetIsSidebarOpen()
   const [videos, setVideos] = React.useState<any[]>([])
-
+  const { scenes, setScenes, currentScene } = useDesignEditorContext()
   const loadPixabayVideos = async () => {
     const videos = await getPixabayVideos("people")
     setVideos(videos)
@@ -79,9 +80,19 @@ export default function () {
         const frame = await captureFrame(video)
         const duration = await captureDuration(video)
         editor.objects.add({ ...options, duration, preview: frame })
+        const updatedScenes = scenes.map((scn) => {
+          if (scn.id === currentScene?.id) {
+            return {
+              ...currentScene,
+              duration: duration * 1000 > currentScene.duration! ? duration * 1000 : currentScene.duration!,
+            }
+          }
+          return scn
+        })
+        setScenes(updatedScenes)
       }
     },
-    [editor]
+    [editor, scenes, currentScene]
   )
 
   return (

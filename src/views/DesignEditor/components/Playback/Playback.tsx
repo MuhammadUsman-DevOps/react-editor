@@ -16,11 +16,12 @@ const Playback = () => {
   const { time } = useTimer()
   const loadFrames = React.useCallback(async () => {
     const currentTemplate = editor.design.exportToJSON()
+
     let refTime = 0
     const templates = pages.map((page) => {
       const currentTemplate = editor.design.exportToJSON()
       if (page.id === currentTemplate.id) {
-        return currentTemplate
+        return { ...currentTemplate, duration: page.duration }
       }
       return page
     })
@@ -33,15 +34,16 @@ const Playback = () => {
           ...layer,
           display: {
             from: refTime,
-            to: refTime + 5000,
+            to: refTime + template.duration!,
           },
         }
       })
       clips.push({
-        duration: 5000,
+        duration: template.duration!,
         layers: timedLayers,
       })
-      refTime += 5000
+
+      refTime += template.duration!
     }
 
     const videoTemplate = {
