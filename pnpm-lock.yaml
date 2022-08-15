@@ -12,6 +12,7 @@ specifiers:
   '@types/react': ^18.0.0
   '@types/react-dom': ^18.0.0
   '@vitejs/plugin-react': ^2.0.0
+  are-passive-events-supported: ^1.1.1
   axios: ^0.27.2
   baseui: ^12.0.0
   i18next: ^21.8.13
@@ -32,6 +33,7 @@ specifiers:
   styletron-engine-atomic: 1.5.0-beta.2
   styletron-react: 6.1.0-beta.2
   typescript: ^4.6.3
+  use-latest: ^1.2.1
   vite: ^3.0.0
 
 dependencies:
@@ -40,6 +42,7 @@ dependencies:
   '@layerhub-io/use-timer': 0.1.1_react@18.2.0
   '@reduxjs/toolkit': 1.8.2_kkwg4cbsojnjnupd3btipussee
   '@types/node': 17.0.45
+  are-passive-events-supported: 1.1.1
   axios: 0.27.2
   baseui: 12.0.0_vx6l3m7grhdjsdty3rfvukcune
   i18next: 21.8.13
@@ -59,6 +62,7 @@ dependencies:
   resize-observer-polyfill: 1.5.1
   styletron-engine-atomic: 1.5.0-beta.2
   styletron-react: 6.1.0-beta.2_react@18.2.0
+  use-latest: 1.2.1_luyos4mouogwq6z3wafb3re4ce
 
 devDependencies:
   '@layerhub-io/types': 0.1.1
@@ -1086,6 +1090,10 @@ packages:
     resolution: {integrity: sha512-lYe4Gx7QT+MKGbDsA+Z+he/Wtef0BiwDOlK/XkBrdfsh9J/jPPXbX0tE9x9cl27Tmu5gg3QUbUrQYa/y+KOHPQ==}
     dev: false
     optional: true
+
+  /are-passive-events-supported/1.1.1:
+    resolution: {integrity: sha512-5wnvlvB/dTbfrCvJ027Y4L4gW/6Mwoy1uFSavney0YO++GU+0e/flnjiBBwH+1kh7xNCgCOGvmJC3s32joYbww==}
+    dev: false
 
   /are-we-there-yet/2.0.0:
     resolution: {integrity: sha512-Ci/qENmwHnsYo9xKIcUJN5LeDKdJ6R1Z1j9V/J5wyq8nh/mYPEpIKJbBZXtZjG04HiK7zV/p6Vs9952MrMeUIw==}
@@ -3144,6 +3152,33 @@ packages:
       '@types/react': 18.0.14
       react: 18.2.0
       tslib: 2.4.0
+    dev: false
+
+  /use-isomorphic-layout-effect/1.1.2_luyos4mouogwq6z3wafb3re4ce:
+    resolution: {integrity: sha512-49L8yCO3iGT/ZF9QttjwLF/ZD9Iwto5LnH5LmEdk/6cFmXddqi2ulF0edxTwjj+7mqvpVVGQWvbXZdn32wRSHA==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 18.0.14
+      react: 18.2.0
+    dev: false
+
+  /use-latest/1.2.1_luyos4mouogwq6z3wafb3re4ce:
+    resolution: {integrity: sha512-xA+AVm/Wlg3e2P/JiItTziwS7FK92LWrDB0p+hgXloIMuVCeJJ8v6f0eeHyPZaJrM+usM1FkFfbNCrJGs8A/zw==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 18.0.14
+      react: 18.2.0
+      use-isomorphic-layout-effect: 1.1.2_luyos4mouogwq6z3wafb3re4ce
     dev: false
 
   /use-sidecar/1.1.2_luyos4mouogwq6z3wafb3re4ce:

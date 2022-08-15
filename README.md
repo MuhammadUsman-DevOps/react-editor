@@ -1,8 +1,7 @@
-# React editor
+# Design Editor
 
-[WIP] React editor for graphics, presentations and videos. It should be an alternative to canva.com.  
+If you are worrying about something like a designer tool, such as graphic editor, presentation editor, video editor, etc. Layerhub is a perfect choice for you.  
 Try demo here [react-editor-core.vercel.app](https://react-editor-core.vercel.app/)
-
 
 <p>
     <a href="https://discord.gg/7jxnh8rHDV">
@@ -10,25 +9,17 @@ Try demo here [react-editor-core.vercel.app](https://react-editor-core.vercel.ap
     </a>
 </p>
 
-## Editor components
+## Screenshots
 
 React editor created editors for graphics, presentations and video.
 
-### Select editor
+![Select Editor](https://i.ibb.co/y0L2C4c/select-editor.png)
 
-![Editor Preview](https://i.ibb.co/QdWxchZ/select-editor.png)
+![Video Editor](https://i.ibb.co/TTgdsk2/video-editor.png)
 
-### Image editor
+## Components
 
-![Editor Preview](https://i.ibb.co/FHHxdfp/graphic-editor.png)
-
-### Presentation editor
-
-![Editor Preview](https://i.ibb.co/GMbDptv/presentation-editor.png)
-
-### Video editor
-
-![Editor Preview](https://i.ibb.co/yd16JQY/video-editor.png)
+- @layerhub-io/react: This editor is using SDK for react.
 
 ## How to start
 

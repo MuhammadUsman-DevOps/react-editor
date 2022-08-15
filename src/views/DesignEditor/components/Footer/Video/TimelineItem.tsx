@@ -6,13 +6,7 @@ import { Resizable } from "~/components/Resizable"
 import { useTimer } from "@layerhub-io/use-timer"
 import useDesignEditorScenes from "~/hooks/useDesignEditorScenes"
 
-const BottomRightHandle = ({
-  isHover,
-  setControlHover,
-}: {
-  isHover: boolean
-  setControlHover: (v: boolean) => void
-}) => (
+const RightHandle = ({ isHover, setControlHover }: { isHover: boolean; setControlHover: (v: boolean) => void }) => (
   <div
     onMouseEnter={() => setControlHover(true)}
     onMouseLeave={() => setControlHover(false)}
@@ -37,18 +31,35 @@ interface TimelineItemProps {
   width: number
   height: number
   makeResizeTimelineItem: (id: string, props: any) => void
+  duration: number
 }
 
-export default function ({ id, preview, frame, width, height, makeResizeTimelineItem }: TimelineItemProps) {
+export default function ({ id, preview, frame, width, height, duration, makeResizeTimelineItem }: TimelineItemProps) {
   const [markerRefPosition, setMarkerRefPosition] = React.useState({ y: 0 })
   const { setTime } = useTimer()
-  const markerRef = React.useRef<HTMLDivElement>(null)
+  const timeLineItemRef = React.useRef<HTMLDivElement>(null)
   const scenes = useDesignEditorScenes()
   const [options, setOptions] = React.useState({
     isControlHover: false,
     isResizing: false,
     isItemHover: false,
   })
+
+  React.useEffect(() => {
+    const timeLineItemDiv = timeLineItemRef.current
+    const handleContextMenu = (event: MouseEvent) => {
+      event.preventDefault()
+      console.log("IT SHULD DISPLAY A MENU", event.pageX)
+    }
+    if (timeLineItemDiv) {
+      timeLineItemDiv.addEventListener("contextmenu", handleContextMenu)
+    }
+    return () => {
+      if (timeLineItemDiv) {
+        timeLineItemDiv.removeEventListener("contextmenu", handleContextMenu)
+      }
+    }
+  }, [timeLineItemRef])
 
   const setControlHover = React.useCallback(
     (isHover: boolean) => {
@@ -58,12 +69,12 @@ export default function ({ id, preview, frame, width, height, makeResizeTimeline
   )
 
   const onMouseMoveItem = (evt: any) => {
-    if (markerRef.current) {
-      const position = evt.pageX - markerRef.current?.getBoundingClientRect().left
+    if (timeLineItemRef.current) {
+      const position = evt.pageX - timeLineItemRef.current?.getBoundingClientRect().left
       setMarkerRefPosition({ y: position })
     }
   }
-  const refBoundingRect = markerRef.current?.getBoundingClientRect()
+  const refBoundingRect = timeLineItemRef.current?.getBoundingClientRect()
 
   const setTimeByMarker = React.useCallback(
     (id: string, change: number) => {
@@ -78,6 +89,7 @@ export default function ({ id, preview, frame, width, height, makeResizeTimeline
     },
     [scenes]
   )
+
   return (
     <Resizable
       onResizeStart={() => setOptions({ ...options, isResizing: true })}
@@ -102,17 +114,13 @@ export default function ({ id, preview, frame, width, height, makeResizeTimeline
       }}
       size={{ width: width, height: height }}
       handleComponent={{
-        right: (
-          <BottomRightHandle setControlHover={setControlHover} isHover={options.isControlHover || options.isResizing} />
-        ),
-        left: (
-          <BottomRightHandle setControlHover={setControlHover} isHover={options.isControlHover || options.isResizing} />
-        ),
+        right: <RightHandle setControlHover={setControlHover} isHover={options.isControlHover || options.isResizing} />,
+        left: <RightHandle setControlHover={setControlHover} isHover={options.isControlHover || options.isResizing} />,
       }}
     >
       <Block
         onMouseMove={onMouseMoveItem}
-        ref={markerRef}
+        ref={timeLineItemRef}
         $style={{
           background: "rgb(243,244,246)",
           width: "100%",
@@ -141,7 +149,6 @@ export default function ({ id, preview, frame, width, height, makeResizeTimeline
             markerRefPosition.y + 22 < refBoundingRect.width &&
             markerRefPosition.y > 22 && (
               <Block
-                // ref={markerRef}
                 onClick={() => {
                   setTimeByMarker(id, markerRefPosition.y * 40)
                 }}
@@ -158,24 +165,24 @@ export default function ({ id, preview, frame, width, height, makeResizeTimeline
               ></Block>
             )}
 
-          {/* <Block
+          <Block
             $style={{
               position: "absolute",
               bottom: "4px",
-              right: "4px",
-              background: "rgba(0,0,0,0.4)",
+              left: "8px",
+              background: "rgba(0,0,0,0.65)",
               color: "#fff",
               fontSize: "10px",
-              borderRadius: "2px",
+              borderRadius: "8px",
               height: "16px",
-              width: "16px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              padding: "0.15rem 0.35rem",
             }}
           >
-            Hi
-          </Block> */}
+            {(duration / 1000).toFixed(1)}s
+          </Block>
         </Block>
       </Block>
     </Resizable>

@@ -6,10 +6,6 @@ import Panels from "./components/Panels"
 import Canvas from "./components/Canvas"
 import Footer from "./components/Footer"
 import Toolbox from "./components/Toolbox"
-import { DesignType } from "~/interfaces/DesignEditor"
-import { useAppDispatch } from "~/store/store"
-import { getUploads } from "~/store/slices/uploads/actions"
-import { getPixabayResources } from "~/store/slices/resources/actions"
 import useEditorType from "~/hooks/useEditorType"
 import SelectEditor from "./SelectEditor"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
@@ -25,10 +21,18 @@ const Container = styled<"div", {}, CustomTheme>("div", ({ $theme }) => ({
   flexDirection: "column",
   background: $theme.colors.white,
   fontFamily: "Uber Move Text",
+  position: "relative",
 }))
 
+const TimelineContextMenu = () => {
+  return (
+    <Block $style={{ width: "240px", height: "80px", position: "absolute", background: "yellow", zIndex: 4 }}>
+      Hello world
+    </Block>
+  )
+}
+
 function VideoEditor() {
-  const [designType, setDesignType] = React.useState<DesignType>("GRAPHIC")
   const editorType = useEditorType()
   const { displayPreview, setDisplayPreview } = useDesignEditorContext()
 
@@ -40,6 +44,7 @@ function VideoEditor() {
       {displayPreview && <Preview isOpen={displayPreview} setIsOpen={setDisplayPreview} />}
 
       <Container>
+        {/* <TimelineContextMenu /> */}
         <Navbar />
         <div style={{ display: "flex", flex: 1 }}>
           <Panels />

@@ -49,6 +49,7 @@ export default function () {
           <TimelineItem
             makeResizeTimelineItem={makeResizeTimelineItem}
             width={page.duration ? page.duration / 40 : 5000 / 40}
+            duration={page.duration ? page.duration : 5000}
             height={70}
             key={page.id}
             frame={frame}
