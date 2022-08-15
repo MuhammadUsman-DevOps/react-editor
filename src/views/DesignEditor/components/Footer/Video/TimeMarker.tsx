@@ -6,7 +6,7 @@ import { DesignEditorContext } from "~/contexts/DesignEditor"
 const SCALE_FACTOR = 1
 
 export default function () {
-  const { time, setTime, pause, status } = useTimer()
+  const { time, setTime, pause } = useTimer()
 
   const [markerRefPosition, setMarkerRefPosition] = React.useState({ y: 0 })
   const [position, setPosition] = React.useState({
@@ -61,20 +61,6 @@ export default function () {
     window.addEventListener("mouseup", onStop)
   }
 
-  const onMouseMoveItem = (e: MouseEvent) => {
-    const playHeadDomRef = document.getElementById("EditorPlayHead") as HTMLDivElement
-    const panelsListRef = document.getElementById("EditorPanelList") as HTMLDivElement
-    const panelItemRef = document.getElementById("EditorPanelItem") as HTMLDivElement
-    const playControlRef = document.getElementById("EditorPlayControl") as HTMLDivElement
-
-    const panelItemsWidth =
-      panelsListRef.getBoundingClientRect().width +
-      panelItemRef.getBoundingClientRect().width +
-      playControlRef.getBoundingClientRect().width
-
-    setMarkerRefPosition({ y: e.clientX - panelItemsWidth })
-  }
-
   return (
     <>
       <Block
@@ -111,23 +97,6 @@ export default function () {
           }}
         />
       </Block>
-      <Block
-        onClick={() => {
-          setTime(markerRefPosition.y * 40)
-        }}
-        $style={{
-          position: "absolute",
-          zIndex: "4",
-          left: `${markerRefPosition.y}px`,
-          top: "12px",
-          bottom: "0px",
-          height: "84px",
-          width: "2px",
-          backgroundColor: "#333333",
-          transform: "translate(0, -2px)",
-          cursor: "pointer",
-        }}
-      ></Block>
     </>
   )
 }

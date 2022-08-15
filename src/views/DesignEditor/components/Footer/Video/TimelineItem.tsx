@@ -3,6 +3,7 @@ import { IFrame } from "@layerhub-io/types"
 import { Block } from "baseui/block"
 import VerticalLine from "~/components/Icons/VerticalLine"
 import { Resizable } from "~/components/Resizable"
+import { useTimer } from "@layerhub-io/use-timer"
 
 const BottomRightHandle = ({
   isHover,
@@ -38,9 +39,13 @@ interface TimelineItemProps {
 }
 
 export default function ({ id, preview, frame, width, height, makeResizeTimelineItem }: TimelineItemProps) {
+  const [markerRefPosition, setMarkerRefPosition] = React.useState({ y: 0 })
+  const { setTime } = useTimer()
+  const markerRef = React.useRef<HTMLDivElement>(null)
   const [options, setOptions] = React.useState({
     isControlHover: false,
     isResizing: false,
+    isItemHover: false,
   })
 
   const setControlHover = React.useCallback(
@@ -49,6 +54,14 @@ export default function ({ id, preview, frame, width, height, makeResizeTimeline
     },
     [options]
   )
+
+  const onMouseMoveItem = (evt: any) => {
+    if (markerRef.current) {
+      const position = evt.pageX - markerRef.current?.getBoundingClientRect().left
+      setMarkerRefPosition({ y: position })
+    }
+  }
+  const refBoundingRect = markerRef.current?.getBoundingClientRect()
 
   return (
     <Resizable
@@ -83,8 +96,8 @@ export default function ({ id, preview, frame, width, height, makeResizeTimeline
       }}
     >
       <Block
-        // @ts-ignore
-        //   onMouseMove={onMouseMoveItem}
+        onMouseMove={onMouseMoveItem}
+        ref={markerRef}
         $style={{
           background: "rgb(243,244,246)",
           width: "100%",
@@ -92,6 +105,8 @@ export default function ({ id, preview, frame, width, height, makeResizeTimeline
         }}
       >
         <Block
+          onMouseEnter={() => setOptions({ ...options, isItemHover: true })}
+          onMouseLeave={() => setOptions({ ...options, isItemHover: false })}
           $style={{
             cursor: "pointer",
             position: "relative",
@@ -105,6 +120,29 @@ export default function ({ id, preview, frame, width, height, makeResizeTimeline
               height: "70px",
             }}
           ></Block>
+
+          {options.isItemHover &&
+            refBoundingRect &&
+            markerRefPosition.y + 22 < refBoundingRect.width &&
+            markerRefPosition.y > 22 && (
+              <Block
+                // ref={markerRef}
+                onClick={() => {
+                  setTime(markerRefPosition.y * 40)
+                }}
+                $style={{
+                  position: "absolute",
+                  left: `${markerRefPosition.y}px`,
+                  bottom: "0px",
+                  height: "70px",
+                  width: "2px",
+                  backgroundColor: "#333333",
+                  transform: "translate(0, -2px)",
+                  cursor: "pointer",
+                }}
+              ></Block>
+            )}
+
           <Block
             $style={{
               position: "absolute",

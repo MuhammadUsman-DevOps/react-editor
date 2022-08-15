@@ -7,25 +7,17 @@ import { defaultTemplate } from "~/constants/design-editor"
 import { useEditor } from "@layerhub-io/react"
 import { Block } from "baseui/block"
 import { useTimer } from "@layerhub-io/use-timer"
-import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 import { IDesign } from "@layerhub-io/types"
 import TimelineItems from "./TimelineItems"
 import TimeMarker from "./TimeMarker"
 import TimelineControl from "./TimelineControl"
 
-const SCALE_FACTOR = 1
-
 export default function () {
-  const { time, setTime, pause, status } = useTimer()
+  const { time, setTime, status } = useTimer()
   const { setScenes, setCurrentScene, currentScene, scenes, setCurrentPreview, maxTime, setMaxTime } =
     React.useContext(DesignEditorContext)
-  const { setDisplayPlayback } = useDesignEditorContext()
   const editor = useEditor()
   const [css] = useStyletron()
-  const [position, setPosition] = React.useState({
-    x: 0,
-    y: 0,
-  })
 
   React.useEffect(() => {
     let watcher = async () => {
