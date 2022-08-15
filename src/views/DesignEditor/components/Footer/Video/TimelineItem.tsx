@@ -4,6 +4,7 @@ import { Block } from "baseui/block"
 import VerticalLine from "~/components/Icons/VerticalLine"
 import { Resizable } from "~/components/Resizable"
 import { useTimer } from "@layerhub-io/use-timer"
+import useDesignEditorScenes from "~/hooks/useDesignEditorScenes"
 
 const BottomRightHandle = ({
   isHover,
@@ -42,6 +43,7 @@ export default function ({ id, preview, frame, width, height, makeResizeTimeline
   const [markerRefPosition, setMarkerRefPosition] = React.useState({ y: 0 })
   const { setTime } = useTimer()
   const markerRef = React.useRef<HTMLDivElement>(null)
+  const scenes = useDesignEditorScenes()
   const [options, setOptions] = React.useState({
     isControlHover: false,
     isResizing: false,
@@ -63,6 +65,19 @@ export default function ({ id, preview, frame, width, height, makeResizeTimeline
   }
   const refBoundingRect = markerRef.current?.getBoundingClientRect()
 
+  const setTimeByMarker = React.useCallback(
+    (id: string, change: number) => {
+      const currentIndex = scenes.findIndex((scn) => scn.id === id)
+      if (currentIndex > -1) {
+        const prevScenes = scenes.slice(0, currentIndex)
+        const prevDuration = prevScenes.reduce(function (previousVal, currentValue) {
+          return previousVal + currentValue.duration!
+        }, 0)
+        setTime(prevDuration + change)
+      }
+    },
+    [scenes]
+  )
   return (
     <Resizable
       onResizeStart={() => setOptions({ ...options, isResizing: true })}
@@ -106,7 +121,7 @@ export default function ({ id, preview, frame, width, height, makeResizeTimeline
       >
         <Block
           onMouseEnter={() => setOptions({ ...options, isItemHover: true })}
-          onMouseLeave={() => setOptions({ ...options, isItemHover: false })}
+          onMouseLeave={() => setOptions({ ...options, isItemHover: false, isControlHover: false })}
           $style={{
             cursor: "pointer",
             position: "relative",
@@ -128,7 +143,7 @@ export default function ({ id, preview, frame, width, height, makeResizeTimeline
               <Block
                 // ref={markerRef}
                 onClick={() => {
-                  setTime(markerRefPosition.y * 40)
+                  setTimeByMarker(id, markerRefPosition.y * 40)
                 }}
                 $style={{
                   position: "absolute",
@@ -143,7 +158,7 @@ export default function ({ id, preview, frame, width, height, makeResizeTimeline
               ></Block>
             )}
 
-          <Block
+          {/* <Block
             $style={{
               position: "absolute",
               bottom: "4px",
@@ -160,7 +175,7 @@ export default function ({ id, preview, frame, width, height, makeResizeTimeline
             }}
           >
             Hi
-          </Block>
+          </Block> */}
         </Block>
       </Block>
     </Resizable>
