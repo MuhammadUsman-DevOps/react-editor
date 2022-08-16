@@ -8,7 +8,6 @@ const SCALE_FACTOR = 1
 export default function () {
   const { time, setTime, pause } = useTimer()
 
-  const [markerRefPosition, setMarkerRefPosition] = React.useState({ y: 0 })
   const [position, setPosition] = React.useState({
     x: 0,
     y: 0,
@@ -67,7 +66,7 @@ export default function () {
         onMouseDown={onStart}
         $style={{
           position: "absolute",
-          zIndex: "4",
+          zIndex: 3,
           left: `${position.x}px`,
           top: "-2px",
           width: "2px",

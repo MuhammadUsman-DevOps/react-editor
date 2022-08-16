@@ -3,15 +3,8 @@ import { styled } from "baseui"
 import { Theme } from "baseui/theme"
 import Icons from "~/components/Icons"
 import { Button, KIND, SIZE } from "baseui/button"
-import { useEditor, useZoomRatio } from "@layerhub-io/react"
-
-const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
-  height: "50px",
-  background: $theme.colors.white,
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-}))
+import { useZoomRatio } from "@layerhub-io/react"
+import { Block } from "baseui/block"
 
 interface Options {
   zoomRatio: number
@@ -28,7 +21,15 @@ export default function () {
   }, [zoomRatio])
 
   return (
-    <Container>
+    <Block
+      $style={{
+        height: "50px",
+        background: "#ffffff",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
       <div>
         <Button kind={KIND.tertiary} size={SIZE.compact}>
           <Icons.Layers size={20} />
@@ -48,6 +49,6 @@ export default function () {
           <Icons.TimePast size={16} />
         </Button>
       </div>
-    </Container>
+    </Block>
   )
 }

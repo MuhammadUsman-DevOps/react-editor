@@ -59,21 +59,6 @@ export default function () {
       }}
     >
       <Block
-        $style={{
-          fontSize: "14px",
-          height: "28px",
-          display: "flex",
-          alignItems: "center",
-          padding: "0 1rem",
-          ":hover": {
-            backgroundColor: "rgba(0,0,0,0.1)",
-            cursor: "pointer",
-          },
-        }}
-      >
-        Add Scene
-      </Block>
-      <Block
         onClick={makeDuplicateScene}
         $style={{
           fontSize: "14px",
