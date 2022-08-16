@@ -11,11 +11,13 @@ import { IDesign } from "@layerhub-io/types"
 import TimelineItems from "./TimelineItems"
 import TimeMarker from "./TimeMarker"
 import TimelineControl from "./TimelineControl"
+import TimelineContextMenu from "./TimelineContextMenu"
+import useContextMenuTimelineRequest from "~/hooks/useContextMenuTimelineRequest"
 
 export default function () {
   const { time, setTime, status } = useTimer()
-  const { setScenes, setCurrentScene, currentScene, scenes, setCurrentPreview, maxTime, setMaxTime } =
-    React.useContext(DesignEditorContext)
+  const { setScenes, setCurrentScene, currentScene, scenes, setCurrentPreview } = React.useContext(DesignEditorContext)
+  const contextMenuTimelineRequest = useContextMenuTimelineRequest()
   const editor = useEditor()
   const [css] = useStyletron()
 
@@ -135,32 +137,28 @@ export default function () {
       <TimelineControl />
       <Block $style={{ background: "#ffffff" }}>
         <div className={css({ display: "flex", alignItems: "center" })}>
-          <Block $style={{ display: "flex", alignItems: "center", position: "relative", flex: 1 }}>
-            <Block $style={{ display: "flex", alignItems: "center", position: "relative", padding: "1rem 0" }}>
-              <TimeMarker />
-              <TimelineItems />
-            </Block>
+          <Block
+            id="TimelineItemsContainer"
+            $style={{ display: "flex", alignItems: "center", position: "relative", padding: "1rem 0", flex: 1 }}
+          >
+            {contextMenuTimelineRequest.visible && <TimelineContextMenu />}
+            <TimeMarker />
+            <TimelineItems />
           </Block>
-          <div
-            style={{
-              background: "#ffffff",
+          <Block
+            onClick={addScene}
+            $style={{
+              width: "100px",
+              height: "56px",
+              background: "rgb(243,244,246)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
             }}
           >
-            <Block
-              onClick={addScene}
-              $style={{
-                width: "100px",
-                height: "56px",
-                background: "rgb(243,244,246)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-              }}
-            >
-              <Add size={20} />
-            </Block>
-          </div>
+            <Add size={20} />
+          </Block>
         </div>
       </Block>
     </Block>

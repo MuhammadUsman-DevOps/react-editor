@@ -24,14 +24,6 @@ const Container = styled<"div", {}, CustomTheme>("div", ({ $theme }) => ({
   position: "relative",
 }))
 
-const TimelineContextMenu = () => {
-  return (
-    <Block $style={{ width: "240px", height: "80px", position: "absolute", background: "yellow", zIndex: 4 }}>
-      Hello world
-    </Block>
-  )
-}
-
 function VideoEditor() {
   const editorType = useEditorType()
   const { displayPreview, setDisplayPreview } = useDesignEditorContext()

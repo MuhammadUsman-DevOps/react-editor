@@ -5,6 +5,7 @@ import VerticalLine from "~/components/Icons/VerticalLine"
 import { Resizable } from "~/components/Resizable"
 import { useTimer } from "@layerhub-io/use-timer"
 import useDesignEditorScenes from "~/hooks/useDesignEditorScenes"
+import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 
 const RightHandle = ({ isHover, setControlHover }: { isHover: boolean; setControlHover: (v: boolean) => void }) => (
   <div
@@ -36,6 +37,7 @@ interface TimelineItemProps {
 
 export default function ({ id, preview, frame, width, height, duration, makeResizeTimelineItem }: TimelineItemProps) {
   const [markerRefPosition, setMarkerRefPosition] = React.useState({ y: 0 })
+  const { setContextMenuTimelineRequest } = useDesignEditorContext()
   const { setTime } = useTimer()
   const timeLineItemRef = React.useRef<HTMLDivElement>(null)
   const scenes = useDesignEditorScenes()
@@ -50,6 +52,12 @@ export default function ({ id, preview, frame, width, height, duration, makeResi
     const handleContextMenu = (event: MouseEvent) => {
       event.preventDefault()
       console.log("IT SHULD DISPLAY A MENU", event.pageX)
+      setContextMenuTimelineRequest({
+        id,
+        left: event.pageX,
+        top: event.pageY,
+        visible: true,
+      })
     }
     if (timeLineItemDiv) {
       timeLineItemDiv.addEventListener("contextmenu", handleContextMenu)
