@@ -61,7 +61,6 @@ export default function ({
     const timeLineItemDiv = timeLineItemRef.current
     const handleContextMenu = (event: MouseEvent) => {
       event.preventDefault()
-      console.log("IT SHULD DISPLAY A MENU", event.pageX)
       setContextMenuTimelineRequest({
         id,
         left: event.pageX,

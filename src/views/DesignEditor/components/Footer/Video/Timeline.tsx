@@ -13,6 +13,7 @@ import TimeMarker from "./TimeMarker"
 import TimelineControl from "./TimelineControl"
 import TimelineContextMenu from "./TimelineContextMenu"
 import useContextMenuTimelineRequest from "~/hooks/useContextMenuTimelineRequest"
+import { findSceneIndexByTime } from "~/views/DesignEditor/utils/scenes"
 
 export default function () {
   const { time, setTime, status } = useTimer()
@@ -108,19 +109,6 @@ export default function () {
     },
     [editor, scenes, currentScene]
   )
-  const findSceneIndexByTime = (scenes: IDesign[], time: number) => {
-    let currentIndex = 0
-    let timeProgress = 0
-
-    for (const scene of scenes) {
-      if (scene.duration! > time - timeProgress) {
-        return currentIndex
-      }
-      timeProgress += scene.duration!
-      currentIndex += 1
-    }
-    return currentIndex
-  }
 
   React.useEffect(() => {
     if (editor && scenes && currentScene && status !== "RUNNING") {
