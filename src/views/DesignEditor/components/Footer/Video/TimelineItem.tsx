@@ -33,9 +33,19 @@ interface TimelineItemProps {
   height: number
   makeResizeTimelineItem: (id: string, props: any) => void
   duration: number
+  isCurrentScene: boolean
 }
 
-export default function ({ id, preview, frame, width, height, duration, makeResizeTimelineItem }: TimelineItemProps) {
+export default function ({
+  id,
+  preview,
+  frame,
+  width,
+  height,
+  duration,
+  isCurrentScene,
+  makeResizeTimelineItem,
+}: TimelineItemProps) {
   const [markerRefPosition, setMarkerRefPosition] = React.useState({ y: 0 })
   const { setContextMenuTimelineRequest } = useDesignEditorContext()
   const { setTime } = useTimer()
@@ -118,7 +128,7 @@ export default function ({ id, preview, frame, width, height, duration, makeResi
       style={{
         overflow: "hidden",
         borderRadius: "10px",
-        border: "1px solid rgba(0,0,0,.15)",
+        border: isCurrentScene ? "2px solid #7158e2" : "2px solid rgba(0,0,0,.15)",
       }}
       size={{ width: width, height: height }}
       handleComponent={{

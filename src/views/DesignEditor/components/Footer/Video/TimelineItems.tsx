@@ -55,6 +55,7 @@ export default function () {
             frame={frame}
             id={page.id}
             preview={currentPreview && page.id === currentScene?.id ? currentPreview : page.preview || ""}
+            isCurrentScene={(currentScene && currentScene.id === page.id) || false}
           />
         )
       })}
