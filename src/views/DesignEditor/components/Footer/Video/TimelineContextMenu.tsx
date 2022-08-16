@@ -2,10 +2,17 @@ import React from "react"
 import { Block } from "baseui/block"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 import { nanoid } from "nanoid"
+import useOnClickOutside from "~/hooks/useOnClickOutside"
 
 export default function () {
   const { scenes, setScenes, setContextMenuTimelineRequest, contextMenuTimelineRequest, currentScene } =
     useDesignEditorContext()
+  const ref = React.useRef<HTMLDivElement | null>(null)
+
+  useOnClickOutside(ref, () => {
+    setContextMenuTimelineRequest({ ...contextMenuTimelineRequest, visible: false })
+  })
+
   const timelineItemsContainerBounds = document.getElementById("TimelineItemsContainer")?.getBoundingClientRect() || {
     top: 0,
     left: 0,
@@ -27,6 +34,7 @@ export default function () {
 
   return (
     <Block
+      ref={ref}
       $style={{
         width: "160px",
         position: "absolute",
