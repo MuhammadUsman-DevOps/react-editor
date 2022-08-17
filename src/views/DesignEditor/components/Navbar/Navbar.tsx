@@ -170,6 +170,7 @@ export default function () {
         id: nanoid(),
         layers: scene.layers,
         metadata: {},
+        duration: scene.duration,
       }
       const loadedDesign = await loadVideoEditorAssets(design)
 
