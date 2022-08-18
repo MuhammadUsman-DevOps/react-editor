@@ -4,51 +4,24 @@ import AngleDoubleLeft from "~/components/Icons/AngleDoubleLeft"
 import Scrollable from "~/components/Scrollable"
 import { Button, SIZE } from "baseui/button"
 import DropZone from "~/components/Dropzone"
-import { useAppDispatch } from "~/store/store"
-import { setUploading, uploadFile } from "~/store/slices/uploads/actions"
-import { useSelector } from "react-redux"
-import { selectUploading, selectUploads } from "~/store/slices/uploads/selectors"
 import { useEditor } from "@layerhub-io/react"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
+import { nanoid } from "nanoid"
 
 export default function () {
-  const [currentFile, setCurrentFile] = React.useState<any>(null)
   const inputFileRef = React.useRef<HTMLInputElement>(null)
-  const uploading = useSelector(selectUploading)
-  const uploads = useSelector(selectUploads)
+  const [uploads, setUploads] = React.useState<any[]>([])
   const editor = useEditor()
-  const dispatch = useAppDispatch()
   const setIsSidebarOpen = useSetIsSidebarOpen()
 
   const handleDropFiles = (files: FileList) => {
     const file = files[0]
-    handleUploadFile(file)
-    const reader = new FileReader()
-    reader.addEventListener(
-      "load",
-      function () {
-        setCurrentFile(reader.result)
-      },
-      false
-    )
-
-    if (file) {
-      reader.readAsDataURL(file)
+    const url = URL.createObjectURL(file)
+    const upload = {
+      id: nanoid(),
+      url,
     }
-  }
-
-  const handleUploadFile = async (file: File) => {
-    try {
-      dispatch(
-        setUploading({
-          progress: 0,
-          status: "IN_PROGRESS",
-        })
-      )
-      dispatch(uploadFile({ file: file }))
-    } catch (err) {
-      console.log({ err })
-    }
+    setUploads([...uploads, upload])
   }
 
   const handleInputFileRefClick = () => {
@@ -109,8 +82,6 @@ export default function () {
                 gridTemplateColumns: "1fr 1fr",
               }}
             >
-              {uploading && <img width="100%" src={currentFile} alt="uploaded" />}
-
               {uploads.map((upload) => (
                 <div
                   key={upload.id}
