@@ -3,7 +3,7 @@ import { Block } from "baseui/block"
 import useDesignEditorScenes from "~/hooks/useDesignEditorScenes"
 import { Carousel } from "react-responsive-carousel"
 import { useEditor } from "@layerhub-io/react"
-import { IDesign } from "@layerhub-io/types"
+import { IScene } from "@layerhub-io/types"
 import Loading from "~/components/Loading"
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 
@@ -14,7 +14,7 @@ export default function () {
   const [loading, setLoading] = React.useState(true)
 
   const loadSlides = React.useCallback(
-    async (scenes: IDesign[]) => {
+    async (scenes: IScene[]) => {
       const slides = []
       for (const scene of scenes) {
         const preview = (await editor.renderer.render(scene)) as string
@@ -31,7 +31,7 @@ export default function () {
 
   React.useEffect(() => {
     if (scenes && editor) {
-      const currentScene = editor.design.exportToJSON()
+      const currentScene = editor.scene.exportToJSON()
       const updatedScenes = scenes.map((scene) => {
         if (scene.id === currentScene.id) {
           return currentScene

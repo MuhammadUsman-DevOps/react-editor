@@ -11,7 +11,7 @@ export default function () {
 
   const makePreview = React.useCallback(async () => {
     if (editor) {
-      const template = editor.design.exportToJSON()
+      const template = editor.scene.exportToJSON()
       const image = (await editor.renderer.render(template)) as string
       setState({ image })
       setLoading(false)

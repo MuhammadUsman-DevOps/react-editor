@@ -6,7 +6,7 @@ import { DesignEditorContext } from "~/contexts/DesignEditor"
 import { nanoid } from "nanoid"
 import { defaultTemplate } from "~/constants/design-editor"
 import { useEditor } from "@layerhub-io/react"
-import { IDesign } from "@layerhub-io/types"
+import { IScene } from "@layerhub-io/types"
 import { Block } from "baseui/block"
 
 export default function () {
@@ -27,7 +27,7 @@ export default function () {
 
   React.useEffect(() => {
     let watcher = async () => {
-      const updatedTemplate = editor.design.exportToJSON()
+      const updatedTemplate = editor.scene.exportToJSON()
       const updatedPreview = (await editor.renderer.render(updatedTemplate)) as string
       setCurrentPreview(updatedPreview)
     }
@@ -46,10 +46,10 @@ export default function () {
       if (currentScene) {
         updateCurrentScene(currentScene)
       } else {
-        editor.design
+        editor.scene
           .importFromJSON(defaultTemplate)
           .then(() => {
-            const initialDesign = editor.design.exportToJSON() as any
+            const initialDesign = editor.scene.exportToJSON() as any
             editor.renderer.render(initialDesign).then((data) => {
               setCurrentScene({ ...initialDesign, preview: data })
               setScenes([{ ...initialDesign, preview: data }])
@@ -61,8 +61,8 @@ export default function () {
   }, [editor, currentScene])
 
   const updateCurrentScene = React.useCallback(
-    async (design: IDesign) => {
-      await editor.design.importFromJSON(design)
+    async (design: IScene) => {
+      await editor.scene.importFromJSON(design)
       const updatedPreview = (await editor.renderer.render(design)) as string
       setCurrentPreview(updatedPreview)
     },
@@ -71,7 +71,7 @@ export default function () {
 
   const addPage = React.useCallback(async () => {
     setCurrentPreview("")
-    const updatedTemplate = editor.design.exportToJSON()
+    const updatedTemplate = editor.scene.exportToJSON()
     const updatedPreview = await editor.renderer.render(updatedTemplate)
 
     const updatedPages = scenes.map((p) => {
@@ -91,7 +91,7 @@ export default function () {
     async (page: any) => {
       setCurrentPreview("")
       if (editor) {
-        const updatedTemplate = editor.design.exportToJSON()
+        const updatedTemplate = editor.scene.exportToJSON()
         const updatedPreview = await editor.renderer.render(updatedTemplate)
 
         const updatedPages = scenes.map((p) => {

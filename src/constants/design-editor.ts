@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid"
-import { IDesign } from "@layerhub-io/types"
+import { IScene } from "@layerhub-io/types"
 
-export const defaultTemplate: IDesign = {
+export const defaultTemplate: IScene = {
   id: nanoid(),
   frame: {
     width: 1200,

@@ -1,5 +1,5 @@
 import { FontItem } from "~/interfaces/common"
-import { IDesign, ILayer, IStaticText } from "@layerhub-io/types"
+import { IScene, ILayer, IStaticText } from "@layerhub-io/types"
 
 const getFontsFromObjects = (objects: Partial<ILayer>[]) => {
   let fonts: any[] = []
@@ -20,7 +20,7 @@ const getFontsFromObjects = (objects: Partial<ILayer>[]) => {
   return fonts
 }
 
-export const loadTemplateFonts = async (design: IDesign) => {
+export const loadTemplateFonts = async (design: IScene) => {
   const fonts = getFontsFromObjects(design.layers)
   if (fonts.length > 0) {
     await loadFonts(fonts)

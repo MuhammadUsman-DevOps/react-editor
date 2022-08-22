@@ -1,6 +1,6 @@
-import { IDesign } from "@layerhub-io/types"
+import { IScene } from "@layerhub-io/types"
 
-export const findSceneIndexByTime = (scenes: IDesign[], time: number) => {
+export const findSceneIndexByTime = (scenes: IScene[], time: number) => {
   let currentIndex = 0
   let timeProgress = 0
   for (const scene of scenes) {
@@ -13,7 +13,7 @@ export const findSceneIndexByTime = (scenes: IDesign[], time: number) => {
   return -1
 }
 
-export const getMaxTime = (scenes: IDesign[]) => {
+export const getMaxTime = (scenes: IScene[]) => {
   const maxTime = scenes.reduce(function (previousVal, currentValue) {
     return previousVal + currentValue.duration!
   }, 0)

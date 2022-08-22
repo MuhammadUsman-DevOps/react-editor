@@ -16,7 +16,9 @@ function useDesignEditorContext() {
     maxTime,
     setMaxTime,
     contextMenuTimelineRequest,
-    setContextMenuTimelineRequest
+    setContextMenuTimelineRequest,
+    currentDesign,
+    setCurrentDesign,
   } = useContext(DesignEditorContext)
   return {
     editorType,
@@ -32,7 +34,9 @@ function useDesignEditorContext() {
     maxTime,
     setMaxTime,
     contextMenuTimelineRequest,
-    setContextMenuTimelineRequest
+    setContextMenuTimelineRequest,
+    currentDesign,
+    setCurrentDesign,
   }
 }
 

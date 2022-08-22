@@ -10,7 +10,7 @@ import { useEditor } from "@layerhub-io/react"
 import useEditorType from "~/hooks/useEditorType"
 import useDesignEditorScenes from "~/hooks/useDesignEditorScenes"
 import { nanoid } from "nanoid"
-import { IDesign } from "@layerhub-io/types"
+import { IScene } from "@layerhub-io/types"
 import { loadTemplateFonts } from "~/utils/fonts"
 import { loadVideoEditorAssets } from "~/utils/video"
 import DesignTitle from "./DesignTitle"
@@ -32,7 +32,7 @@ export default function () {
   const inputFileRef = React.useRef<HTMLInputElement>(null)
 
   const parseGraphicJSON = () => {
-    const currentScene = editor.design.exportToJSON()
+    const currentScene = editor.scene.exportToJSON()
 
     const updatedScenes = scenes.map((scn) => {
       if (scn.id === currentScene.id) {
@@ -60,7 +60,7 @@ export default function () {
   }
 
   const parsePresentationJSON = () => {
-    const currentScene = editor.design.exportToJSON()
+    const currentScene = editor.scene.exportToJSON()
 
     const updatedScenes = scenes.map((scn) => {
       if (scn.id === currentScene.id) {
@@ -90,7 +90,7 @@ export default function () {
   }
 
   const parseVideoJSON = () => {
-    const currentScene = editor.design.exportToJSON()
+    const currentScene = editor.scene.exportToJSON()
 
     const updatedScenes = scenes.map((scn) => {
       if (scn.id === currentScene.id) {
@@ -143,7 +143,7 @@ export default function () {
     const scenes = []
 
     for (const scene of payload.content) {
-      const design: IDesign = {
+      const design: IScene = {
         name: scene.name,
         frame: payload.frame,
         id: scene.id,
@@ -162,7 +162,7 @@ export default function () {
   const loadPresentationTemplate = async (payload: any) => {
     const scenes = []
     for (const scene of payload.content) {
-      const design: IDesign = {
+      const design: IScene = {
         name: scene.name,
         frame: payload.frame,
         id: scene,
@@ -182,7 +182,7 @@ export default function () {
     const scenes = []
 
     for (const scene of payload.content) {
-      const design: IDesign = {
+      const design: IScene = {
         name: "Awesome template",
         frame: payload.frame,
         id: nanoid(),

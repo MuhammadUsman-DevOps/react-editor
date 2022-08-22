@@ -1,4 +1,4 @@
-import { IDesign, ILayer } from "@layerhub-io/types"
+import { IScene, ILayer } from "@layerhub-io/types"
 
 export const loadVideoResource = (videoSrc: string): Promise<HTMLVideoElement> => {
   return new Promise(function (resolve, reject) {
@@ -46,7 +46,7 @@ export const captureDuration = (video: HTMLVideoElement) => {
   })
 }
 
-export const loadVideoEditorAssets = async (payload: IDesign) => {
+export const loadVideoEditorAssets = async (payload: IScene) => {
   const layers: Partial<ILayer>[] = []
   for (const layer of payload.layers) {
     if (layer.type === "StaticVideo") {

@@ -11,7 +11,7 @@ export default function () {
 
   React.useEffect(() => {
     let watcher = async () => {
-      const updatedTemplate = editor.design.exportToJSON()
+      const updatedTemplate = editor.scene.exportToJSON()
       const updatedPreview = (await editor.renderer.render(updatedTemplate)) as any
       setCurrentPreview(updatedPreview)
     }

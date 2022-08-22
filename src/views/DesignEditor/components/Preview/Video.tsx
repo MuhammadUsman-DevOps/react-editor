@@ -14,10 +14,10 @@ function Video() {
   })
 
   const makePreview = React.useCallback(async () => {
-    const template = editor.design.exportToJSON()
+    const template = editor.scene.exportToJSON()
 
     const clips = pages.map((page) => {
-      const currentTemplate = editor.design.exportToJSON()
+      const currentTemplate = editor.scene.exportToJSON()
       if (page.id === currentTemplate.id) {
         return {
           duration: page.duration! / 1000,
@@ -44,7 +44,7 @@ function Video() {
       body: JSON.stringify(options),
     })
       .then((res) => {
-                return res.json()
+        return res.json()
       })
       .then((res) => {
         setState({ video: res.url })

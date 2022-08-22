@@ -15,11 +15,11 @@ const Playback = () => {
   const pages = useDesignEditorPages()
   const { time } = useTimer()
   const loadFrames = React.useCallback(async () => {
-    const currentTemplate = editor.design.exportToJSON()
+    const currentTemplate = editor.scene.exportToJSON()
 
     let refTime = 0
     const templates = pages.map((page) => {
-      const currentTemplate = editor.design.exportToJSON()
+      const currentTemplate = editor.scene.exportToJSON()
       if (page.id === currentTemplate.id) {
         return { ...currentTemplate, duration: page.duration }
       }
@@ -28,7 +28,7 @@ const Playback = () => {
 
     let clips = []
     for (const template of templates) {
-      const layers = await editor.design.exportLayers(template)
+      const layers = await editor.scene.exportLayers(template)
       const timedLayers = layers.map((layer) => {
         return {
           ...layer,
@@ -52,7 +52,7 @@ const Playback = () => {
       clips: clips,
     }
 
-    const layers = await editor.design.exportLayers(currentTemplate)
+    const layers = await editor.scene.exportLayers(currentTemplate)
 
     controller.current = new Controller("scenify_playback_container", {
       data: layers,

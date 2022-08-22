@@ -1,12 +1,12 @@
-import { IDesign } from "@layerhub-io/types"
+import { IScene } from "@layerhub-io/types"
 import React from "react"
 import { ContextMenuTimelineRequest, DesignType } from "~/interfaces/DesignEditor"
 
-interface IDesignEditorContext {
-  scenes: IDesign[]
-  setScenes: (value: ((prevState: IDesign[]) => IDesign[]) | IDesign[]) => void
-  currentScene: IDesign | null
-  setCurrentScene: React.Dispatch<React.SetStateAction<IDesign | null>>
+interface ISceneEditorContext {
+  scenes: IScene[]
+  setScenes: (value: ((prevState: IScene[]) => IScene[]) | IScene[]) => void
+  currentScene: IScene | null
+  setCurrentScene: React.Dispatch<React.SetStateAction<IScene | null>>
   currentDesign: any
   setCurrentDesign: React.Dispatch<any>
   isSidebarOpen: boolean
@@ -25,7 +25,7 @@ interface IDesignEditorContext {
   setContextMenuTimelineRequest: React.Dispatch<React.SetStateAction<ContextMenuTimelineRequest>>
 }
 
-export const DesignEditorContext = React.createContext<IDesignEditorContext>({
+export const DesignEditorContext = React.createContext<ISceneEditorContext>({
   scenes: [],
   setScenes: () => {},
   currentScene: null,
@@ -54,8 +54,8 @@ export const DesignEditorContext = React.createContext<IDesignEditorContext>({
 })
 
 export const DesignEditorProvider = ({ children }: { children: React.ReactNode }) => {
-  const [scenes, setScenes] = React.useState<IDesign[]>([])
-  const [currentScene, setCurrentScene] = React.useState<IDesign | null>(null)
+  const [scenes, setScenes] = React.useState<IScene[]>([])
+  const [currentScene, setCurrentScene] = React.useState<IScene | null>(null)
   const [currentDesign, setCurrentDesign] = React.useState<any>(null)
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(true)
   const [editorType, setEditorType] = React.useState<DesignType>("NONE")

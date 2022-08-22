@@ -1,9 +1,9 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@layerhub-io/react': ^0.1.0
+  '@layerhub-io/react': ^0.2.0
   '@layerhub-io/react-custom-scrollbar': ^0.0.1
-  '@layerhub-io/types': ^0.1.1
+  '@layerhub-io/types': ^0.2.0
   '@layerhub-io/use-timer': ^0.1.1
   '@reduxjs/toolkit': ^1.8.1
   '@types/lodash': ^4.14.182
@@ -38,7 +38,7 @@ specifiers:
   vite-tsconfig-paths: ^3.5.0
 
 dependencies:
-  '@layerhub-io/react': 0.1.0
+  '@layerhub-io/react': 0.2.0
   '@layerhub-io/react-custom-scrollbar': 0.0.1_react@18.2.0
   '@layerhub-io/use-timer': 0.1.1_react@18.2.0
   '@reduxjs/toolkit': 1.8.2_kkwg4cbsojnjnupd3btipussee
@@ -66,7 +66,7 @@ dependencies:
   use-latest: 1.2.1_luyos4mouogwq6z3wafb3re4ce
 
 devDependencies:
-  '@layerhub-io/types': 0.1.1
+  '@layerhub-io/types': 0.2.0
   '@types/lodash': 4.14.182
   '@types/mime': 2.0.3
   '@types/react': 18.0.14
@@ -404,11 +404,11 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@layerhub-io/core/0.1.0:
-    resolution: {integrity: sha512-zXRw5PiPc3FVLAhHMu2xdF++gRsJEV1Ef4VZO3DZz/X6/pvypz+A55hw3kPX/0JRlLAJh21rTiQ7qg1EIeziBw==}
+  /@layerhub-io/core/0.2.0:
+    resolution: {integrity: sha512-rARsUPAEzh+2eclBL4CJyPpm/TmcgJTLVWwcHk3QsR5VlTR3U4mbEiCMsN5sRrhtJyUTZLFgzfRyT0OhTCk5uQ==}
     dependencies:
       '@layerhub-io/objects': 0.1.0_fabric@5.2.1
-      '@layerhub-io/types': 0.1.1
+      '@layerhub-io/types': 0.2.0
       fabric: 5.2.1
       lodash: 4.17.21
       nanoid: 3.3.4
@@ -440,10 +440,10 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@layerhub-io/react/0.1.0:
-    resolution: {integrity: sha512-t9HmtrG9zApaqkbKfb3tJV6o2p/nXyh36EPJPVM3aeYLWeWJ+NhHEWpTFX5pe2Cb+Mu/ItS90lF5J0iJZyp/YA==}
+  /@layerhub-io/react/0.2.0:
+    resolution: {integrity: sha512-FNlHPxUpHKzXerQBuxiMNvP2ex0Ubn5I7fgCpNkm4KlaMm7YzNPeRH9o3W1JSxoO8VkrOM/lmlGH3rdiGlW/WA==}
     dependencies:
-      '@layerhub-io/core': 0.1.0
+      '@layerhub-io/core': 0.2.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       resize-observer-polyfill: 1.5.1
@@ -454,8 +454,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@layerhub-io/types/0.1.1:
-    resolution: {integrity: sha512-OALXwo/iB9TqyDZihCCfOVpBkV0UkPkTQCMvB/kZpqp0t1oiluAgxJ97amu+6E/092XnZqnnH0cb2KV4NxpnzA==}
+  /@layerhub-io/types/0.2.0:
+    resolution: {integrity: sha512-qC8/HMykqdGqQQSKzUWmhvlKpBMM9qBhR7XMBx8yqSjDUxpwtm374zzPWWWbAeqwFZFgbwG6xVJPDyPpjEp+Uw==}
 
   /@layerhub-io/use-timer/0.1.1_react@18.2.0:
     resolution: {integrity: sha512-t/fZ3UfCNcuMPaTfn8ppMtgyYgUDVRjSuYWDdij1S2Cewdsn46V5w8F5zYLd6IY7xNj/XjYlxW8WZbsiqG/ZXA==}
