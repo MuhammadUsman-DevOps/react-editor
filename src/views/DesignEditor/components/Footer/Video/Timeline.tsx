@@ -17,7 +17,8 @@ import { findSceneIndexByTime } from "~/views/DesignEditor/utils/scenes"
 
 export default function () {
   const { time, setTime, status } = useTimer()
-  const { setScenes, setCurrentScene, currentScene, scenes, setCurrentPreview } = React.useContext(DesignEditorContext)
+  const { setScenes, setCurrentScene, currentScene, scenes, setCurrentPreview, setCurrentDesign } =
+    React.useContext(DesignEditorContext)
   const contextMenuTimelineRequest = useContextMenuTimelineRequest()
   const editor = useEditor()
   const [css] = useStyletron()
@@ -47,6 +48,15 @@ export default function () {
           .importFromJSON(defaultTemplate)
           .then(() => {
             // SET INITIAL DURATION
+            setCurrentDesign({
+              id: nanoid(),
+              frame: defaultTemplate.frame,
+              metadata: {},
+              name: "Untitled Design",
+              preview: "",
+              scenes: [],
+              type: "VIDEO",
+            })
             const initialDesign = editor.scene.exportToJSON() as any
             editor.renderer.render(initialDesign).then((data) => {
               setCurrentScene({ ...initialDesign, preview: data, duration: 5000 })

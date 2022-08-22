@@ -8,8 +8,6 @@ import Play from "~/components/Icons/Play"
 import { Block } from "baseui/block"
 import { useEditor } from "@layerhub-io/react"
 import useEditorType from "~/hooks/useEditorType"
-import useDesignEditorScenes from "~/hooks/useDesignEditorScenes"
-import { nanoid } from "nanoid"
 import { IScene } from "@layerhub-io/types"
 import { loadTemplateFonts } from "~/utils/fonts"
 import { loadVideoEditorAssets } from "~/utils/video"
@@ -26,12 +24,14 @@ const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
 }))
 
 export default function () {
-  const { setDisplayPreview, setScenes, setCurrentDesign } = useDesignEditorContext()
+  const { setDisplayPreview, setScenes, setCurrentDesign, currentDesign, scenes } = useDesignEditorContext()
   const editorType = useEditorType()
-  const scenes = useDesignEditorScenes()
   const editor = useEditor()
   const inputFileRef = React.useRef<HTMLInputElement>(null)
 
+  React.useEffect(() => {
+    console.log({ currentDesign })
+  }, [currentDesign])
   const parseGraphicJSON = () => {
     const currentScene = editor.scene.exportToJSON()
 
@@ -50,16 +50,20 @@ export default function () {
       }
     })
 
-    const graphicTemplate: IDesign = {
-      id: currentScene.id,
-      type: "GRAPHIC",
-      name: "Awesome design",
-      frame: currentScene.frame,
-      scenes: updatedScenes,
-      metadata: {},
-      preview: "",
+    if (currentDesign) {
+      const graphicTemplate: IDesign = {
+        id: currentDesign.id,
+        type: "GRAPHIC",
+        name: currentDesign.name,
+        frame: currentDesign.frame,
+        scenes: updatedScenes,
+        metadata: {},
+        preview: "",
+      }
+      makeDownload(graphicTemplate)
+    } else {
+      console.log("NO CURRENT DESIGN")
     }
-    makeDownload(graphicTemplate)
   }
 
   const parsePresentationJSON = () => {
@@ -82,16 +86,20 @@ export default function () {
       }
     })
 
-    const presentationTemplate: IDesign = {
-      id: currentScene.id,
-      type: "PRESENTATION",
-      name: "MY PRESENTATION",
-      frame: currentScene.frame,
-      scenes: updatedScenes,
-      metadata: {},
-      preview: "",
+    if (currentDesign) {
+      const presentationTemplate: IDesign = {
+        id: currentDesign.id,
+        type: "PRESENTATION",
+        name: currentDesign.name,
+        frame: currentDesign.frame,
+        scenes: updatedScenes,
+        metadata: {},
+        preview: "",
+      }
+      makeDownload(presentationTemplate)
+    } else {
+      console.log("NO CURRENT DESIGN")
     }
-    makeDownload(presentationTemplate)
   }
 
   const parseVideoJSON = () => {
@@ -114,16 +122,20 @@ export default function () {
       }
     })
 
-    const videoTemplate: IDesign = {
-      id: currentScene.id,
-      type: "VIDEO",
-      name: "MY VIDEO",
-      frame: currentScene.frame,
-      scenes: updatedScenes,
-      metadata: {},
-      preview: "",
+    if (currentDesign) {
+      const videoTemplate: IDesign = {
+        id: currentDesign.id,
+        type: "VIDEO",
+        name: currentDesign.name,
+        frame: currentDesign.frame,
+        scenes: updatedScenes,
+        metadata: {},
+        preview: "",
+      }
+      makeDownload(videoTemplate)
+    } else {
+      console.log("NO CURRENT DESIGN")
     }
-    makeDownload(videoTemplate)
   }
 
   const makeDownload = (data: Object) => {

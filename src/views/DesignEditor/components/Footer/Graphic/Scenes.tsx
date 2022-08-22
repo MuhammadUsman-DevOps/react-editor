@@ -11,7 +11,7 @@ import { Block } from "baseui/block"
 
 export default function () {
   const scenes = useDesignEditorPages()
-  const { setScenes, setCurrentScene, currentScene } = React.useContext(DesignEditorContext)
+  const { setScenes, setCurrentScene, currentScene, setCurrentDesign } = React.useContext(DesignEditorContext)
   const editor = useEditor()
   const [css] = useStyletron()
   const [currentPreview, setCurrentPreview] = React.useState("")
@@ -46,6 +46,15 @@ export default function () {
       if (currentScene) {
         updateCurrentScene(currentScene)
       } else {
+        setCurrentDesign({
+          id: nanoid(),
+          frame: defaultTemplate.frame,
+          metadata: {},
+          name: "Untitled Design",
+          preview: "",
+          scenes: [],
+          type: "GRAPHIC",
+        })
         editor.scene
           .importFromJSON(defaultTemplate)
           .then(() => {
