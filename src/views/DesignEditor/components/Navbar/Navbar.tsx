@@ -101,24 +101,22 @@ export default function () {
 
   const parseVideoJSON = () => {
     const currentScene = editor.scene.exportToJSON()
-
     const updatedScenes = scenes.map((scn) => {
       if (scn.id === currentScene.id) {
         return {
           id: scn.id,
-          duration: 5000,
+          duration: scn.duration,
           layers: currentScene.layers,
           name: currentScene.name ? currentScene.name : "",
         }
       }
       return {
         id: scn.id,
-        duration: 5000,
+        duration: scn.duration,
         layers: scn.layers,
         name: scn.name ? scn.name : "",
       }
     })
-
     if (currentDesign) {
       const videoTemplate: IDesign = {
         id: currentDesign.id,
