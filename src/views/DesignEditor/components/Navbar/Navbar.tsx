@@ -39,13 +39,13 @@ export default function () {
         return {
           id: currentScene.id,
           layers: currentScene.layers,
-          name: currentScene.name ? currentScene.name : "",
+          name: currentScene.name,
         }
       }
       return {
         id: scn.id,
         layers: scn.layers,
-        name: scn.name ? scn.name : "",
+        name: scn.name,
       }
     })
 
@@ -60,54 +60,60 @@ export default function () {
   }
 
   const parsePresentationJSON = () => {
-    const currentDesign = editor.design.exportToJSON()
+    const currentScene = editor.design.exportToJSON()
 
     const updatedScenes = scenes.map((scn) => {
-      if (scn.id === currentDesign.id) {
+      if (scn.id === currentScene.id) {
         return {
-          id: currentDesign.id,
+          id: currentScene.id,
           duration: 5000,
-          layers: currentDesign.layers,
+          layers: currentScene.layers,
+          name: currentScene.name,
         }
       }
       return {
         id: scn.id,
         duration: 5000,
         layers: scn.layers,
+        name: scn.name,
       }
     })
 
     const presentationTemplate = {
-      id: currentDesign.id,
+      id: currentScene.id,
       type: "PRESENTATION",
       name: "MY PRESENTATION",
-      frame: currentDesign.frame,
+      frame: currentScene.frame,
       content: updatedScenes,
     }
     makeDownload(presentationTemplate)
   }
 
   const parseVideoJSON = () => {
-    const currentDesign = editor.design.exportToJSON()
+    const currentScene = editor.design.exportToJSON()
 
     const updatedScenes = scenes.map((scn) => {
-      if (scn.id === currentDesign.id) {
+      if (scn.id === currentScene.id) {
         return {
+          id: scn.id,
           duration: 5000,
-          layers: currentDesign.layers,
+          layers: currentScene.layers,
+          name: currentScene.name ? currentScene.name : "",
         }
       }
       return {
+        id: scn.id,
         duration: 5000,
         layers: scn.layers,
+        name: scn.name ? scn.name : "",
       }
     })
 
     const videoTemplate = {
-      id: currentDesign.id,
+      id: currentScene.id,
       type: "VIDEO",
-      name: currentDesign.name,
-      frame: currentDesign.frame,
+      name: "MY VIDEO",
+      frame: currentScene.frame,
       content: updatedScenes,
     }
     makeDownload(videoTemplate)
@@ -159,7 +165,7 @@ export default function () {
       const design: IDesign = {
         name: scene.name,
         frame: payload.frame,
-        id: scene.id,
+        id: scene,
         layers: scene.layers,
         metadata: {},
       }
