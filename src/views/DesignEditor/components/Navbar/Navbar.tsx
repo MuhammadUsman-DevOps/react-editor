@@ -65,11 +65,13 @@ export default function () {
     const updatedScenes = scenes.map((scn) => {
       if (scn.id === currentDesign.id) {
         return {
+          id: currentDesign.id,
           duration: 5000,
           layers: currentDesign.layers,
         }
       }
       return {
+        id: scn.id,
         duration: 5000,
         layers: scn.layers,
       }
@@ -78,7 +80,7 @@ export default function () {
     const presentationTemplate = {
       id: currentDesign.id,
       type: "PRESENTATION",
-      name: currentDesign.name,
+      name: "MY PRESENTATION",
       frame: currentDesign.frame,
       content: updatedScenes,
     }
@@ -155,9 +157,9 @@ export default function () {
     const scenes = []
     for (const scene of payload.content) {
       const design: IDesign = {
-        name: "Awesome template",
+        name: scene.name,
         frame: payload.frame,
-        id: nanoid(),
+        id: scene.id,
         layers: scene.layers,
         metadata: {},
       }
