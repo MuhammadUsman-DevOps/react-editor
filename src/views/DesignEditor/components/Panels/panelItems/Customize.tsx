@@ -14,6 +14,7 @@ import Scrollbar from "@layerhub-io/react-custom-scrollbar"
 import SwapHorizontal from "~/components/Icons/SwapHorizontal"
 import { Tabs, Tab } from "baseui/tabs"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
+import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 
 const colors = ["#ffffff", "#9B9B9B", "#4A4A4A", "#000000", "#A70C2C", "#DA9A15", "#F8E71D", "#47821A", "#4990E2"]
 
@@ -164,6 +165,7 @@ export default function () {
 function ResizeTemplate() {
   const [isOpen, setIsOpen] = React.useState(false)
   const [activeKey, setActiveKey] = React.useState<string | number>("0")
+  const { currentDesign, setCurrentDesign } = useDesignEditorContext()
   const editor = useEditor()
   const [desiredFrame, setDesiredFrame] = React.useState({
     width: 0,
@@ -192,6 +194,13 @@ function ResizeTemplate() {
       editor.frame.resize({
         width: parseInt(size.width),
         height: parseInt(size.height),
+      })
+      setCurrentDesign({
+        ...currentDesign,
+        frame: {
+          width: parseInt(size.width),
+          height: parseInt(size.height),
+        },
       })
     }
     setIsOpen(false)
@@ -344,7 +353,7 @@ function ResizeTemplate() {
           </Tabs>
         </Block>
         <Block $style={{ display: "flex", alignItems: "center", justifyContent: "center", paddingBottom: "2rem" }}>
-          <Button disabled={!isEnabled} onClick={applyResize} $style={{ width: "190px" }}>
+          <Button disabled={!isEnabled} onClick={applyResize} style={{ width: "190px" }}>
             Resize template
           </Button>
         </Block>

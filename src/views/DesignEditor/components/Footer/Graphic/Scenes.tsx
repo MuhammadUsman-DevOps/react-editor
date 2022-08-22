@@ -4,14 +4,15 @@ import Add from "~/components/Icons/Add"
 import useDesignEditorPages from "~/hooks/useDesignEditorScenes"
 import { DesignEditorContext } from "~/contexts/DesignEditor"
 import { nanoid } from "nanoid"
-import { defaultTemplate } from "~/constants/design-editor"
+import { getDefaultTemplate } from "~/constants/design-editor"
 import { useEditor } from "@layerhub-io/react"
 import { IScene } from "@layerhub-io/types"
 import { Block } from "baseui/block"
 
 export default function () {
   const scenes = useDesignEditorPages()
-  const { setScenes, setCurrentScene, currentScene, setCurrentDesign } = React.useContext(DesignEditorContext)
+  const { setScenes, setCurrentScene, currentScene, setCurrentDesign, currentDesign } =
+    React.useContext(DesignEditorContext)
   const editor = useEditor()
   const [css] = useStyletron()
   const [currentPreview, setCurrentPreview] = React.useState("")
@@ -46,6 +47,10 @@ export default function () {
       if (currentScene) {
         updateCurrentScene(currentScene)
       } else {
+        const defaultTemplate = getDefaultTemplate({
+          width: 1200,
+          height: 1200,
+        })
         setCurrentDesign({
           id: nanoid(),
           frame: defaultTemplate.frame,
@@ -78,8 +83,9 @@ export default function () {
     [editor, currentScene]
   )
 
-  const addPage = React.useCallback(async () => {
+  const addScene = React.useCallback(async () => {
     setCurrentPreview("")
+
     const updatedTemplate = editor.scene.exportToJSON()
     const updatedPreview = await editor.renderer.render(updatedTemplate)
 
@@ -89,12 +95,14 @@ export default function () {
       }
       return p
     })
+
+    const defaultTemplate = getDefaultTemplate(currentDesign.frame)
     const newPreview = await editor.renderer.render(defaultTemplate)
     const newPage = { ...defaultTemplate, id: nanoid(), preview: newPreview } as any
     const newPages = [...updatedPages, newPage] as any[]
     setScenes(newPages)
     setCurrentScene(newPage)
-  }, [scenes])
+  }, [scenes, currentDesign])
 
   const changePage = React.useCallback(
     async (page: any) => {
@@ -173,7 +181,7 @@ export default function () {
           }}
         >
           <div
-            onClick={addPage}
+            onClick={addScene}
             className={css({
               width: "100px",
               height: "56px",

@@ -3,7 +3,7 @@ import { useStyletron } from "baseui"
 import Add from "~/components/Icons/Add"
 import { DesignEditorContext } from "~/contexts/DesignEditor"
 import { nanoid } from "nanoid"
-import { defaultTemplate } from "~/constants/design-editor"
+import { getDefaultTemplate } from "~/constants/design-editor"
 import { useEditor } from "@layerhub-io/react"
 import { Block } from "baseui/block"
 import { useTimer } from "@layerhub-io/use-timer"
@@ -17,7 +17,7 @@ import { findSceneIndexByTime } from "~/views/DesignEditor/utils/scenes"
 
 export default function () {
   const { time, setTime, status } = useTimer()
-  const { setScenes, setCurrentScene, currentScene, scenes, setCurrentPreview, setCurrentDesign } =
+  const { setScenes, setCurrentScene, currentScene, scenes, setCurrentPreview, setCurrentDesign, currentDesign } =
     React.useContext(DesignEditorContext)
   const contextMenuTimelineRequest = useContextMenuTimelineRequest()
   const editor = useEditor()
@@ -44,6 +44,11 @@ export default function () {
       if (currentScene) {
         updateCurrentScene(currentScene)
       } else {
+        const defaultTemplate = getDefaultTemplate({
+          width: 1200,
+          height: 1200,
+        })
+
         editor.scene
           .importFromJSON(defaultTemplate)
           .then(() => {
@@ -93,12 +98,18 @@ export default function () {
       return previousVal + currentValue.duration!
     }, 0)
 
+    const defaultTemplate = getDefaultTemplate(currentDesign.frame)
     const newPreview = await editor.renderer.render(defaultTemplate)
-    const newPage = { ...defaultTemplate, id: nanoid(), preview: newPreview, duration: 5000 } as any
+    const newPage = {
+      ...defaultTemplate,
+      id: nanoid(),
+      preview: newPreview,
+      duration: 5000,
+    } as any
     const newPages = [...updatedPages, newPage] as any[]
     setScenes(newPages)
     setTime(maxTime)
-  }, [scenes])
+  }, [scenes, currentDesign])
 
   const changePage = React.useCallback(
     async (page: any) => {
