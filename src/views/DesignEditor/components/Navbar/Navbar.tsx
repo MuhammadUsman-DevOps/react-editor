@@ -14,6 +14,7 @@ import { IScene } from "@layerhub-io/types"
 import { loadTemplateFonts } from "~/utils/fonts"
 import { loadVideoEditorAssets } from "~/utils/video"
 import DesignTitle from "./DesignTitle"
+import { IDesign } from "~/interfaces/DesignEditor"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   height: "64px",
@@ -25,7 +26,7 @@ const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
 }))
 
 export default function () {
-  const { setDisplayPreview, setScenes } = useDesignEditorContext()
+  const { setDisplayPreview, setScenes, setCurrentDesign } = useDesignEditorContext()
   const editorType = useEditorType()
   const scenes = useDesignEditorScenes()
   const editor = useEditor()
@@ -49,12 +50,14 @@ export default function () {
       }
     })
 
-    const graphicTemplate = {
+    const graphicTemplate: IDesign = {
       id: currentScene.id,
       type: "GRAPHIC",
       name: "Awesome design",
       frame: currentScene.frame,
-      content: updatedScenes,
+      scenes: updatedScenes,
+      metadata: {},
+      preview: "",
     }
     makeDownload(graphicTemplate)
   }
@@ -79,12 +82,14 @@ export default function () {
       }
     })
 
-    const presentationTemplate = {
+    const presentationTemplate: IDesign = {
       id: currentScene.id,
       type: "PRESENTATION",
       name: "MY PRESENTATION",
       frame: currentScene.frame,
-      content: updatedScenes,
+      scenes: updatedScenes,
+      metadata: {},
+      preview: "",
     }
     makeDownload(presentationTemplate)
   }
@@ -109,12 +114,14 @@ export default function () {
       }
     })
 
-    const videoTemplate = {
+    const videoTemplate: IDesign = {
       id: currentScene.id,
       type: "VIDEO",
       name: "MY VIDEO",
       frame: currentScene.frame,
-      content: updatedScenes,
+      scenes: updatedScenes,
+      metadata: {},
+      preview: "",
     }
     makeDownload(videoTemplate)
   }
@@ -139,64 +146,69 @@ export default function () {
     }
   }
 
-  const loadGraphicTemplate = async (payload: any) => {
+  const loadGraphicTemplate = async (payload: IDesign) => {
     const scenes = []
+    const { scenes: scns, ...design } = payload
 
-    for (const scene of payload.content) {
-      const design: IScene = {
-        name: scene.name,
+    for (const scn of scns) {
+      const scene: IScene = {
+        name: scn.name,
         frame: payload.frame,
-        id: scene.id,
-        layers: scene.layers,
+        id: scn.id,
+        layers: scn.layers,
         metadata: {},
       }
-      const loadedDesign = await loadVideoEditorAssets(design)
-      await loadTemplateFonts(loadedDesign)
+      const loadedScene = await loadVideoEditorAssets(scene)
+      await loadTemplateFonts(loadedScene)
 
-      const preview = (await editor.renderer.render(loadedDesign)) as string
-      scenes.push({ ...loadedDesign, preview })
+      const preview = (await editor.renderer.render(loadedScene)) as string
+      scenes.push({ ...loadedScene, preview })
     }
-    return scenes
+
+    return { scenes, design }
   }
 
-  const loadPresentationTemplate = async (payload: any) => {
+  const loadPresentationTemplate = async (payload: IDesign) => {
     const scenes = []
-    for (const scene of payload.content) {
-      const design: IScene = {
-        name: scene.name,
+    const { scenes: scns, ...design } = payload
+
+    for (const scn of scns) {
+      const scene: IScene = {
+        name: scn.name,
         frame: payload.frame,
-        id: scene,
-        layers: scene.layers,
+        id: scn,
+        layers: scn.layers,
         metadata: {},
       }
-      const loadedDesign = await loadVideoEditorAssets(design)
+      const loadedScene = await loadVideoEditorAssets(scene)
 
-      const preview = (await editor.renderer.render(loadedDesign)) as string
-      await loadTemplateFonts(loadedDesign)
-      scenes.push({ ...loadedDesign, preview })
+      const preview = (await editor.renderer.render(loadedScene)) as string
+      await loadTemplateFonts(loadedScene)
+      scenes.push({ ...loadedScene, preview })
     }
-    return scenes
+    return { scenes, design }
   }
 
-  const loadVideoTemplate = async (payload: any) => {
+  const loadVideoTemplate = async (payload: IDesign) => {
     const scenes = []
+    const { scenes: scns, ...design } = payload
 
-    for (const scene of payload.content) {
+    for (const scn of scns) {
       const design: IScene = {
         name: "Awesome template",
         frame: payload.frame,
-        id: nanoid(),
-        layers: scene.layers,
+        id: scn.id,
+        layers: scn.layers,
         metadata: {},
-        duration: scene.duration,
+        duration: scn.duration,
       }
-      const loadedDesign = await loadVideoEditorAssets(design)
+      const loadedScene = await loadVideoEditorAssets(design)
 
-      const preview = (await editor.renderer.render(loadedDesign)) as string
-      await loadTemplateFonts(loadedDesign)
-      scenes.push({ ...loadedDesign, preview })
+      const preview = (await editor.renderer.render(loadedScene)) as string
+      await loadTemplateFonts(loadedScene)
+      scenes.push({ ...loadedScene, preview })
     }
-    return scenes
+    return { scenes, design }
   }
 
   const handleImportTemplate = React.useCallback(
@@ -210,7 +222,9 @@ export default function () {
         template = await loadVideoTemplate(data)
       }
       //   @ts-ignore
-      setScenes(template)
+      setScenes(template.scenes)
+      //   @ts-ignore
+      setCurrentDesign(template.design)
     },
     [editor]
   )

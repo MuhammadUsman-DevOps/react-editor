@@ -1,14 +1,14 @@
 import { IScene } from "@layerhub-io/types"
 import React from "react"
-import { ContextMenuTimelineRequest, DesignType } from "~/interfaces/DesignEditor"
+import { ContextMenuTimelineRequest, DesignType, IDesign } from "~/interfaces/DesignEditor"
 
 interface ISceneEditorContext {
   scenes: IScene[]
   setScenes: (value: ((prevState: IScene[]) => IScene[]) | IScene[]) => void
   currentScene: IScene | null
   setCurrentScene: React.Dispatch<React.SetStateAction<IScene | null>>
-  currentDesign: any
-  setCurrentDesign: React.Dispatch<any>
+  currentDesign: IDesign | null
+  setCurrentDesign: React.Dispatch<React.SetStateAction<IDesign | null>>
   isSidebarOpen: boolean
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>
   editorType: DesignType
@@ -56,7 +56,7 @@ export const DesignEditorContext = React.createContext<ISceneEditorContext>({
 export const DesignEditorProvider = ({ children }: { children: React.ReactNode }) => {
   const [scenes, setScenes] = React.useState<IScene[]>([])
   const [currentScene, setCurrentScene] = React.useState<IScene | null>(null)
-  const [currentDesign, setCurrentDesign] = React.useState<any>(null)
+  const [currentDesign, setCurrentDesign] = React.useState<IDesign | null>(null)
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(true)
   const [editorType, setEditorType] = React.useState<DesignType>("NONE")
   const [displayPlayback, setDisplayPlayback] = React.useState<boolean>(false)
