@@ -3,6 +3,7 @@ import { Input } from "baseui/input"
 import { Block } from "baseui/block"
 import CloudCheck from "~/components/Icons/CloudCheck"
 import { StatefulTooltip } from "baseui/tooltip"
+import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 
 interface State {
   name: string
@@ -11,12 +12,22 @@ interface State {
 
 export default function () {
   const [state, setState] = React.useState<State>({ name: "My first design.", width: 0 })
+  const { currentDesign, setCurrentDesign } = useDesignEditorContext()
   const inputTitleRef = React.useRef<Input>(null)
   const spanRef = React.useRef<HTMLDivElement | null>(null)
 
   const handleInputChange = (name: string) => {
     setState({ ...state, name: name, width: spanRef.current?.clientWidth! })
+    setCurrentDesign({ ...currentDesign, name })
   }
+
+  React.useEffect(() => {
+    const name = currentDesign.name
+    if (name || name === "") {
+      spanRef.current!.innerHTML = name
+      setState({ ...state, name: name, width: spanRef.current?.clientWidth! + 20 })
+    }
+  }, [currentDesign.name])
 
   React.useEffect(() => {
     setState({ ...state, width: spanRef.current?.clientWidth! + 20 })

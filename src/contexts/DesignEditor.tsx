@@ -7,8 +7,8 @@ interface ISceneEditorContext {
   setScenes: (value: ((prevState: IScene[]) => IScene[]) | IScene[]) => void
   currentScene: IScene | null
   setCurrentScene: React.Dispatch<React.SetStateAction<IScene | null>>
-  currentDesign: IDesign | null
-  setCurrentDesign: React.Dispatch<React.SetStateAction<IDesign | null>>
+  currentDesign: IDesign
+  setCurrentDesign: React.Dispatch<React.SetStateAction<IDesign>>
   isSidebarOpen: boolean
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>
   editorType: DesignType
@@ -30,7 +30,18 @@ export const DesignEditorContext = React.createContext<ISceneEditorContext>({
   setScenes: () => {},
   currentScene: null,
   setCurrentScene: () => {},
-  currentDesign: null,
+  currentDesign: {
+    id: "",
+    frame: {
+      width: 1,
+      height: 1,
+    },
+    metadata: {},
+    name: "",
+    preview: "",
+    scenes: [],
+    type: "",
+  },
   setCurrentDesign: () => {},
   isSidebarOpen: true,
   setIsSidebarOpen: () => {},
@@ -56,7 +67,18 @@ export const DesignEditorContext = React.createContext<ISceneEditorContext>({
 export const DesignEditorProvider = ({ children }: { children: React.ReactNode }) => {
   const [scenes, setScenes] = React.useState<IScene[]>([])
   const [currentScene, setCurrentScene] = React.useState<IScene | null>(null)
-  const [currentDesign, setCurrentDesign] = React.useState<IDesign | null>(null)
+  const [currentDesign, setCurrentDesign] = React.useState<IDesign>({
+    id: "",
+    frame: {
+      width: 1,
+      height: 1,
+    },
+    metadata: {},
+    name: "",
+    preview: "",
+    scenes: [],
+    type: "",
+  })
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(true)
   const [editorType, setEditorType] = React.useState<DesignType>("NONE")
   const [displayPlayback, setDisplayPlayback] = React.useState<boolean>(false)

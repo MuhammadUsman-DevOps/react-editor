@@ -29,9 +29,6 @@ export default function () {
   const editor = useEditor()
   const inputFileRef = React.useRef<HTMLInputElement>(null)
 
-  React.useEffect(() => {
-    console.log({ currentDesign })
-  }, [currentDesign])
   const parseGraphicJSON = () => {
     const currentScene = editor.scene.exportToJSON()
 
