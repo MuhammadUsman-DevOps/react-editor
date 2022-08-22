@@ -32,23 +32,31 @@ export default function () {
   const inputFileRef = React.useRef<HTMLInputElement>(null)
 
   const parseGraphicJSON = () => {
-    const currentDesign = editor.design.exportToJSON()
+    const currentScene = editor.design.exportToJSON()
 
     const updatedScenes = scenes.map((scn) => {
-      if (scn.id === currentDesign.id) {
-        return currentDesign.layers
+      if (scn.id === currentScene.id) {
+        return {
+          id: currentScene.id,
+          layers: currentScene.layers,
+          name: currentScene.name ? currentScene.name : "",
+        }
       }
-      return scn.layers
+      return {
+        id: scn.id,
+        layers: scn.layers,
+        name: scn.name ? scn.name : "",
+      }
     })
 
-    const presentationTemplate = {
-      id: currentDesign.id,
+    const graphicTemplate = {
+      id: currentScene.id,
       type: "GRAPHIC",
-      name: currentDesign.name,
-      frame: currentDesign.frame,
+      name: "Awesome design",
+      frame: currentScene.frame,
       content: updatedScenes,
     }
-    makeDownload(presentationTemplate)
+    makeDownload(graphicTemplate)
   }
 
   const parsePresentationJSON = () => {
@@ -125,18 +133,19 @@ export default function () {
 
   const loadGraphicTemplate = async (payload: any) => {
     const scenes = []
+
     for (const scene of payload.content) {
       const design: IDesign = {
-        name: "Awesome template",
+        name: scene.name,
         frame: payload.frame,
-        id: nanoid(),
-        layers: scene,
+        id: scene.id,
+        layers: scene.layers,
         metadata: {},
       }
       const loadedDesign = await loadVideoEditorAssets(design)
+      await loadTemplateFonts(loadedDesign)
 
       const preview = (await editor.renderer.render(loadedDesign)) as string
-      await loadTemplateFonts(loadedDesign)
       scenes.push({ ...loadedDesign, preview })
     }
     return scenes
