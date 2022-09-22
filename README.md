@@ -1,7 +1,7 @@
 # Design Editor
 
 If you are worrying about something like a designer tool, such as graphic editor, presentation editor, video editor, etc. Layerhub is a perfect choice for you.  
-Try demo here [react-editor-core.vercel.app](https://react-design-editor-dev.up.railway.app/)
+Try demo here [react-editor](https://react-design-editor-dev.up.railway.app/)
 
 <p>
     <a href="https://discord.gg/7jxnh8rHDV">
