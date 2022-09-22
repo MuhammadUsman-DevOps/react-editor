@@ -1,10 +1,19 @@
 import React from "react"
+import { styled } from "baseui"
+import { Theme } from "baseui/theme"
 import Icons from "~/components/Icons"
 import { Button, KIND, SIZE } from "baseui/button"
-import { useZoomRatio, useEditor } from "@layerhub-io/react"
-import { Block } from "baseui/block"
 import { Slider } from "baseui/slider"
 import { Input } from "baseui/input"
+import { useEditor, useZoomRatio } from "@layerhub-io/react"
+
+const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
+  height: "50px",
+  background: $theme.colors.white,
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+}))
 
 interface Options {
   zoomRatio: number
@@ -13,38 +22,28 @@ interface Options {
 export default function () {
   const zoomMin = 10
   const zoomMax = 240
-  const editor = useEditor()
   const [options, setOptions] = React.useState<Options>({
     zoomRatio: 20,
   })
+  const editor = useEditor()
   const zoomRatio: number = useZoomRatio()
-
-  const handleChange = (type: string, value: any) => {
-    if (value < 0) {
-      editor.zoom.zoomToRatio(zoomMin / 100)
-    }
-    else if (value > zoomMax) {
-      editor.zoom.zoomToRatio(zoomMax / 100)
-    }
-    else {
-      editor.zoom.zoomToRatio(value / 100)
-    }
-  }
 
   React.useEffect(() => {
     setOptions({ ...options, zoomRatio: Math.round(zoomRatio * 100) })
   }, [zoomRatio])
 
+  const handleChange = (type: string, value: any) => {
+    if (value < 0) {
+      editor.zoom.zoomToRatio(zoomMin / 100)
+    } else if (value > zoomMax) {
+      editor.zoom.zoomToRatio(zoomMax / 100)
+    } else {
+      editor.zoom.zoomToRatio(value / 100)
+    }
+  }
+
   return (
-    <Block
-      $style={{
-        height: "50px",
-        background: "#ffffff",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
-    >
+    <Container>
       <div>
         <Button kind={KIND.tertiary} size={SIZE.compact}>
           <Icons.Layers size={20} />
@@ -54,12 +53,10 @@ export default function () {
         <Button kind={KIND.tertiary} size={SIZE.compact}>
           <Icons.Expand size={16} />
         </Button>
-        <Button kind={KIND.tertiary} size={SIZE.compact}
-          onClick={() => editor.zoom.zoomToFit()}>
+        <Button kind={KIND.tertiary} size={SIZE.compact}>
           <Icons.Compress size={16} />
         </Button>
-        <Button kind={KIND.tertiary} size={SIZE.compact}
-          onClick={() => editor.zoom.zoomOut()}>
+        <Button kind={KIND.tertiary} size={SIZE.compact} onClick={() => editor.zoom.zoomOut()}>
           <Icons.RemoveCircleOutline size={24} />
         </Button>
         <Slider
@@ -85,12 +82,13 @@ export default function () {
             },
           }}
           value={[options.zoomRatio]}
-          onChange={({ value }) => { handleChange("zoomRatio", value[0]) }}
+          onChange={({ value }) => {
+            handleChange("zoomRatio", value[0])
+          }}
           min={zoomMin}
           max={zoomMax}
         />
-        <Button kind={KIND.tertiary} size={SIZE.compact}
-          onClick={() => editor.zoom.zoomIn()}>
+        <Button kind={KIND.tertiary} size={SIZE.compact} onClick={() => editor.zoom.zoomIn()}>
           <Icons.AddCircleOutline size={24} />
         </Button>
         <Input
@@ -107,7 +105,7 @@ export default function () {
           size={SIZE.mini}
           max={zoomMax}
           min={zoomMin}
-          onChange={(e: any)=> handleChange("zoomRatio", e.target.value)}
+          onChange={(e: any) => handleChange("zoomRatio", e.target.value)}
         />
       </div>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "end" }}>
@@ -124,6 +122,6 @@ export default function () {
           <Icons.TimePast size={16} />
         </Button>
       </div>
-    </Block>
+    </Container>
   )
 }

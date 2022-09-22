@@ -5,9 +5,15 @@ import useDesignEditorPages from "~/hooks/useDesignEditorScenes"
 import { DesignEditorContext } from "~/contexts/DesignEditor"
 import { nanoid } from "nanoid"
 import { getDefaultTemplate } from "~/constants/design-editor"
-import { useEditor } from "@layerhub-io/react"
+import { useEditor, useFrame } from "@layerhub-io/react"
 import { IScene } from "@layerhub-io/types"
+import { DndContext, closestCenter, PointerSensor, useSensor, DragOverlay } from "@dnd-kit/core"
+import { arrayMove, SortableContext, horizontalListSortingStrategy } from "@dnd-kit/sortable"
+import { restrictToFirstScrollableAncestor, restrictToHorizontalAxis } from "@dnd-kit/modifiers"
+import SceneItem from "./SceneItem"
 import { Block } from "baseui/block"
+import useContextMenuTimelineRequest from "~/hooks/useContextMenuTimelineRequest"
+import SceneContextMenu from "./SceneContextMenu"
 
 export default function () {
   const scenes = useDesignEditorPages()
@@ -16,6 +22,17 @@ export default function () {
   const editor = useEditor()
   const [css] = useStyletron()
   const [currentPreview, setCurrentPreview] = React.useState("")
+  const frame = useFrame()
+  const [draggedScene, setDraggedScene] = React.useState<IScene | null>(null)
+  const contextMenuTimelineRequest = useContextMenuTimelineRequest()
+
+  const sensors = [
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    }),
+  ]
 
   React.useEffect(() => {
     if (editor && scenes && currentScene) {
@@ -58,7 +75,7 @@ export default function () {
           name: "Untitled Design",
           preview: "",
           scenes: [],
-          type: "GRAPHIC",
+          type: "PRESENTATION",
         })
         editor.scene
           .importFromJSON(defaultTemplate)
@@ -85,7 +102,6 @@ export default function () {
 
   const addScene = React.useCallback(async () => {
     setCurrentPreview("")
-
     const updatedTemplate = editor.scene.exportToJSON()
     const updatedPreview = await editor.renderer.render(updatedTemplate)
 
@@ -125,77 +141,91 @@ export default function () {
     [editor, scenes, currentScene]
   )
 
+  function handleDragStart(event: any) {
+    const draggedScene = scenes.find((s) => s.id === event.active.id)
+    if (draggedScene) {
+      setDraggedScene(draggedScene)
+    }
+  }
+
+  function handleDragEnd(event: any) {
+    const { active, over } = event
+
+    if (active.id !== over.id) {
+      setScenes((items) => {
+        const oldIndex = items.findIndex((item) => item.id === active.id)
+        const newIndex = items.findIndex((item) => item.id === over.id)
+
+        return arrayMove(items, oldIndex, newIndex)
+      })
+    }
+    setDraggedScene(null)
+  }
+
   return (
-    <Block
-      $style={{
-        padding: "0.25rem 0.75rem",
-        background: "#ffffff",
-      }}
+    <DndContext
+      modifiers={[restrictToFirstScrollableAncestor, restrictToHorizontalAxis]}
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragEnd={handleDragEnd}
+      onDragStart={handleDragStart}
     >
-      <Block $style={{ display: "flex", alignItems: "center" }}>
-        {scenes.map((page, index) => (
-          <div
-            style={{
-              background: page.id === currentScene?.id ? "rgb(243,244,246)" : "#ffffff",
-              padding: "1rem 0.5rem",
-            }}
-            key={index}
-          >
-            <div
-              onClick={() => changePage(page)}
-              className={css({
-                cursor: "pointer",
-                position: "relative",
-                border: page.id === currentScene?.id ? "2px solid #7158e2" : "2px solid rgba(0,0,0,.15)",
-              })}
-            >
-              <img
-                style={{ maxWidth: "90px", maxHeight: "80px", display: "flex" }}
-                src={currentPreview && page.id === currentScene?.id ? currentPreview : page.preview}
+      <Block
+        id="TimelineItemsContainer"
+        $style={{ padding: "0.25rem 0.75rem", background: "#ffffff", position: "relative" }}
+      >
+        <div className={css({ display: "flex", alignItems: "center" })}>
+          {contextMenuTimelineRequest.visible && <SceneContextMenu />}
+
+          <SortableContext items={scenes} strategy={horizontalListSortingStrategy}>
+            {scenes.map((page, index) => (
+              <SceneItem
+                key={index}
+                isCurrentScene={page.id === currentScene?.id}
+                scene={page}
+                index={index}
+                changePage={changePage}
+                preview={
+                  currentPreview && page.id === currentScene?.id ? currentPreview : page.preview ? page.preview : ""
+                }
               />
+            ))}
+            <div
+              style={{
+                background: "#ffffff",
+                padding: "1rem 1rem 1rem 0.5rem",
+              }}
+            >
               <div
+                onClick={addScene}
                 className={css({
-                  position: "absolute",
-                  bottom: "4px",
-                  right: "4px",
-                  background: "rgba(0,0,0,0.4)",
-                  color: "#fff",
-                  fontSize: "10px",
-                  borderRadius: "2px",
-                  height: "16px",
-                  width: "16px",
+                  width: "100px",
+                  height: "56px",
+                  background: "rgb(243,244,246)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
+                  cursor: "pointer",
                 })}
               >
-                {index + 1}
+                <Add size={20} />
               </div>
             </div>
-          </div>
-        ))}
-        <div
-          style={{
-            background: "#ffffff",
-            padding: "1rem 1rem 1rem 0.5rem",
-          }}
-        >
-          <div
-            onClick={addScene}
-            className={css({
-              width: "100px",
-              height: "56px",
-              background: "rgb(243,244,246)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-            })}
-          >
-            <Add size={20} />
-          </div>
+          </SortableContext>
+          <DragOverlay>
+            {draggedScene ? (
+              <Block
+                $style={{
+                  backgroundImage: `url(${draggedScene.preview})`,
+                  backgroundSize: `${frame ? (frame.width * 70) / frame.height : 70}px 70px`,
+                  height: "80px",
+                  opacity: 0.75,
+                }}
+              ></Block>
+            ) : null}
+          </DragOverlay>
         </div>
       </Block>
-    </Block>
+    </DndContext>
   )
 }
