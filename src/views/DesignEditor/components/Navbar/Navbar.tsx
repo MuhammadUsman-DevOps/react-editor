@@ -13,13 +13,14 @@ import { loadTemplateFonts } from "~/utils/fonts"
 import { loadVideoEditorAssets } from "~/utils/video"
 import DesignTitle from "./DesignTitle"
 import { IDesign } from "~/interfaces/DesignEditor"
+import Github from "~/components/Icons/Github"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   height: "64px",
   background: $theme.colors.black,
   display: "grid",
   padding: "0 1.25rem",
-  gridTemplateColumns: "240px 1fr 240px",
+  gridTemplateColumns: "380px 1fr 380px",
   alignItems: "center",
 }))
 
@@ -265,7 +266,7 @@ export default function () {
           <Logo size={36} />
         </div>
         <DesignTitle />
-        <Block $style={{ display: "flex", alignItems: "center", gap: "0.5rem", justifyContent: "flex-end" }}>
+        <Block $style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
           <input
             multiple={false}
             onChange={handleFileInput}
@@ -316,6 +317,23 @@ export default function () {
             }}
           >
             <Play size={24} />
+          </Button>
+
+          <Button
+            size="compact"
+            onClick={() => window.location.replace("https://github.com/layerhub-io/react-design-editor")}
+            kind={KIND.tertiary}
+          >
+            <Github size={24} />
+          </Button>
+
+          <Button
+            style={{ marginLeft: "0.5rem" }}
+            size="compact"
+            onClick={() => window.location.replace("https://editor.layerhub.io")}
+            kind={KIND.primary}
+          >
+            Try PRO
           </Button>
         </Block>
       </Container>
