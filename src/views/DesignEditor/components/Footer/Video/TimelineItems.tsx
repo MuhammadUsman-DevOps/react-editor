@@ -63,8 +63,20 @@ export default function () {
 
   React.useEffect(() => {
     let watcher = async () => {
-      const updatedTemplate = editor.scene.exportToJSON()
-      const updatedPreview = (await editor.renderer.render(updatedTemplate)) as any
+      const updatedScene = editor.scene.exportToJSON()
+      const updatedPreview = (await editor.renderer.render(updatedScene)) as any
+      const updatedScenes = scenes.map((scene) => {
+        if (scene.id === updatedScene.id) {
+          return {
+            ...updatedScene,
+            preview: updatedPreview,
+            duration: scene.duration,
+          }
+        } else {
+          return scene
+        }
+      })
+      setScenes(updatedScenes)
       setCurrentPreview(updatedPreview)
     }
     if (editor) {
@@ -75,7 +87,7 @@ export default function () {
         editor.off("history:changed", watcher)
       }
     }
-  }, [editor])
+  }, [editor, scenes])
 
   return (
     <DndContext
