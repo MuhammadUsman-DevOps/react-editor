@@ -49,7 +49,7 @@ Feel free to contribute by opening issues with any questions, bug reports or fea
 
 ## Get in touch
 
-You can reach us at cloud@scenify.io
+You can reach us at support@layerhub.io
 
 ## License
 
