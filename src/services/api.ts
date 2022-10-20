@@ -165,11 +165,9 @@ class ApiService {
   getTemplates(): Promise<any[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await this.base.get("/public-designs")
-        console.log(data); 
+        const { data } = await this.base.get("/public-designs") 
         resolve(data)
-      } catch (err) {
-        console.log(err);
+      } catch (err) { 
         reject(err)
       }
     })

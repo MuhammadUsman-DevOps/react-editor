@@ -12,8 +12,7 @@ const Pixabay = () => {
   const editor = useEditor()
   const setIsSidebarOpen = useSetIsSidebarOpen()
 
-  const pixabayResources = useSelector(selectPixabayResources)
-  console.log(pixabayResources);
+  const pixabayResources = useSelector(selectPixabayResources) 
   const addObject = React.useCallback(
     (url: string) => {
       if (editor) {

@@ -22,8 +22,7 @@ export const getPexelsVideos = (query: string) => {
         }))
         resolve(videos)
       })
-      .catch((err) => {
-        console.log(err)
+      .catch((err) => { 
         reject(err)
       })
   })
