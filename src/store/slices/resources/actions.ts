@@ -8,7 +8,7 @@ export const getPixabayResources = createAsyncThunk<void, never, { rejectValue: 
   "resources/getPixabayResources",
   async (_, { rejectWithValue, dispatch }) => {
     try {
-      const pixabayResources = await api.getPixabayResources()
+      const pixabayResources = await api.getPixabayResources() 
       dispatch(setPixabayResources(pixabayResources))
     } catch (err) {
       return rejectWithValue((err as any).response?.data?.error.data || null)

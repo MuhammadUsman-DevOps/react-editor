@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://imagewow-dev.up.railway.app",
+        target: "https://connect.layerhub.pro",
         changeOrigin: true,
         secure: false,
         ws: true,

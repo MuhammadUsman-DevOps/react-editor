@@ -6,6 +6,7 @@ type IElement = any
 type IFontFamily = any
 type IUpload = any
 type Template = any
+type IComponent = any
 
 class ApiService {
   base: AxiosInstance
@@ -99,8 +100,30 @@ class ApiService {
   getComponents(): Promise<any[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await this.base.get("/components")
+        const { data } = await this.base.get("/components") 
         resolve(data)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  getComponentById(id: string): Promise<IComponent> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { data } = await this.base.get(`/components/${id}`)
+        resolve(data.component)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  getPublicComponents(): Promise<IComponent[]> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { data } = await this.base.get("/public-components")  
+        resolve(data.components)
       } catch (err) {
         reject(err)
       }
@@ -234,7 +257,7 @@ class ApiService {
     return new Promise(async (resolve, reject) => {
       try {
         const { data } = await this.base.get("/fonts")
-        resolve(data)
+        resolve(data) 
       } catch (err) {
         reject(err)
       }
@@ -244,13 +267,14 @@ class ApiService {
   getPixabayResources(): Promise<Resource[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await this.base.get("/resources/pixabay?query=flower")
-        resolve(data.data)
+        const { data } = await this.base.get("/resources?query=car&page=1&perPage=20") 
+        resolve(data?.images)
       } catch (err) {
         reject(err)
       }
     })
   }
 }
+
 
 export default new ApiService()

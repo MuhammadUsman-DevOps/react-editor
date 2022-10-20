@@ -18,6 +18,7 @@ import useEditorType from "~/hooks/useEditorType"
 
 const Templates = () => {
   const editor = useEditor()
+  
   const setIsSidebarOpen = useSetIsSidebarOpen()
   const { setCurrentScene, currentScene, setScenes, setCurrentDesign } = useDesignEditorContext()
   const designs = useSelector(selectPublicDesigns);
@@ -25,7 +26,7 @@ const Templates = () => {
 
   const loadTemplate = React.useCallback(
     async (template: any) => {
-      if (editor) {
+      if (editor) {  
         const fonts: any[] = []
         template.layers.forEach((object: any) => {
           if (object.type === "StaticText" || object.type === "DynamicText") {

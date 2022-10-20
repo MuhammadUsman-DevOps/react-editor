@@ -9,7 +9,7 @@ import { componentsReducer } from "./slices/components/reducer"
 const rootReducer = combineReducers({
   designEditor: designEditorReducer,
   fonts: fontsReducer,
-  uploads: uploadsReducer,
+  uploads: uploadsReducer, 
   resources: resourcesReducer,
   designs: designsReducer,
   components: componentsReducer,
