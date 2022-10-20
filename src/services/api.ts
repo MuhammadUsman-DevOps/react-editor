@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from "axios"
- import { Resource } from "~/interfaces/editor"
+import { IDesign } from "~/interfaces/DesignEditor"
+import { Resource } from "~/interfaces/editor"
 
 type IElement = any
 type IFontFamily = any
@@ -162,27 +163,28 @@ class ApiService {
     })
   }
 
-  getTemplates(): Promise<any[]> {
+  getPublicDesigns(): Promise<IDesign[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await this.base.get("/public-designs") 
-        resolve(data)
-      } catch (err) { 
-        reject(err)
-      }
-    })
-  }
-
-  getTemplateById(id: string): Promise<any> {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const { data } = await this.base.get(`/templates/${id}`)
-        resolve(data)
+        const { data } = await this.base.get("/public-designs")
+        resolve(data.designs)
       } catch (err) {
         reject(err)
       }
     })
   }
+
+  getPublicDesignById(id: string): Promise<IDesign> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { data } = await this.base.get(`/public-designs/${id}`)
+        resolve(data.design)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   //CREATIONS
 
   createCreation(props: Partial<Template>): Promise<Template> {

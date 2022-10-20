@@ -1,22 +1,28 @@
 import React from "react"
 import { useEditor } from "@layerhub-io/react"
 import { Block } from "baseui/block"
-import { loadFonts } from "~/utils/fonts"
+import { loadFonts, loadTemplateFonts } from "~/utils/fonts"
 import Scrollable from "~/components/Scrollable"
 import AngleDoubleLeft from "~/components/Icons/AngleDoubleLeft"
 import { useStyletron } from "baseui"
-import { SAMPLE_TEMPLATES } from "~/constants/editor"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
-import useDesignEditorContext from "~/hooks/useDesignEditorContext" 
-   
+import useDesignEditorContext from "~/hooks/useDesignEditorContext"
+import { loadVideoEditorAssets } from "~/utils/video"
+import { IScene } from "@layerhub-io/types"
+import { selectPublicDesigns } from "~/store/slices/designs/selectors"
+import { useSelector } from "react-redux"
+import { IDesign } from "~/interfaces/DesignEditor"
+import { nanoid } from "nanoid"
+import api from "~/services/api"
+import useEditorType from "~/hooks/useEditorType"
+
 const Templates = () => {
   const editor = useEditor()
   
   const setIsSidebarOpen = useSetIsSidebarOpen()
-  const { setCurrentScene, currentScene,  } = useDesignEditorContext()
-  const { editorType } = useDesignEditorContext()
- 
-  
+  const { setCurrentScene, currentScene, setScenes, setCurrentDesign } = useDesignEditorContext()
+  const designs = useSelector(selectPublicDesigns);
+  const editorType = useEditorType()
 
   const loadTemplate = React.useCallback(
     async (template: any) => {
@@ -42,6 +48,40 @@ const Templates = () => {
     [editor, currentScene]
   )
 
+  const loadGraphicTemplate = async (payload: IDesign): Promise<{ scenes: IScene[]; design: IDesign }> => {
+    const scenes: IScene[] = []
+    const { scenes: scns, ...design } = payload
+
+    for (const scn of scns) {
+      const scene: IScene = {
+        name: scn.name,
+        frame: payload.frame,
+        id: scn.id || nanoid(),
+        layers: scn.layers,
+        metadata: {},
+      }
+      await loadTemplateFonts(scene)
+
+      const preview = (await editor.renderer.render(scene)) as string
+      scenes.push({ ...scene, preview })
+    }
+
+    return { scenes, design: design as IDesign }
+  }
+
+  const loadDesignById = React.useCallback(
+    async (designId: string) => {
+      if (editor) {
+        const design = await api.getPublicDesignById(designId)
+        const loadedDesign = await loadGraphicTemplate(design)
+        setScenes(loadedDesign.scenes)
+        setCurrentScene(loadedDesign.scenes[0])
+        setCurrentDesign(loadedDesign.design)
+      }
+    },
+    [editor, currentScene]
+  )
+
   return (
     <Block $style={{ flex: 1, display: "flex", flexDirection: "column" }}>
       <Block
@@ -62,9 +102,17 @@ const Templates = () => {
       <Scrollable>
         <div style={{ padding: "0 1.5rem" }}>
           <div style={{ display: "grid", gap: "0.5rem", gridTemplateColumns: "1fr 1fr" }}>
-            {SAMPLE_TEMPLATES.map((item, index) => {
-              return <ImageItem onClick={() => loadTemplate(item)} key={index} preview={`${item.preview}?tr=w-320`} />
-            })}
+          {designs
+              .filter((d) => d.type === editorType)
+              .map((design, index) => {
+                return (
+                  <ImageItem
+                    onClick={() => loadDesignById(design.id)}
+                    key={index}
+                    preview={`${design.previews[0].src}?tr=w-320`}
+                  />
+                )
+              })}
           </div>
         </div>
       </Scrollable>
@@ -72,7 +120,7 @@ const Templates = () => {
   )
 }
 
-const ImageItem = ({ preview, onClick }: { preview: any; onClick?: (option: any) => void }) => {
+function ImageItem({ preview, onClick }: { preview: any; onClick?: (option: any) => void }) {
   const [css] = useStyletron()
   return (
     <div
@@ -120,7 +168,7 @@ const ImageItem = ({ preview, onClick }: { preview: any; onClick?: (option: any)
             opacity: 1,
           },
         })}
-      />
+      ></div>
       <img
         src={preview}
         className={css({

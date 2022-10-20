@@ -3,11 +3,13 @@ import { IComponent } from "~/interfaces/DesignEditor"
 import { setPublicComponents } from "./actions"
 
 export interface ComponentsState {
-   public: IComponent[]
+  components: IComponent[]
+  public: IComponent[]
 }
 
 const initialState: ComponentsState = {
-   public: [],
+  components: [],
+  public: [],
 }
 
 export const componentsReducer = createReducer(initialState, (builder) => {
