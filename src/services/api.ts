@@ -165,11 +165,9 @@ class ApiService {
   getTemplates(): Promise<any[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await this.base.get("/public-designs")
-        console.log(data); 
+        const { data } = await this.base.get("/public-designs") 
         resolve(data)
-      } catch (err) {
-        console.log(err);
+      } catch (err) { 
         reject(err)
       }
     })
@@ -267,13 +265,14 @@ class ApiService {
   getPixabayResources(): Promise<Resource[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await this.base.get("/resources/pixabay?query=flower")
-        resolve(data.data)
+        const { data } = await this.base.get("/resources?query=car&page=1&perPage=20") 
+        resolve(data?.images)
       } catch (err) {
         reject(err)
       }
     })
   }
 }
+
 
 export default new ApiService()
