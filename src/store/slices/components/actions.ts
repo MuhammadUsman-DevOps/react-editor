@@ -9,6 +9,7 @@ export const getPublicComponents = createAsyncThunk<void, never, { rejectValue: 
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const components = await api.getPublicComponents()
+      console.log(components);
       dispatch(setPublicComponents(components)) 
     } catch (err) {
       return rejectWithValue((err as any).response?.data?.error.data || null)

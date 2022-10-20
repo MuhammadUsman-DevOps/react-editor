@@ -7,18 +7,16 @@ import AngleDoubleLeft from "~/components/Icons/AngleDoubleLeft"
 import { useStyletron } from "baseui"
 import { SAMPLE_TEMPLATES } from "~/constants/editor"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
-import useDesignEditorContext from "~/hooks/useDesignEditorContext"
-import useEditorType from "~/hooks/useEditorType"
-import { loadVideoEditorAssets } from "~/utils/video"
-import { useSelector } from "react-redux"
+import useDesignEditorContext from "~/hooks/useDesignEditorContext" 
    
 const Templates = () => {
   const editor = useEditor()
   
   const setIsSidebarOpen = useSetIsSidebarOpen()
-  const { setCurrentScene, currentScene } = useDesignEditorContext() 
-   
-   
+  const { setCurrentScene, currentScene,  } = useDesignEditorContext()
+  const { editorType } = useDesignEditorContext()
+ 
+  
 
   const loadTemplate = React.useCallback(
     async (template: any) => {

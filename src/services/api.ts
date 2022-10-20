@@ -267,13 +267,14 @@ class ApiService {
   getPixabayResources(): Promise<Resource[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await this.base.get("/resources/pixabay?query=flower")
-        resolve(data.data)
+        const { data } = await this.base.get("/resources?query=car&page=1&perPage=20") 
+        resolve(data?.images)
       } catch (err) {
         reject(err)
       }
     })
   }
 }
+
 
 export default new ApiService()
