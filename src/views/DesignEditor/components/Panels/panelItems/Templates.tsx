@@ -10,15 +10,19 @@ import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 import useEditorType from "~/hooks/useEditorType"
 import { loadVideoEditorAssets } from "~/utils/video"
-
+import { useSelector } from "react-redux"
+   
 const Templates = () => {
   const editor = useEditor()
+  
   const setIsSidebarOpen = useSetIsSidebarOpen()
-  const { setCurrentScene, currentScene } = useDesignEditorContext()
+  const { setCurrentScene, currentScene } = useDesignEditorContext() 
+   
+   
 
   const loadTemplate = React.useCallback(
     async (template: any) => {
-      if (editor) {
+      if (editor) {  
         const fonts: any[] = []
         template.layers.forEach((object: any) => {
           if (object.type === "StaticText" || object.type === "DynamicText") {

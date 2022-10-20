@@ -1,20 +1,39 @@
+ import React from "react"
 import { Button, SIZE } from "baseui/button"
 import { textComponents } from "~/constants/editor"
 import { useStyletron } from "styletron-react"
 import { useEditor } from "@layerhub-io/react"
 import { FontItem } from "~/interfaces/common"
 import { loadFonts } from "~/utils/fonts"
-import { IStaticText } from "@layerhub-io/types"
+import { ILayer, IStaticText } from "@layerhub-io/types"
 import { nanoid } from "nanoid"
 import { Block } from "baseui/block"
 import AngleDoubleLeft from "~/components/Icons/AngleDoubleLeft"
 import Scrollable from "~/components/Scrollable"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
+import { useSelector } from "react-redux"
+import { selectPublicComponents } from "~/store/slices/components/selectors"
+import api from "~/services/api"
 
-const Text = () => {
+const textOptions = {
+  id: nanoid(),
+  type: "StaticText",
+  width: 420,
+  text: "Add some text",
+  fontSize: 92,
+  fontFamily: "OpenSans-Regular",
+  textAlign: "center",
+  fontStyle: "normal",
+  fontURL:
+    "https://fonts.gstatic.com/s/opensans/v27/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0C4nY1M2xLER.ttf",
+  fill: "#333333",
+  metadata: {},
+}
+
+export default function () {
   const editor = useEditor()
   const setIsSidebarOpen = useSetIsSidebarOpen()
-
+  const components = useSelector(selectPublicComponents) 
   const addObject = async () => {
     if (editor) {
       const font: FontItem = {
@@ -35,7 +54,7 @@ const Text = () => {
         fill: "#333333",
         metadata: {},
       }
-      editor.objects.add<IStaticText>(options)
+      editor.objects.add(options)
     }
   }
   const addComponent = async (component: any) => {
@@ -54,16 +73,82 @@ const Text = () => {
         await loadFonts(filteredFonts)
       } else {
         if (component.type === "StaticText" || component.type === "DynamicText") {
-        fontItemsList.push({
-          name: component.fontFamily,
-          url: component.fontURL,
-        })
-        await loadFonts(fontItemsList)
-      }
+          fontItemsList.push({
+            name: component.fontFamily,
+            url: component.fontURL,
+          })
+          await loadFonts(fontItemsList)
+        }
       }
       editor.objects.add(component)
     }
   }
+
+  const makeAddComponent = async (id: string) => {
+    if (editor) {
+      const component = await api.getComponentById(id)
+      const fontItemsList: FontItem[] = []
+      const object: any = component.layers[0] as ILayer
+
+      if (object.type === "Group") {
+        object.objects.forEach((object: any) => {
+          if (object.type === "StaticText" || object.type === "DynamicText") {
+            fontItemsList.push({
+              name: object.fontFamily,
+              url: object.fontURL,
+            })
+          }
+        })
+        const filteredFonts = fontItemsList.filter((f) => !!f.url)
+        await loadFonts(filteredFonts)
+      } else {
+        if (object.type === "StaticText") {
+          fontItemsList.push({
+            name: object.fontFamily,
+            url: object.fontURL,
+          })
+          console.log({ fontItemsList })
+          await loadFonts(fontItemsList)
+        }
+      }
+
+      editor.objects.add(object)
+    }
+  }
+
+  const loadComponentFonts = async (component: any) => {
+    if (editor) {
+      const fontItemsList: FontItem[] = []
+      if (component.objects) {
+        component.objects.forEach((object: any) => {
+          if (object.type === "StaticText" || object.type === "DynamicText") {
+            fontItemsList.push({
+              name: object.fontFamily,
+              url: object.fontURL,
+            })
+          }
+        })
+        const filteredFonts = fontItemsList.filter((f) => !!f.url)
+        await loadFonts(filteredFonts)
+      } else {
+        if (component.type === "StaticText" || component.type === "DynamicText") {
+          fontItemsList.push({
+            name: component.fontFamily,
+            url: component.fontURL,
+          })
+          await loadFonts(fontItemsList)
+        }
+      }
+    }
+  }
+
+  const onDragStart = React.useCallback(async (ev: React.DragEvent<HTMLDivElement>, item: any) => {
+    let img = new Image()
+    img.src = item.preview
+    ev.dataTransfer.setDragImage(img, img.width / 2, img.height / 2)
+    editor.dragger.onDragStart(item)
+  }, [])
+
   return (
     <Block $style={{ flex: 1, display: "flex", flexDirection: "column" }}>
       <Block
@@ -82,7 +167,7 @@ const Text = () => {
         </Block>
       </Block>
       <Scrollable>
-        <Block padding="0 1.5rem">
+        <Block padding={"0 1.5rem"}>
           <Button
             onClick={addObject}
             size={SIZE.compact}
@@ -105,8 +190,13 @@ const Text = () => {
               gap: "8px",
             }}
           >
-            {[...textComponents].map((tc) => (
-              <TextComponentItem onClick={addComponent} key={tc.id} component={tc} />
+            {components?.map((component) => (
+              <TextComponentItem
+                onDragStart={(ev: React.DragEvent<HTMLDivElement>) => onDragStart(ev, component)}
+                onClick={makeAddComponent}
+                key={component.id}
+                component={component}
+              />
             ))}
           </Block>
         </Block>
@@ -115,17 +205,20 @@ const Text = () => {
   )
 }
 
-interface TextComponent {
-  id: string
-  metadata: {
-    preview: string
-  }
-}
-const TextComponentItem = ({ component, onClick }: { component: any; onClick: (option: any) => void }) => {
+function TextComponentItem({
+  component,
+  onClick,
+  onDragStart,
+}: {
+  component: any
+  onDragStart: (ev: React.DragEvent<HTMLDivElement>) => void
+  onClick: (option: any) => void
+}) {
   const [css] = useStyletron()
   return (
     <div
-      onClick={() => onClick(component.layers[0])}
+      onClick={() => onClick(component.id)}
+      onDragStart={onDragStart}
       className={css({
         position: "relative",
         height: "84px",
@@ -137,41 +230,9 @@ const TextComponentItem = ({ component, onClick }: { component: any; onClick: (o
         "::before:hover": {
           opacity: 1,
         },
+        userSelect: "all",
       })}
     >
-      <div
-        className={css({
-          backgroundImage: `linear-gradient(to bottom,
-          rgba(0, 0, 0, 0) 0,
-          rgba(0, 0, 0, 0.006) 8.1%,
-          rgba(0, 0, 0, 0.022) 15.5%,
-          rgba(0, 0, 0, 0.047) 22.5%,
-          rgba(0, 0, 0, 0.079) 29%,
-          rgba(0, 0, 0, 0.117) 35.3%,
-          rgba(0, 0, 0, 0.158) 41.2%,
-          rgba(0, 0, 0, 0.203) 47.1%,
-          rgba(0, 0, 0, 0.247) 52.9%,
-          rgba(0, 0, 0, 0.292) 58.8%,
-          rgba(0, 0, 0, 0.333) 64.7%,
-          rgba(0, 0, 0, 0.371) 71%,
-          rgba(0, 0, 0, 0.403) 77.5%,
-          rgba(0, 0, 0, 0.428) 84.5%,
-          rgba(0, 0, 0, 0.444) 91.9%,
-          rgba(0, 0, 0, 0.45) 100%)`,
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          opacity: 0,
-          transition: "opacity 0.3s ease-in-out",
-          height: "100%",
-          width: "100%",
-          ":hover": {
-            opacity: 1,
-          },
-        })}
-      />
       <img
         src={component.preview}
         className={css({
@@ -185,5 +246,3 @@ const TextComponentItem = ({ component, onClick }: { component: any; onClick: (o
     </div>
   )
 }
-
-export default Text

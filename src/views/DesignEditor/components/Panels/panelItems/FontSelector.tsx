@@ -12,13 +12,12 @@ import { groupBy } from "lodash"
 import Scrollable from "~/components/Scrollable"
 import { Block } from "baseui/block"
 import AngleDoubleLeft from "~/components/Icons/AngleDoubleLeft"
-import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
+import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen" 
 
 const FontSelector = () => {
   const [query, setQuery] = React.useState("")
   const { setActiveSubMenu } = useAppContext()
-  const setIsSidebarOpen = useSetIsSidebarOpen()
-
+  const setIsSidebarOpen = useSetIsSidebarOpen() 
   const [commonFonts, setCommonFonts] = React.useState<any[]>([])
   const [css] = useStyletron()
   const editor = useEditor()

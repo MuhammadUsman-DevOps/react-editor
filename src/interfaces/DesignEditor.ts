@@ -1,4 +1,4 @@
-import { IFrame } from "@layerhub-io/types"
+import { IFrame, IScene } from "@layerhub-io/types"
 
 export interface Page {
   id: string
@@ -30,4 +30,7 @@ export interface IDesign {
   scenes: any[]
   preview: string
   metadata: {}
+}
+export interface IComponent extends IScene {
+  published: boolean
 }
