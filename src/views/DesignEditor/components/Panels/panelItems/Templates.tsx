@@ -7,7 +7,6 @@ import AngleDoubleLeft from "~/components/Icons/AngleDoubleLeft"
 import { useStyletron } from "baseui"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
-import useEditorType from "~/hooks/useEditorType"
 import { loadVideoEditorAssets } from "~/utils/video"
 import { IScene } from "@layerhub-io/types"
 import { selectPublicDesigns } from "~/store/slices/designs/selectors"
@@ -15,12 +14,14 @@ import { useSelector } from "react-redux"
 import { IDesign } from "~/interfaces/DesignEditor"
 import { nanoid } from "nanoid"
 import api from "~/services/api"
+import useEditorType from "~/hooks/useEditorType"
 
 const Templates = () => {
   const editor = useEditor()
   const setIsSidebarOpen = useSetIsSidebarOpen()
   const { setCurrentScene, currentScene, setScenes, setCurrentDesign } = useDesignEditorContext()
-  const designs = useSelector(selectPublicDesigns)
+  const designs = useSelector(selectPublicDesigns);
+  const editorType = useEditorType()
 
   const loadTemplate = React.useCallback(
     async (template: any) => {
@@ -100,15 +101,17 @@ const Templates = () => {
       <Scrollable>
         <div style={{ padding: "0 1.5rem" }}>
           <div style={{ display: "grid", gap: "0.5rem", gridTemplateColumns: "1fr 1fr" }}>
-            {designs.map((design, index) => {
-              return (
-                <ImageItem
-                  onClick={() => loadDesignById(design.id)}
-                  key={index}
-                  preview={`${design.previews[0].src}?tr=w-320`}
-                />
-              )
-            })}
+          {designs
+              .filter((d) => d.type === editorType)
+              .map((design, index) => {
+                return (
+                  <ImageItem
+                    onClick={() => loadDesignById(design.id)}
+                    key={index}
+                    preview={`${design.previews[0].src}?tr=w-320`}
+                  />
+                )
+              })}
           </div>
         </div>
       </Scrollable>

@@ -45,6 +45,7 @@ const Container = ({ children }: { children: React.ReactNode }) => {
     dispatch(getUploads())
     dispatch(getPixabayResources())
     dispatch(getPublicDesigns())
+    
     loadFonts()
     setTimeout(() => {
       setLoaded(true)
