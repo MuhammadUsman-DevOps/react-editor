@@ -1,54 +1,90 @@
 import React from "react"
-import ArrowBackOutline from "~/components/Icons/ArrowBackOutline"
 import Search from "~/components/Icons/Search"
 import { Input, SIZE } from "baseui/input"
 import useAppContext from "~/hooks/useAppContext"
 import { useStyletron } from "baseui"
-import { IStaticText } from "@layerhub-io/types"
 import { useEditor } from "@layerhub-io/react"
 import { loadFonts } from "~/utils/fonts"
-import { SAMPLE_FONTS } from "~/constants/editor"
 import { groupBy } from "lodash"
 import Scrollable from "~/components/Scrollable"
 import { Block } from "baseui/block"
-import AngleDoubleLeft from "~/components/Icons/AngleDoubleLeft"
-import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen" 
+import { Delete } from "baseui/icon"
+import { useSelector } from "react-redux"
+import { selectFonts } from "~/store/slices/fonts/selectors"
+import { useAppDispatch } from "~/store/store"
+import { queryFonts } from "~/store/slices/fonts/actions"
+import InfiniteScrolling from "~/components/InfiniteScrolling"
+import { useDebounce } from "use-debounce"
 
-const FontSelector = () => {
+export default function () {
+  const [hasMore, setHasMore] = React.useState(true)
+  const [pageNumber, setPageNumber] = React.useState(1)
   const [query, setQuery] = React.useState("")
   const { setActiveSubMenu } = useAppContext()
-  const setIsSidebarOpen = useSetIsSidebarOpen() 
+  const fonts = useSelector(selectFonts)
   const [commonFonts, setCommonFonts] = React.useState<any[]>([])
+  const [searchQuery] = useDebounce(query, 250)
   const [css] = useStyletron()
   const editor = useEditor()
+  const dispath = useAppDispatch()
 
   React.useEffect(() => {
-    const grouped = groupBy(SAMPLE_FONTS, "family")
+    const grouped = groupBy(fonts, "family")
     const standardFonts = Object.keys(grouped).map((key) => {
       const familyFonts = grouped[key]
-      const standardFont = familyFonts.find((familyFont) => familyFont.postscript_name.includes("-Regular"))
+      const standardFont = familyFonts.find((familyFont) => familyFont.postScriptName.includes("-Regular"))
       if (standardFont) {
         return standardFont
       }
       return familyFonts[familyFonts.length - 1]
     })
     setCommonFonts(standardFonts)
-  }, [])
+  }, [fonts])
 
   const handleFontFamilyChange = async (x: any) => {
     if (editor) {
       const font = {
-        name: x.postscript_name,
+        name: x.postScriptName,
         url: x.url,
       }
       await loadFonts([font])
-      // @ts-ignore
-      editor.objects.update<IStaticText>({
-        fontFamily: x.postscript_name,
+
+      editor.objects.update({
+        fontFamily: x.postScriptName,
         fontURL: font.url,
       })
     }
   }
+
+  React.useEffect(() => {
+    dispath(
+      queryFonts({
+        query: searchQuery,
+        skip: pageNumber,
+        take: 100,
+      })
+    )
+    setHasMore(false)
+    if (!searchQuery) {
+      setHasMore(true)
+    } else {
+      setHasMore(false)
+    }
+  }, [searchQuery])
+
+  const fetchData = React.useCallback(() => {
+    if (!searchQuery) {
+      dispath(
+        queryFonts({
+          query: searchQuery,
+          skip: pageNumber,
+          take: 100,
+        })
+      )
+    }
+
+    setPageNumber(pageNumber + 1)
+  }, [pageNumber, searchQuery])
 
   return (
     <Block $style={{ flex: 1, display: "flex", flexDirection: "column" }}>
@@ -61,12 +97,10 @@ const FontSelector = () => {
           padding: "1.5rem",
         }}
       >
-        <Block $style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <ArrowBackOutline size={24} />
-          <Block>Choose font</Block>
-        </Block>
-        <Block onClick={() => setIsSidebarOpen(false)} $style={{ cursor: "pointer", display: "flex" }}>
-          <AngleDoubleLeft size={18} />
+        <Block>Select a font</Block>
+
+        <Block onClick={() => setActiveSubMenu("")} $style={{ cursor: "pointer", display: "flex" }}>
+          <Delete size={24} />
         </Block>
       </Block>
 
@@ -88,32 +122,35 @@ const FontSelector = () => {
       </Block>
 
       <Scrollable>
-        <div style={{ padding: "0 1.5rem", display: "grid", gap: "0.2rem" }}>
-          {commonFonts.map((font, index) => {
-            return (
-              <div
-                key={index}
-                onClick={() => handleFontFamilyChange(font)}
-                className={css({
-                  height: "40px",
-                  display: "flex",
-                  alignItems: "center",
-                  cursor: "pointer",
-                  fontSize: "14px",
-                  ":hover": {
-                    backgroundColor: "rgb(245,246,247)",
-                  },
-                })}
-                id={font.id}
-              >
-                <img src={font.preview} />
-              </div>
-            )
-          })}
-        </div>
+        <Block $style={{ padding: "0 1.5rem", display: "grid", gap: "0.2rem" }}>
+          <InfiniteScrolling fetchData={fetchData} hasMore={hasMore}>
+            <Block $style={{ display: "grid" }}>
+              {commonFonts.map((font, index) => {
+                return (
+                  <div
+                    key={index}
+                    onClick={() => handleFontFamilyChange(font)}
+                    className={css({
+                      height: "40px",
+                      display: "flex",
+                      alignItems: "center",
+                      cursor: "pointer",
+                      fontSize: "14px",
+                      ":hover": {
+                        backgroundColor: "rgb(245,246,247)",
+                      },
+                    })}
+                    id={font.id}
+                  >
+                    <img src={font.preview} />
+                    {/* <LazyLoadImage url={font.preview} /> */}
+                  </div>
+                )
+              })}
+            </Block>
+          </InfiniteScrolling>
+        </Block>
       </Scrollable>
     </Block>
   )
 }
-
-export default FontSelector

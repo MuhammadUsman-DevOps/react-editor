@@ -1,14 +1,15 @@
 import { IStaticText } from "@layerhub-io/types"
 import { groupBy } from "lodash"
+import { IFontFamily } from "~/interfaces/editor"
 
-export const getTextProperties = (object: Required<IStaticText>, fonts: any[]) => {
+export const getTextProperties = (object: Required<IStaticText>, fonts: IFontFamily[]) => {
   const color = object.fill
   const family = object.fontFamily
-  const selectedFont = fonts.find((sampleFont) => sampleFont.postscript_name === family)
+  const selectedFont = fonts.find((sampleFont) => sampleFont.postScriptName === family)
   const groupedFonts = groupBy(fonts, "family")
   const selectedFamily = groupedFonts[selectedFont!.family]
-  const hasBold = selectedFamily.find((font) => font.postscript_name.includes("-Bold"))
-  const hasItalic = selectedFamily.find((font) => font.postscript_name.includes("-Italic"))
+  const hasBold = selectedFamily.find((font) => font.postScriptName.includes("-Bold"))
+  const hasItalic = selectedFamily.find((font) => font.postScriptName.includes("-Italic"))
   const styleOptions = {
     hasBold: !!hasBold,
     hasItalic: !!hasItalic,

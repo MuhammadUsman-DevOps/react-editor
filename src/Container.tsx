@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import ResizeObserver from "resize-observer-polyfill"
 import useAppContext from "~/hooks/useAppContext"
-import Loading from "./components/Loading"
 import { editorFonts } from "./constants/fonts"
 import { getPublicDesigns } from "./store/slices/designs/actions"
 import { getPublicComponents } from "./store/slices/components/actions"
@@ -13,7 +12,6 @@ import { useAppDispatch } from "./store/store"
 const Container = ({ children }: { children: React.ReactNode }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const { isMobile, setIsMobile } = useAppContext()
-  const [loaded, setLoaded] = useState(false)
   const dispatch = useAppDispatch()
   const updateMediaQuery = (value: number) => {
     if (!isMobile && value >= 800) {
@@ -43,15 +41,15 @@ const Container = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     dispatch(getFonts())
-    dispatch(getUploads()) 
+    dispatch(getUploads())
     dispatch(getPublicComponents())
     dispatch(getPixabayResources())
     dispatch(getPublicDesigns())
-    
+
     loadFonts()
-    setTimeout(() => {
-      setLoaded(true)
-    }, 1000)
+    // setTimeout(() => {
+    //   setLoaded(true)
+    // }, 1000)
   }, [])
 
   const loadFonts = () => {
@@ -80,7 +78,7 @@ const Container = ({ children }: { children: React.ReactNode }) => {
         width: "100vw",
       }}
     >
-      {loaded ? <>{children} </> : <Loading />}
+      {children}
     </div>
   )
 }

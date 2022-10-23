@@ -1,6 +1,5 @@
 import React from "react"
 import { useActiveObject, useEditor } from "@layerhub-io/react"
-// import getSelectionType from "~/utils/get-selection-type"
 import { Input } from "baseui/input"
 import { Block } from "baseui/block"
 import { ChevronDown } from "baseui/icon"
@@ -21,13 +20,14 @@ import TextAlignLeft from "~/components/Icons/TextAlignLeft"
 import TextAlignRight from "~/components/Icons/TextAlignRight"
 import { Slider } from "baseui/slider"
 import useAppContext from "~/hooks/useAppContext"
-import { FONT_SIZES, SAMPLE_FONTS } from "~/constants/editor"
+import { FONT_SIZES } from "~/constants/editor"
 import getSelectionType from "~/utils/get-selection-type"
 import { IStaticText } from "@layerhub-io/types"
 import { getTextProperties } from "../../utils/text"
 import { loadFonts } from "~/utils/fonts"
 import Scrollbar from "@layerhub-io/react-custom-scrollbar"
-
+import { useSelector } from "react-redux"
+import { selectAllFonts } from "~/store/slices/fonts/selectors"
 interface TextState {
   color: string
   bold: boolean
@@ -55,15 +55,16 @@ const initialOptions: TextState = {
     options: [],
   },
 }
-const Text = () => {
+export default function () {
   const [state, setState] = React.useState<TextState>(initialOptions)
   const activeObject = useActiveObject() as Required<IStaticText>
   const { setActiveSubMenu } = useAppContext()
   const editor = useEditor()
+  const fonts = useSelector(selectAllFonts)
 
   React.useEffect(() => {
     if (activeObject && activeObject.type === "StaticText") {
-      const textProperties = getTextProperties(activeObject, SAMPLE_FONTS)
+      const textProperties = getTextProperties(activeObject, fonts)
       setState({ ...state, ...textProperties })
     }
   }, [activeObject])
@@ -71,7 +72,7 @@ const Text = () => {
   React.useEffect(() => {
     let watcher = async () => {
       if (activeObject && activeObject.type === "StaticText") {
-        const textProperties = getTextProperties(activeObject, SAMPLE_FONTS)
+        const textProperties = getTextProperties(activeObject, fonts)
         setState({ ...state, ...textProperties })
       }
     }
@@ -92,25 +93,25 @@ const Text = () => {
       if (state.italic) {
         // look for regular italic
         desiredFont = state.styleOptions.options.find((option) => {
-          const postscript_names = option.postscript_name.split("-")
-          return postscript_names[postscript_names.length - 1].match(/^Italic$/)
+          const postScriptNames = option.postScriptName.split("-")
+          return postScriptNames[postScriptNames.length - 1].match(/^Italic$/)
         })
       } else {
         // look for  regular
         desiredFont = state.styleOptions.options.find((option) => {
-          const postscript_names = option.postscript_name.split("-")
-          return postscript_names[postscript_names.length - 1].match(/^Regular$/)
+          const postScriptNames = option.postScriptName.split("-")
+          return postScriptNames[postScriptNames.length - 1].match(/^Regular$/)
         })
       }
 
       const font = {
-        name: desiredFont.postscript_name,
+        name: desiredFont.postScriptName,
         url: desiredFont.url,
       }
       await loadFonts([font])
 
       editor.objects.update({
-        fontFamily: desiredFont.postscript_name,
+        fontFamily: desiredFont.postScriptName,
         fontURL: font.url,
       })
       setState({ ...state, bold: false })
@@ -119,25 +120,25 @@ const Text = () => {
       if (state.italic) {
         // look for bold italic
         desiredFont = state.styleOptions.options.find((option) => {
-          const postscript_names = option.postscript_name.split("-")
-          return postscript_names[postscript_names.length - 1].match(/^BoldItalic$/)
+          const postScriptNames = option.postScriptName.split("-")
+          return postScriptNames[postScriptNames.length - 1].match(/^BoldItalic$/)
         })
       } else {
         // look for bold
         desiredFont = state.styleOptions.options.find((option) => {
-          const postscript_names = option.postscript_name.split("-")
-          return postscript_names[postscript_names.length - 1].match(/^Bold$/)
+          const postScriptNames = option.postScriptName.split("-")
+          return postScriptNames[postScriptNames.length - 1].match(/^Bold$/)
         })
       }
 
       const font = {
-        name: desiredFont.postscript_name,
+        name: desiredFont.postScriptName,
         url: desiredFont.url,
       }
       await loadFonts([font])
 
       editor.objects.update({
-        fontFamily: desiredFont.postscript_name,
+        fontFamily: desiredFont.postScriptName,
         fontURL: font.url,
       })
       setState({ ...state, bold: true })
@@ -150,25 +151,25 @@ const Text = () => {
       if (state.bold) {
         // Search bold regular
         desiredFont = state.styleOptions.options.find((option) => {
-          const postscript_names = option.postscript_name.split("-")
-          return postscript_names[postscript_names.length - 1].match(/^Bold$/)
+          const postScriptNames = option.postScriptName.split("-")
+          return postScriptNames[postScriptNames.length - 1].match(/^Bold$/)
         })
       } else {
         // Search regular
         desiredFont = state.styleOptions.options.find((option) => {
-          const postscript_names = option.postscript_name.split("-")
-          return postscript_names[postscript_names.length - 1].match(/^Regular$/)
+          const postScriptNames = option.postScriptName.split("-")
+          return postScriptNames[postScriptNames.length - 1].match(/^Regular$/)
         })
       }
 
       const font = {
-        name: desiredFont.postscript_name,
+        name: desiredFont.postScriptName,
         url: desiredFont.url,
       }
       await loadFonts([font])
 
       editor.objects.update({
-        fontFamily: desiredFont.postscript_name,
+        fontFamily: desiredFont.postScriptName,
         fontURL: font.url,
       })
       setState({ ...state, italic: false })
@@ -178,25 +179,25 @@ const Text = () => {
       if (state.bold) {
         // search italic bold
         desiredFont = state.styleOptions.options.find((option) => {
-          const postscript_names = option.postscript_name.split("-")
-          return postscript_names[postscript_names.length - 1].match(/^BoldItalic$/)
+          const postScriptNames = option.postScriptName.split("-")
+          return postScriptNames[postScriptNames.length - 1].match(/^BoldItalic$/)
         })
       } else {
         // search regular italic
         desiredFont = state.styleOptions.options.find((option) => {
-          const postscript_names = option.postscript_name.split("-")
-          return postscript_names[postscript_names.length - 1].match(/^Italic$/)
+          const postScriptNames = option.postScriptName.split("-")
+          return postScriptNames[postScriptNames.length - 1].match(/^Italic$/)
         })
       }
 
       const font = {
-        name: desiredFont.postscript_name,
+        name: desiredFont.postScriptName,
         url: desiredFont.url,
       }
       await loadFonts([font])
 
       editor.objects.update({
-        fontFamily: desiredFont.postscript_name,
+        fontFamily: desiredFont.postScriptName,
         fontURL: font.url,
       })
       setState({ ...state, italic: true })
@@ -213,7 +214,7 @@ const Text = () => {
     <Block
       $style={{ flex: 1, display: "flex", alignItems: "center", padding: "0 12px", justifyContent: "space-between" }}
     >
-      <Block display="flex" gridGap="0.5rem" alignItems="center">
+      <Block display={"flex"} gridGap="0.5rem" alignItems={"center"}>
         <Block
           onClick={() => setActiveSubMenu("FontSelector")}
           $style={{
@@ -225,22 +226,22 @@ const Text = () => {
             fontSize: "14px",
             gap: "0.5rem",
           }}
-          height="24px"
-          display="flex"
-          alignItems="center"
+          height={"24px"}
+          display={"flex"}
+          alignItems={"center"}
         >
           <Block>{state.family}</Block>
-          <Block display="flex">
+          <Block display={"flex"}>
             <ChevronDown size={22} />
           </Block>
         </Block>
 
         <TextFontSize />
-        <Block display="flex" alignItems="center">
+        <Block display={"flex"} alignItems={"center"}>
           <StatefulTooltip
             placement={PLACEMENT.bottom}
             showArrow={true}
-            accessibilityType="tooltip"
+            accessibilityType={"tooltip"}
             content="Text color"
           >
             <Button onClick={() => setActiveSubMenu("TextFill")} size={SIZE.mini} kind={KIND.tertiary}>
@@ -248,7 +249,7 @@ const Text = () => {
             </Button>
           </StatefulTooltip>
 
-          <StatefulTooltip placement={PLACEMENT.bottom} showArrow accessibilityType="tooltip" content="Bold">
+          <StatefulTooltip placement={PLACEMENT.bottom} showArrow={true} accessibilityType={"tooltip"} content="Bold">
             <Button
               style={{ ...(!state.bold && { color: "rgb(169,169,169)" }) }}
               disabled={!state.styleOptions.hasBold}
@@ -260,7 +261,7 @@ const Text = () => {
             </Button>
           </StatefulTooltip>
 
-          <StatefulTooltip placement={PLACEMENT.bottom} showArrow={true} accessibilityType="tooltip" content="Italic">
+          <StatefulTooltip placement={PLACEMENT.bottom} showArrow={true} accessibilityType={"tooltip"} content="Italic">
             <Button
               style={{ ...(!state.italic && { color: "rgb(169,169,169)" }) }}
               disabled={!state.styleOptions.hasItalic}
@@ -272,10 +273,10 @@ const Text = () => {
             </Button>
           </StatefulTooltip>
 
-          <StatefulTooltip 
-            placement={PLACEMENT.bottom} 
-            showArrow={true} 
-            accessibilityType="tooltip" 
+          <StatefulTooltip
+            placement={PLACEMENT.bottom}
+            showArrow={true}
+            accessibilityType={"tooltip"}
             content="Underline"
           >
             <Button
@@ -290,18 +291,18 @@ const Text = () => {
 
           <TextLetterCase />
 
-          <Block width="1px" height="24px" backgroundColor="rgb(213,213,213)" margin="0 4px" />
+          <Block width={"1px"} height={"24px"} backgroundColor="rgb(213,213,213)" margin={"0 4px"} />
 
           <TextAlign />
 
-          <Block width="1px" height="24px" backgroundColor="rgb(213,213,213)" margin="0 4px" />
+          <Block width={"1px"} height={"24px"} backgroundColor="rgb(213,213,213)" margin={"0 4px"} />
 
           <TextSpacing />
-          <Block width="1px" height="24px" backgroundColor="rgb(213,213,213)" margin="0 4px" />
+          <Block width={"1px"} height={"24px"} backgroundColor="rgb(213,213,213)" margin={"0 4px"} />
           <Button onClick={() => setActiveSubMenu("TextEffects")} size={SIZE.compact} kind={KIND.tertiary}>
             Effects
           </Button>
-          <Block width="1px" height="24px" backgroundColor="rgb(213,213,213)" margin="0 4px" />
+          <Block width={"1px"} height={"24px"} backgroundColor="rgb(213,213,213)" margin={"0 4px"} />
           <Button size={SIZE.compact} kind={KIND.tertiary}>
             Animate
           </Button>
@@ -312,7 +313,7 @@ const Text = () => {
   )
 }
 
-const TextFontSize = () => {
+function TextFontSize() {
   const editor = useEditor()
   const activeObject = useActiveObject()
   const [value, setValue] = React.useState(12)
@@ -333,7 +334,7 @@ const TextFontSize = () => {
     <StatefulPopover
       content={({ close }) => (
         <Scrollbar style={{ height: "320px", width: "90px" }}>
-          <Block backgroundColor="#ffffff" padding="10px 0">
+          <Block backgroundColor={"#ffffff"} padding={"10px 0"}>
             {FONT_SIZES.map((size, index) => (
               <Block
                 onClick={() => {
@@ -360,7 +361,7 @@ const TextFontSize = () => {
         </Scrollbar>
       )}
     >
-      <Block width="80px">
+      <Block width={"80px"}>
         <Input
           value={value}
           onChange={(e: any) => onChange(e.target.value)}
@@ -410,11 +411,11 @@ const TextFontSize = () => {
   )
 }
 
-const TextLetterCase = () => {
+function TextLetterCase() {
   const [state, setState] = React.useState<{ upper: boolean }>({ upper: false })
   const editor = useEditor()
   return (
-    <StatefulTooltip placement={PLACEMENT.bottom} showArrow={true} accessibilityType="tooltip" content="Letter case">
+    <StatefulTooltip placement={PLACEMENT.bottom} showArrow={true} accessibilityType={"tooltip"} content="Letter case">
       <Button
         onClick={() => {
           if (!state.upper) {
@@ -434,7 +435,7 @@ const TextLetterCase = () => {
   )
 }
 
-const TextSpacing = () => {
+function TextSpacing() {
   const editor = useEditor()
   const activeObject = useActiveObject()
   const [state, setState] = React.useState<{
@@ -474,11 +475,11 @@ const TextSpacing = () => {
       showArrow={true}
       placement={PLACEMENT.bottom}
       content={() => (
-        <Block padding="12px" width="200px" backgroundColor="#ffffff" display="grid" gridGap="8px">
+        <Block padding={"12px"} width={"200px"} backgroundColor={"#ffffff"} display={"grid"} gridGap={"8px"}>
           <Block>
             <Block $style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <Block $style={{ fontSize: "14px" }}>Line height</Block>
-              <Block width="52px">
+              <Block width={"52px"}>
                 <Input
                   overrides={{
                     Input: {
@@ -540,7 +541,7 @@ const TextSpacing = () => {
           <Block>
             <Block $style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <Block $style={{ fontSize: "14px" }}>Char spacing</Block>
-              <Block width="52px">
+              <Block width={"52px"}>
                 <Input
                   overrides={{
                     Input: {
@@ -602,7 +603,7 @@ const TextSpacing = () => {
       )}
     >
       <Block>
-        <StatefulTooltip placement={PLACEMENT.bottom} showArrow={true} accessibilityType="tooltip" content="Spacing">
+        <StatefulTooltip placement={PLACEMENT.bottom} showArrow={true} accessibilityType={"tooltip"} content="Spacing">
           <Button size={SIZE.mini} kind={KIND.tertiary}>
             <Spacing size={24} />
           </Button>
@@ -614,7 +615,7 @@ const TextSpacing = () => {
 
 const TEXT_ALIGNS = ["left", "center", "right", "justify"]
 
-const TextAlign = () => {
+function TextAlign() {
   const editor = useEditor()
   const activeObject = useActiveObject()
   const [state, setState] = React.useState<{ align: string }>({ align: "left" })
@@ -631,11 +632,11 @@ const TextAlign = () => {
       placement={PLACEMENT.bottom}
       content={() => (
         <Block
-          padding="12px"
-          backgroundColor="#ffffff"
-          display="grid"
-          gridTemplateColumns="1fr 1fr 1fr 1fr"
-          gridGap="8px"
+          padding={"12px"}
+          backgroundColor={"#ffffff"}
+          display={"grid"}
+          gridTemplateColumns={"1fr 1fr 1fr 1fr"}
+          gridGap={"8px"}
         >
           <Button
             isSelected={state.align === TEXT_ALIGNS[0]}
@@ -691,7 +692,7 @@ const TextAlign = () => {
       autoFocus
     >
       <Block>
-        <StatefulTooltip placement={PLACEMENT.bottom} showArrow={true} accessibilityType="tooltip" content="Align">
+        <StatefulTooltip placement={PLACEMENT.bottom} showArrow={true} accessibilityType={"tooltip"} content="Align">
           <Button size={SIZE.mini} kind={KIND.tertiary}>
             <TextAlignCenter size={24} />
           </Button>
@@ -700,5 +701,3 @@ const TextAlign = () => {
     </StatefulPopover>
   )
 }
-
-export default Text

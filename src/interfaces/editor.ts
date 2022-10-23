@@ -11,14 +11,13 @@ export interface Resource {
 
 export interface IFontFamily {
   id: string
+  fullName: string
   family: string
-  variants: FontVariant[]
-  files: FontFile[]
-  subsets: string[]
-  version: string
-  lastModified: string
+  style: string
+  url: string
+  postScriptName: string
+  preview: string
   category: string
-  kind: string
 }
 
 export interface TextOptions {

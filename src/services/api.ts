@@ -100,7 +100,7 @@ class ApiService {
   getComponents(): Promise<any[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await this.base.get("/components") 
+        const { data } = await this.base.get("/components")
         resolve(data)
       } catch (err) {
         reject(err)
@@ -122,7 +122,7 @@ class ApiService {
   getPublicComponents(): Promise<IComponent[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await this.base.get("/public-components")  
+        const { data } = await this.base.get("/public-components")
         resolve(data.components)
       } catch (err) {
         reject(err)
@@ -257,7 +257,7 @@ class ApiService {
     return new Promise(async (resolve, reject) => {
       try {
         const { data } = await this.base.get("/fonts")
-        resolve(data) 
+        resolve(data.fonts)
       } catch (err) {
         reject(err)
       }
@@ -267,7 +267,7 @@ class ApiService {
   getPixabayResources(): Promise<Resource[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await this.base.get("/resources?query=car&page=1&perPage=20") 
+        const { data } = await this.base.get("/resources?query=car&page=1&perPage=20")
         resolve(data?.images)
       } catch (err) {
         reject(err)
@@ -275,6 +275,5 @@ class ApiService {
     })
   }
 }
-
 
 export default new ApiService()

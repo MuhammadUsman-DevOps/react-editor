@@ -38,6 +38,7 @@
     "resize-observer-polyfill": "^1.5.1",
     "styletron-engine-atomic": "1.5.0-beta.2",
     "styletron-react": "6.1.0-beta.2",
+    "use-debounce": "^8.0.4",
     "use-latest": "^1.2.1"
   },
   "devDependencies": {

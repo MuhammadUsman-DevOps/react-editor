@@ -38,6 +38,7 @@ specifiers:
   styletron-engine-atomic: 1.5.0-beta.2
   styletron-react: 6.1.0-beta.2
   typescript: ^4.6.3
+  use-debounce: ^8.0.4
   use-latest: ^1.2.1
   vite: ^3.0.0
   vite-tsconfig-paths: ^3.5.0
@@ -73,6 +74,7 @@ dependencies:
   resize-observer-polyfill: 1.5.1
   styletron-engine-atomic: 1.5.0-beta.2
   styletron-react: 6.1.0-beta.2_react@18.2.0
+  use-debounce: 8.0.4_react@18.2.0
   use-latest: 1.2.1_luyos4mouogwq6z3wafb3re4ce
 
 devDependencies:
@@ -3271,6 +3273,15 @@ packages:
       '@types/react': 18.0.14
       react: 18.2.0
       tslib: 2.4.0
+    dev: false
+
+  /use-debounce/8.0.4_react@18.2.0:
+    resolution: {integrity: sha512-fGqsYQzl8kLHF2QpQSgIwgOgJmnh6j5L6SIzQiHdLfwp3q1egUL3btq5Bg2SJysH6A0ILLgT2IqXZKoNJr0nFw==}
+    engines: {node: '>= 10.0.0'}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /use-isomorphic-layout-effect/1.1.2_luyos4mouogwq6z3wafb3re4ce:
