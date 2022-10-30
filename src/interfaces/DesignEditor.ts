@@ -33,6 +33,7 @@ export interface IDesign {
   published: boolean
 }
 
-export interface IComponent extends IScene {
+export interface IComponent extends Omit<IScene, "preview"> {
   published: boolean
+  preview: { src: string }
 }

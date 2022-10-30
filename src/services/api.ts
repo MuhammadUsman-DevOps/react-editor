@@ -1,12 +1,11 @@
 import axios, { AxiosInstance } from "axios"
-import { IDesign } from "~/interfaces/DesignEditor"
+import { IDesign, IComponent } from "~/interfaces/DesignEditor"
 import { Resource } from "~/interfaces/editor"
 
 type IElement = any
 type IFontFamily = any
 type IUpload = any
 type Template = any
-type IComponent = any
 
 class ApiService {
   base: AxiosInstance

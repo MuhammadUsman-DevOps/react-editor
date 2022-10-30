@@ -1,4 +1,4 @@
- import React from "react"
+import React from "react"
 import { Button, SIZE } from "baseui/button"
 import { textComponents } from "~/constants/editor"
 import { useStyletron } from "styletron-react"
@@ -14,6 +14,7 @@ import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import { useSelector } from "react-redux"
 import { selectPublicComponents } from "~/store/slices/components/selectors"
 import api from "~/services/api"
+import { IComponent } from "~/interfaces/DesignEditor"
 
 const textOptions = {
   id: nanoid(),
@@ -33,7 +34,7 @@ const textOptions = {
 export default function () {
   const editor = useEditor()
   const setIsSidebarOpen = useSetIsSidebarOpen()
-  const components = useSelector(selectPublicComponents) 
+  const components = useSelector(selectPublicComponents)
   const addObject = async () => {
     if (editor) {
       const font: FontItem = {
@@ -89,7 +90,6 @@ export default function () {
       const component = await api.getComponentById(id)
       const fontItemsList: FontItem[] = []
       const object: any = component.layers[0] as ILayer
-
       if (object.type === "Group") {
         object.objects.forEach((object: any) => {
           if (object.type === "StaticText" || object.type === "DynamicText") {
@@ -107,7 +107,6 @@ export default function () {
             name: object.fontFamily,
             url: object.fontURL,
           })
-          console.log({ fontItemsList })
           await loadFonts(fontItemsList)
         }
       }
@@ -146,7 +145,7 @@ export default function () {
     let img = new Image()
     img.src = item.preview
     ev.dataTransfer.setDragImage(img, img.width / 2, img.height / 2)
-    editor.dragger.onDragStart(item)
+    // editor.dragger.onDragStart(item)
   }, [])
 
   return (
@@ -210,7 +209,7 @@ function TextComponentItem({
   onClick,
   onDragStart,
 }: {
-  component: any
+  component: IComponent
   onDragStart: (ev: React.DragEvent<HTMLDivElement>) => void
   onClick: (option: any) => void
 }) {
@@ -234,7 +233,7 @@ function TextComponentItem({
       })}
     >
       <img
-        src={component.preview}
+        src={component.preview.src}
         className={css({
           width: "100%",
           height: "100%",
