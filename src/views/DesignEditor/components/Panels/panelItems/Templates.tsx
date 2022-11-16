@@ -1,53 +1,27 @@
 import React from "react"
 import { useEditor } from "@layerhub-io/react"
 import { Block } from "baseui/block"
-import { loadFonts, loadTemplateFonts } from "~/utils/fonts"
+import { loadTemplateFonts } from "~/utils/fonts"
 import Scrollable from "~/components/Scrollable"
 import AngleDoubleLeft from "~/components/Icons/AngleDoubleLeft"
 import { useStyletron } from "baseui"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
-import { loadVideoEditorAssets } from "~/utils/video"
-import { IScene } from "@layerhub-io/types"
-import { selectPublicDesigns } from "~/store/slices/designs/selectors"
 import { useSelector } from "react-redux"
+import { selectPublicDesigns } from "~/store/slices/designs/selectors"
 import { IDesign } from "~/interfaces/DesignEditor"
+import { IScene } from "@layerhub-io/types"
 import { nanoid } from "nanoid"
 import api from "~/services/api"
 import useEditorType from "~/hooks/useEditorType"
 
-const Templates = () => {
+export default function () {
   const editor = useEditor()
-  
   const setIsSidebarOpen = useSetIsSidebarOpen()
   const { setCurrentScene, currentScene, setScenes, setCurrentDesign } = useDesignEditorContext()
-  const designs = useSelector(selectPublicDesigns);
+  const designs = useSelector(selectPublicDesigns)
   const editorType = useEditorType()
-
-  const loadTemplate = React.useCallback(
-    async (template: any) => {
-      if (editor) {  
-        const fonts: any[] = []
-        template.layers.forEach((object: any) => {
-          if (object.type === "StaticText" || object.type === "DynamicText") {
-            fonts.push({
-              name: object.fontFamily,
-              url: object.fontURL,
-              options: { style: "normal", weight: 400 },
-            })
-          }
-        })
-        const filteredFonts = fonts.filter((f) => !!f.url)
-        if (filteredFonts.length > 0) {
-          await loadFonts(filteredFonts)
-        }
-
-        setCurrentScene({ ...template, id: currentScene?.id })
-      }
-    },
-    [editor, currentScene]
-  )
-
+  
   const loadGraphicTemplate = async (payload: IDesign): Promise<{ scenes: IScene[]; design: IDesign }> => {
     const scenes: IScene[] = []
     const { scenes: scns, ...design } = payload
@@ -102,7 +76,7 @@ const Templates = () => {
       <Scrollable>
         <div style={{ padding: "0 1.5rem" }}>
           <div style={{ display: "grid", gap: "0.5rem", gridTemplateColumns: "1fr 1fr" }}>
-          {designs
+            {designs
               .filter((d) => d.type === editorType)
               .map((design, index) => {
                 return (
@@ -182,5 +156,3 @@ function ImageItem({ preview, onClick }: { preview: any; onClick?: (option: any)
     </div>
   )
 }
-
-export default Templates
