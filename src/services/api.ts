@@ -273,6 +273,19 @@ class ApiService {
       }
     })
   }
+
+  getPixabayImages = (props: { query: string; perPage: number; page: number }): Promise<Resource[]> => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { data } = await this.base.get(
+          `resources/pixabay/images?page=${props.page}&per_page=${props.perPage}&query=${props.query}`
+        )
+        resolve(data.images)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 }
 
 export default new ApiService()
