@@ -165,8 +165,8 @@ class ApiService {
   getPublicDesigns(): Promise<IDesign[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await this.base.get("/public-designs")
-        resolve(data.designs)
+        const { data } = await this.base.get("/templates/published")
+        resolve(data.templates)
       } catch (err) {
         reject(err)
       }
@@ -176,8 +176,8 @@ class ApiService {
   getPublicDesignById(id: string): Promise<IDesign> {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await this.base.get(`/public-designs/${id}`)
-        resolve(data.design)
+        const { data } = await this.base.get(`/templates/published/${id}`)
+        resolve(data.template)
       } catch (err) {
         reject(err)
       }
@@ -257,17 +257,6 @@ class ApiService {
       try {
         const { data } = await this.base.get("/fonts")
         resolve(data.fonts)
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
-
-  getPixabayResources(): Promise<Resource[]> {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const { data } = await this.base.get("/resources?query=car&page=1&perPage=20")
-        resolve(data?.images)
       } catch (err) {
         reject(err)
       }
