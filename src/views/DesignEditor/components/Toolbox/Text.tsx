@@ -92,25 +92,25 @@ export default function () {
       if (state.italic) {
         // look for regular italic
         desiredFont = state.styleOptions.options.find((option) => {
-          const postScriptNames = option.postScriptName.split("-")
+          const postScriptNames = option.post_script_name.split("-")
           return postScriptNames[postScriptNames.length - 1].match(/^Italic$/)
         })
       } else {
         // look for  regular
         desiredFont = state.styleOptions.options.find((option) => {
-          const postScriptNames = option.postScriptName.split("-")
+          const postScriptNames = option.post_script_name.split("-")
           return postScriptNames[postScriptNames.length - 1].match(/^Regular$/)
         })
       }
 
       const font = {
-        name: desiredFont.postScriptName,
+        name: desiredFont.post_script_name,
         url: desiredFont.url,
       }
       await loadFonts([font])
 
       editor.objects.update({
-        fontFamily: desiredFont.postScriptName,
+        fontFamily: desiredFont.post_script_name,
         fontURL: font.url,
       })
       setState({ ...state, bold: false })
@@ -119,25 +119,25 @@ export default function () {
       if (state.italic) {
         // look for bold italic
         desiredFont = state.styleOptions.options.find((option) => {
-          const postScriptNames = option.postScriptName.split("-")
+          const postScriptNames = option.post_script_name.split("-")
           return postScriptNames[postScriptNames.length - 1].match(/^BoldItalic$/)
         })
       } else {
         // look for bold
         desiredFont = state.styleOptions.options.find((option) => {
-          const postScriptNames = option.postScriptName.split("-")
+          const postScriptNames = option.post_script_name.split("-")
           return postScriptNames[postScriptNames.length - 1].match(/^Bold$/)
         })
       }
 
       const font = {
-        name: desiredFont.postScriptName,
+        name: desiredFont.post_script_name,
         url: desiredFont.url,
       }
       await loadFonts([font])
 
       editor.objects.update({
-        fontFamily: desiredFont.postScriptName,
+        fontFamily: desiredFont.post_script_name,
         fontURL: font.url,
       })
       setState({ ...state, bold: true })
@@ -150,25 +150,25 @@ export default function () {
       if (state.bold) {
         // Search bold regular
         desiredFont = state.styleOptions.options.find((option) => {
-          const postScriptNames = option.postScriptName.split("-")
+          const postScriptNames = option.post_script_name.split("-")
           return postScriptNames[postScriptNames.length - 1].match(/^Bold$/)
         })
       } else {
         // Search regular
         desiredFont = state.styleOptions.options.find((option) => {
-          const postScriptNames = option.postScriptName.split("-")
+          const postScriptNames = option.post_script_name.split("-")
           return postScriptNames[postScriptNames.length - 1].match(/^Regular$/)
         })
       }
 
       const font = {
-        name: desiredFont.postScriptName,
+        name: desiredFont.post_script_name,
         url: desiredFont.url,
       }
       await loadFonts([font])
 
       editor.objects.update({
-        fontFamily: desiredFont.postScriptName,
+        fontFamily: desiredFont.post_script_name,
         fontURL: font.url,
       })
       setState({ ...state, italic: false })
@@ -178,25 +178,25 @@ export default function () {
       if (state.bold) {
         // search italic bold
         desiredFont = state.styleOptions.options.find((option) => {
-          const postScriptNames = option.postScriptName.split("-")
+          const postScriptNames = option.post_script_name.split("-")
           return postScriptNames[postScriptNames.length - 1].match(/^BoldItalic$/)
         })
       } else {
         // search regular italic
         desiredFont = state.styleOptions.options.find((option) => {
-          const postScriptNames = option.postScriptName.split("-")
+          const postScriptNames = option.post_script_name.split("-")
           return postScriptNames[postScriptNames.length - 1].match(/^Italic$/)
         })
       }
 
       const font = {
-        name: desiredFont.postScriptName,
+        name: desiredFont.post_script_name,
         url: desiredFont.url,
       }
       await loadFonts([font])
 
       editor.objects.update({
-        fontFamily: desiredFont.postScriptName,
+        fontFamily: desiredFont.post_script_name,
         fontURL: font.url,
       })
       setState({ ...state, italic: true })

@@ -32,7 +32,7 @@ export default function () {
     const grouped = groupBy(fonts, "family")
     const standardFonts = Object.keys(grouped).map((key) => {
       const familyFonts = grouped[key]
-      const standardFont = familyFonts.find((familyFont) => familyFont.postScriptName.includes("-Regular"))
+      const standardFont = familyFonts.find((familyFont) => familyFont.post_script_name.includes("-Regular"))
       if (standardFont) {
         return standardFont
       }
@@ -44,13 +44,13 @@ export default function () {
   const handleFontFamilyChange = async (x: any) => {
     if (editor) {
       const font = {
-        name: x.postScriptName,
+        name: x.post_script_name,
         url: x.url,
       }
       await loadFonts([font])
 
       editor.objects.update({
-        fontFamily: x.postScriptName,
+        fontFamily: x.post_script_name,
         fontURL: font.url,
       })
     }
