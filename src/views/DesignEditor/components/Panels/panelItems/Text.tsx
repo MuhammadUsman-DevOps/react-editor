@@ -34,7 +34,8 @@ const textOptions = {
 export default function () {
   const editor = useEditor()
   const setIsSidebarOpen = useSetIsSidebarOpen()
-  const components = useSelector(selectPublicComponents)
+  const components = useSelector(selectPublicComponents) 
+  
   const addObject = async () => {
     if (editor) {
       const font: FontItem = {
@@ -233,7 +234,7 @@ function TextComponentItem({
       })}
     >
       <img
-        src={component.preview.src}
+        src={component.preview}
         className={css({
           width: "100%",
           height: "100%",
