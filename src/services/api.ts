@@ -121,7 +121,7 @@ class ApiService {
   getPublicComponents(): Promise<IComponent[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await this.base.get("/public-components")
+        const { data } = await this.base.get("/components/published")
         resolve(data.components)
       } catch (err) {
         reject(err)
@@ -255,8 +255,8 @@ class ApiService {
   getFonts(): Promise<IFontFamily[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await this.base.get("/fonts")
-        resolve(data.fonts)
+        const { data } = await this.base.get("/fonts?limit=10&offset=0")
+        resolve(data.fonts) 
       } catch (err) {
         reject(err)
       }
