@@ -50,7 +50,7 @@ export const fontsReducer = createReducer(initialState, (builder) => {
     } else {
       state.result = state.fonts.slice(0, skip * 100)
     }
-    const data = fuzzySearch(state.fonts, "open")
+    // const data = fuzzySearch(state.fonts, "open")
     // console.log(data)
   })
 })

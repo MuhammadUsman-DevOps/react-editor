@@ -11,8 +11,7 @@ class ApiService {
   base: AxiosInstance
   constructor() {
     this.base = axios.create({
-      baseURL: "/api",
-      withCredentials: true,
+      baseURL: "http://localhost:8080/api",
     })
   }
 
@@ -121,7 +120,7 @@ class ApiService {
   getPublicComponents(): Promise<IComponent[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await this.base.get("/components/published")
+        const { data } = await this.base.get("/components")
         resolve(data.components)
       } catch (err) {
         reject(err)
@@ -165,8 +164,8 @@ class ApiService {
   getPublicDesigns(): Promise<IDesign[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await this.base.get("/templates/published")
-        resolve(data.templates)
+        const { data } = await this.base.get("/designs")
+        resolve(data.designs)
       } catch (err) {
         reject(err)
       }
@@ -256,7 +255,7 @@ class ApiService {
     return new Promise(async (resolve, reject) => {
       try {
         const { data } = await this.base.get("/fonts")
-        resolve(data.fonts) 
+        resolve(data.fonts)
       } catch (err) {
         reject(err)
       }
