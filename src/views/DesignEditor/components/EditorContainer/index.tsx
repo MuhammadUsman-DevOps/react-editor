@@ -10,7 +10,7 @@ const EditorContainer = ({ children }: { children: React.ReactNode }) => {
         display: "flex",
         flexDirection: "column",
         background: "#FFFFFF",
-        fontFamily: "Uber Move Text",
+        fontFamily: "Poppins",
       }}
     >
       {children}

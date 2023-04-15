@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef } from "react"
 import ResizeObserver from "resize-observer-polyfill"
 import useAppContext from "~/hooks/useAppContext"
-import { editorFonts } from "./constants/fonts"
 import { getPublicDesigns } from "./store/slices/designs/actions"
 import { getPublicComponents } from "./store/slices/components/actions"
 import { getFonts } from "./store/slices/fonts/actions"
@@ -45,28 +44,7 @@ const Container = ({ children }: { children: React.ReactNode }) => {
     dispatch(getPublicComponents())
     dispatch(getPixabayResources())
     dispatch(getPublicDesigns())
-
-    loadFonts()
-    // setTimeout(() => {
-    //   setLoaded(true)
-    // }, 1000)
   }, [])
-
-  const loadFonts = () => {
-    const promisesList = editorFonts.map((font) => {
-      // @ts-ignore
-      return new FontFace(font.name, `url(${font.url})`, font.options).load().catch((err) => err)
-    })
-    Promise.all(promisesList)
-      .then((res) => {
-        res.forEach((uniqueFont) => {
-          if (uniqueFont && uniqueFont.family) {
-            document.fonts.add(uniqueFont)
-          }
-        })
-      })
-      .catch((err) => console.log({ err }))
-  }
 
   return (
     <div

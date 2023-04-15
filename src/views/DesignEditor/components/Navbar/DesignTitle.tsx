@@ -46,7 +46,7 @@ const DesignTitle = () => {
       <Block $style={{ display: "flex", position: "absolute", top: "-10px", left: "50%", width: "100%" }}>
         <Block
           $style={{
-            fontFamily: "Uber Move Text",
+            fontFamily: "Poppins",
             position: "absolute",
             top: "-10px",
             left: "50%",
@@ -82,7 +82,7 @@ const DesignTitle = () => {
                 fontWeight: 500,
                 fontSize: "14px",
                 width: `${state.width}px`,
-                fontFamily: "Uber Move Text",
+                fontFamily: "Poppins",
                 backgroundColor: "transparent",
                 color: "#ffffff",
                 paddingRight: 0,
