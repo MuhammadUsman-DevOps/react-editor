@@ -61,7 +61,7 @@ export default function () {
   const fonts = useSelector(selectAllFonts)
 
   React.useEffect(() => {
-    if (activeObject && activeObject.type === "StaticText") {
+    if (activeObject && activeObject.type === "StaticText" && fonts.length) {
       const textProperties = getTextProperties(activeObject, fonts)
       setState({ ...state, ...textProperties })
     }
@@ -69,7 +69,7 @@ export default function () {
 
   React.useEffect(() => {
     let watcher = async () => {
-      if (activeObject && activeObject.type === "StaticText") {
+      if (activeObject && activeObject.type === "StaticText" && fonts.length) {
         const textProperties = getTextProperties(activeObject, fonts)
         setState({ ...state, ...textProperties })
       }
