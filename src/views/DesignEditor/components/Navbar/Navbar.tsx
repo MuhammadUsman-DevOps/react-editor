@@ -149,7 +149,7 @@ const Navbar = () => {
       } else if (editorType === "PRESENTATION") {
         return parsePresentationJSON()
       } else {
-      return parseVideoJSON()
+        return parseVideoJSON()
       }
     }
   }
@@ -330,7 +330,7 @@ const Navbar = () => {
           <Button
             style={{ marginLeft: "0.5rem" }}
             size="compact"
-            onClick={() => window.location.replace("https://editor.layerhub.io")}
+            onClick={() => window.location.replace("https://app.scenify.io")}
             kind={KIND.primary}
           >
             Try PRO
