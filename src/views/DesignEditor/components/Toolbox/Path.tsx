@@ -3,7 +3,7 @@ import { Block } from "baseui/block"
 import Common from "./Common"
 import Flip from "./Shared/Flip"
 import useAppContext from "~/hooks/useAppContext"
-import { useActiveObject, useEditor } from "@layerhub-io/react"
+import { useActiveObject, useEditor } from "~/react"
 
 const Path = () => {
   const [state, setState] = React.useState({ fill: "#000000" })

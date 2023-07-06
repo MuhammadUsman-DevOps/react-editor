@@ -1,7 +1,7 @@
 import React from "react"
 import { Block } from "baseui/block"
-import { useEditor, useZoomRatio } from "@layerhub-io/react"
-import { useTimer } from "@layerhub-io/use-timer"
+import { useEditor, useZoomRatio } from "~/react"
+import { useTimer } from "~/contexts/useTimer"
 import Controller from "./Controler"
 import useDesignEditorPages from "~/hooks/useDesignEditorScenes"
 

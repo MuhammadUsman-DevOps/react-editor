@@ -1,6 +1,6 @@
 # Design Editor
 
-If you are worrying about something like a designer tool, such as graphic editor, presentation editor, video editor, etc. Layerhub is a perfect choice for you.  
+If you are worrying about something like a designer tool, such as graphic editor, presentation editor, video editor, etc. Layerhub is a perfect choice for you.
 Try demo here [react-design-editor.up.railway.app/](https://react-design-editor.up.railway.app/)
 
 <p>
@@ -19,7 +19,7 @@ React editor created editors for graphics, presentations and video.
 
 ## Components
 
-- @layerhub-io/react: This editor is using SDK for react.
+- ~/react: This editor is using SDK for react.
 
 ## How to start
 

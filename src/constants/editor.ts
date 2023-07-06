@@ -1,4 +1,4 @@
-import { ILayer } from "@layerhub-io/types"
+import { ILayer } from "~/types/"
 
 export const SecondLevelMenus = ["FontFamily"]
 export const FirstLevelMenus = ["Background"]

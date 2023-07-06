@@ -1,4 +1,4 @@
-import { IStaticText } from "@layerhub-io/types"
+import { IStaticText } from "~/types/"
 import { groupBy } from "lodash"
 import { IFontFamily } from "~/interfaces/editor"
 

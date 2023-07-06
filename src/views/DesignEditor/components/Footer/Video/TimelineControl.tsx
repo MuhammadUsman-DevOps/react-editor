@@ -1,5 +1,5 @@
 import React from "react"
-import { useTimer } from "@layerhub-io/use-timer"
+import { useTimer } from "~/contexts/useTimer"
 import { Block } from "baseui/block"
 import Pause from "~/components/Icons/Pause"
 import PlaySolid from "~/components/Icons/PlaySolid"

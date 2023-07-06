@@ -1,5 +1,5 @@
 import React from "react"
-import { useEditor } from "@layerhub-io/react"
+import { useEditor } from "~/react"
 import { useStyletron } from "baseui"
 import { Block } from "baseui/block"
 import { Button, SIZE } from "baseui/button"

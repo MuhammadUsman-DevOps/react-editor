@@ -1,4 +1,4 @@
-import { IScene, ILayer } from "@layerhub-io/types"
+import { IScene, ILayer } from "~/types/"
 
 export const loadVideoResource = (videoSrc: string): Promise<HTMLVideoElement> => {
   return new Promise(function (resolve, reject) {

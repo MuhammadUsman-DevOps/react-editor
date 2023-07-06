@@ -5,7 +5,7 @@ import { Resizable } from "~/components/Resizable"
 import { Block } from "baseui/block"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 import useDesignEditorScenes from "~/hooks/useDesignEditorScenes"
-import { useTimer } from "@layerhub-io/use-timer"
+import { useTimer } from "~/contexts/useTimer"
 
 const VerticalLine = ({ size }: { size: number }) => {
   return (

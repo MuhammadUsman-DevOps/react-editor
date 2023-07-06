@@ -1,4 +1,4 @@
-import { IScene } from "@layerhub-io/types"
+import { IScene } from "~/types/"
 
 export const findSceneIndexByTime = (scenes: IScene[], time: number) => {
   let currentIndex = 0

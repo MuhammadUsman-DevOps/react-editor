@@ -1,4 +1,4 @@
-import { IFrame, IScene } from "@layerhub-io/types"
+import { IFrame, IScene } from "~/types/"
 
 export interface Page {
   id: string

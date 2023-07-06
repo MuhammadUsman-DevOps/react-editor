@@ -1,6 +1,6 @@
 import React from "react"
 import { Block } from "baseui/block"
-import { useEditor } from "@layerhub-io/react"
+import { useEditor } from "~/react"
 
 const Graphic = () => {
   const editor = useEditor()

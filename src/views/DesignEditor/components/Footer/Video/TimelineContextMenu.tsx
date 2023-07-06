@@ -4,9 +4,9 @@ import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 import { nanoid } from "nanoid"
 import useOnClickOutside from "~/hooks/useOnClickOutside"
 import { findSceneIndexByTime, getMaxTime } from "~/views/DesignEditor/utils/scenes"
-import { useTimer } from "@layerhub-io/use-timer"
+import { useTimer } from "~/contexts/useTimer"
 import { getDefaultTemplate } from "~/constants/design-editor"
-import { useEditor, useFrame } from "@layerhub-io/react"
+import { useEditor, useFrame } from "~/react"
 
 const TimelineContextMenu = () => {
   const { time, setTime } = useTimer()
