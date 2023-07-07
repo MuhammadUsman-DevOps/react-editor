@@ -31,10 +31,10 @@ const Navbar = () => {
   const inputFileRef = React.useRef<HTMLInputElement>(null)
 
   const parseGraphicJSON = () => {
-    const currentScene = editor.scene.exportToJSON()
+    const currentScene = editor?.scene.exportToJSON()
 
     const updatedScenes = scenes.map((scn) => {
-      if (scn.id === currentScene.id) {
+      if (scn.id === currentScene?.id) {
         return {
           id: currentScene.id,
           layers: currentScene.layers,
@@ -65,10 +65,10 @@ const Navbar = () => {
   }
 
   const parsePresentationJSON = () => {
-    const currentScene = editor.scene.exportToJSON()
+    const currentScene = editor?.scene.exportToJSON()
 
     const updatedScenes = scenes.map((scn) => {
-      if (scn.id === currentScene.id) {
+      if (scn.id === currentScene?.id) {
         return {
           id: currentScene.id,
           duration: 5000,
@@ -101,9 +101,9 @@ const Navbar = () => {
   }
 
   const parseVideoJSON = () => {
-    const currentScene = editor.scene.exportToJSON()
+    const currentScene = editor?.scene.exportToJSON()
     const updatedScenes = scenes.map((scn) => {
-      if (scn.id === currentScene.id) {
+      if (scn.id === currentScene?.id) {
         return {
           id: scn.id,
           duration: scn.duration,
@@ -169,7 +169,7 @@ const Navbar = () => {
       const loadedScene = await loadVideoEditorAssets(scene)
       await loadTemplateFonts(loadedScene)
 
-      const preview = (await editor.renderer.render(loadedScene)) as string
+      const preview = (await editor?.renderer.render(loadedScene)) as string
       scenes.push({ ...loadedScene, preview })
     }
 
@@ -190,7 +190,7 @@ const Navbar = () => {
       }
       const loadedScene = await loadVideoEditorAssets(scene)
 
-      const preview = (await editor.renderer.render(loadedScene)) as string
+      const preview = (await editor?.renderer.render(loadedScene)) as string
       await loadTemplateFonts(loadedScene)
       scenes.push({ ...loadedScene, preview })
     }
@@ -212,7 +212,7 @@ const Navbar = () => {
       }
       const loadedScene = await loadVideoEditorAssets(design)
 
-      const preview = (await editor.renderer.render(loadedScene)) as string
+      const preview = (await editor?.renderer.render(loadedScene)) as string
       await loadTemplateFonts(loadedScene)
       scenes.push({ ...loadedScene, preview })
     }
