@@ -46,16 +46,18 @@ export const Canvas = (props: Props) => {
     <div
       id="layerhub_io_canvas_container"
       ref={containerRef}
-      style={{ flex: 1, position: "relative", overflow: "hidden" }}
+      style={{ flex: 1, position: "relative", overflow: "hidden", backgroundColor:"white"}}
     >
       <div
         style={{
           position: "absolute",
           height: "100%",
           width: "100%",
+          backgroundColor:"black"
         }}
+        
       >
-        <canvas id="layerhub_io_canvas"></canvas>
+        <canvas id="layerhub_io_canvas" ></canvas>
       </div>
     </div>
   )

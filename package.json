@@ -19,6 +19,7 @@
     "axios": "^1.4.0",
     "baseui": "^13.0.0",
     "dom-css": "^2.1.0",
+    "dotenv": "^16.3.1",
     "fabric": "^5.3.0",
     "i18next": "^23.2.7",
     "immutability-helper": "^3.1.1",

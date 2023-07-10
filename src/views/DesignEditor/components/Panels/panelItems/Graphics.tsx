@@ -7,6 +7,8 @@ import Scrollable from "~/components/Scrollable"
 import { vectors } from "~/constants/mock-data"
 import { useEditor } from "~/react"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
+import { Tooltip } from "baseui/tooltip"
+import './images.css'
 
 const Graphics = () => {
   const inputFileRef = React.useRef<HTMLInputElement>(null)
@@ -30,7 +32,7 @@ const Graphics = () => {
   const handleDropFiles = (files: FileList) => {
     const file = files[0]
     const url = URL.createObjectURL(file)
-    editor.objects.add({
+    editor?.objects.add({
       src: url,
       type: "StaticVector",
     })
@@ -82,7 +84,11 @@ const Graphics = () => {
         <Block>
           <Block $style={{ display: "grid", gap: "8px", padding: "1.5rem", gridTemplateColumns: "1fr 1fr" }}>
             {vectors.map((vector, index) => (
+              <div  className="tooltip">
+                              <span className="tooltiptext">Hello world</span>
+
               <GraphicItem onClick={() => addObject(vector)} key={index} preview={vector} />
+              </div>
             ))}
           </Block>
         </Block>
@@ -96,7 +102,6 @@ const GraphicItem = ({ preview, onClick }: { preview: any; onClick?: (option: an
   return (
     <div
       onClick={onClick}
-      // onClick={() => onClick(component.layers[0])}
       className={css({
         position: "relative",
         height: "84px",
@@ -110,50 +115,74 @@ const GraphicItem = ({ preview, onClick }: { preview: any; onClick?: (option: an
         },
       })}
     >
-      <div
-        className={css({
-          backgroundImage: `linear-gradient(to bottom,
-          rgba(0, 0, 0, 0) 0,
-          rgba(0, 0, 0, 0.006) 8.1%,
-          rgba(0, 0, 0, 0.022) 15.5%,
-          rgba(0, 0, 0, 0.047) 22.5%,
-          rgba(0, 0, 0, 0.079) 29%,
-          rgba(0, 0, 0, 0.117) 35.3%,
-          rgba(0, 0, 0, 0.158) 41.2%,
-          rgba(0, 0, 0, 0.203) 47.1%,
-          rgba(0, 0, 0, 0.247) 52.9%,
-          rgba(0, 0, 0, 0.292) 58.8%,
-          rgba(0, 0, 0, 0.333) 64.7%,
-          rgba(0, 0, 0, 0.371) 71%,
-          rgba(0, 0, 0, 0.403) 77.5%,
-          rgba(0, 0, 0, 0.428) 84.5%,
-          rgba(0, 0, 0, 0.444) 91.9%,
-          rgba(0, 0, 0, 0.45) 100%)`,
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          opacity: 0,
-          transition: "opacity 0.3s ease-in-out",
-          height: "100%",
-          width: "100%",
-          ":hover": {
-            opacity: 1,
-          },
-        })}
-      />
-      <img
-        src={preview}
-        className={css({
-          width: "100%",
-          height: "100%",
-          objectFit: "contain",
-          pointerEvents: "none",
-          verticalAlign: "middle",
-        })}
-      />
+    <div
+  className={css({
+    position: "relative",
+    width: "100%",
+    height: "100%",
+    ":hover": {
+      ":after": {
+        content: "'Hover Text'",
+        position: "absolute",
+        bottom: "-20px",
+        left: 0,
+        width: "100%",
+        textAlign: "center",
+        color: "white",
+        fontSize: "14px",
+        fontWeight: "bold",
+      },
+    },
+  })}
+>
+  <div
+    className={css({
+      backgroundImage: `linear-gradient(to bottom,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0.006) 8.1%,
+        rgba(0, 0, 0, 0.022) 15.5%,
+        rgba(0, 0, 0, 0.047) 22.5%,
+        rgba(0, 0, 0, 0.079) 29%,
+        rgba(0, 0, 0, 0.117) 35.3%,
+        rgba(0, 0, 0, 0.158) 41.2%,
+        rgba(0, 0, 0, 0.203) 47.1%,
+        rgba(0, 0, 0, 0.247) 52.9%,
+        rgba(0, 0, 0, 0.292) 58.8%,
+        rgba(0, 0, 0, 0.333) 64.7%,
+        rgba(0, 0, 0, 0.371) 71%,
+        rgba(0, 0, 0, 0.403) 77.5%,
+        rgba(0, 0, 0, 0.428) 84.5%,
+        rgba(0, 0, 0, 0.444) 91.9%,
+        rgba(0, 0, 0, 0.45) 100%)`,
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      opacity: 0,
+      transition: "opacity 0.3s ease-in-out",
+      height: "100%",
+      width: "100%",
+      ":hover": {
+        opacity: 1,
+      },
+    })}
+  />
+  <div     className="tooltip">
+      
+  <img
+    src={preview}
+    className={css({
+      width: "100%",
+      height: "100%",
+      objectFit: "contain",
+      pointerEvents: "none",
+      verticalAlign: "middle",
+    })}
+  />
     </div>
+</div>
+</div>
   )
 }
 
