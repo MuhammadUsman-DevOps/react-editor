@@ -60,8 +60,8 @@ export const VIDEO_PANEL_ITEMS = [
     name: "Videos",
   },
   {
-    id: "uploads",
-    name: "Uploads",
+    id: "assets",
+    name: "Assets",
   },
   {
     id: "text",

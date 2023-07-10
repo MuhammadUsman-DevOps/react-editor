@@ -72,7 +72,7 @@ const PanelListItem = ({ label, icon, activePanel, name }: any) => {
       }}
     >
       <Icon size={24} />
-      <div>{label}</div>
+      <div>{label=='Uploads'?'Assets':label}</div>
     </Block>
   )
 }

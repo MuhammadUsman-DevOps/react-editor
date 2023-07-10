@@ -186,16 +186,13 @@ const ImageItem = ({ preview, onClick }: { preview: any; onClick?: (option: any)
           },
         })}
       />
+      <div className="container">
       <img
         src={preview}
-        className={css({
-          width: "100%",
-          height: "100%",
-          objectFit: "contain",
-          pointerEvents: "none",
-          verticalAlign: "middle",
-        })}
+        className="image"
       />
+       <div className="overlay">My Name is John</div>
+    </div>
     </div>
   )
 }

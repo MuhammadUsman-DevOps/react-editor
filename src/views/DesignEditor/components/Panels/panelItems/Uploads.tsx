@@ -10,6 +10,7 @@ import { nanoid } from "nanoid"
 import { captureFrame, loadVideoResource } from "~/utils/video"
 import { ILayer } from "~/types/"
 import { toBase64 } from "~/utils/data"
+import AWS from "aws-sdk"
 
 export default function () {
   const inputFileRef = React.useRef<HTMLInputElement>(null)
@@ -31,15 +32,36 @@ export default function () {
 
     const type = isVideo ? "StaticVideo" : "StaticImage"
 
+
     const upload = {
       id: nanoid(),
       src: base64,
       preview: preview,
       type: type,
     }
+       
+
+    // const bucketName = process.env.BUCKET;
+    // const s3 = new AWS.S3({
+    //   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    //   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    //   region: process.env.REGION,
+    // });
+
+    // const upload = {
+    //   id: nanoid(),
+    //   src: base64,
+    //   preview: preview,
+    //   type: type,
+    // }
+    // s3.upload({
+    //   Bucket:"radiance-ai",
+    //   Key:"helper",
+    //   Body:"uploading"
+    // })
 
     setUploads([...uploads, upload])
-  }
+  }  
 
   const handleInputFileRefClick = () => {
     inputFileRef.current?.click()
@@ -50,7 +72,7 @@ export default function () {
   }
 
   const addImageToCanvas = (props: Partial<ILayer>) => {
-    editor.objects.add(props)
+    editor?.objects.add(props)
   }
   return (
     <DropZone handleDropFiles={handleDropFiles}>

@@ -15,6 +15,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "@types/node": "^20.4.0",
     "are-passive-events-supported": "^1.1.1",
+    "aws-sdk": "^2.1413.0",
     "axios": "^1.4.0",
     "baseui": "^13.0.0",
     "dom-css": "^2.1.0",
