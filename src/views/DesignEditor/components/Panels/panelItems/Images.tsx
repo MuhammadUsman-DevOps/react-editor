@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useStyletron } from "baseui"
 import { Block } from "baseui/block"
 import AngleDoubleLeft from "~/components/Icons/AngleDoubleLeft"
@@ -6,12 +6,30 @@ import Scrollable from "~/components/Scrollable"
 import { images } from "~/constants/mock-data"
 import { useEditor } from "~/react"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
+import { Button } from "baseui/button"
+import { relative } from "path"
 
 const Images = () => {
   const editor = useEditor()
   const setIsSidebarOpen = useSetIsSidebarOpen()
-
+  const callBoth = (image: { id?: number; width?: number; height?: number; url?: string; photographer?: string; photographer_url?: string; photographer_id?: number; avg_color?: string; src: any; liked?: boolean; alt: any }) =>{
+    addObject(image.src.large);
+    setPrompt(image.alt);
+  }
   const addObject = React.useCallback(
+    (url: string) => {
+      if (editor) {
+        const options = {
+          type: "StaticImage",
+          src: url,
+        }
+        editor.objects.add(options)
+        setPrompt(url)
+      }
+    },
+    [editor]
+  )
+  const genrateImage = React.useCallback(
     (url: string) => {
       if (editor) {
         const options = {
@@ -23,9 +41,12 @@ const Images = () => {
     },
     [editor]
   )
-
+    const [prompt,setPrompt] = useState("")
+    const imageUrl = "https://radiance-dedeepya.s3.us-east-2.amazonaws.com/image_1687445980996.jpg";
   return (
     <Block $style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+      <textarea value={prompt}  placeholder="Enter your prompt or choose from below" onChange={e => setPrompt(e.target.value)}  style={{display:"flex" , flexDirection:"column" , padding:"10px", margin:"10px" , borderRadius:"10px" , fontSize:15 , fontFamily:"sans-serif"}} />
+      <Button style={{margin:"20px"}} onClick={()=>genrateImage(imageUrl)}>Generate</Button>
       <Block
         $style={{
           display: "flex",
@@ -43,9 +64,9 @@ const Images = () => {
       </Block>
       <Scrollable>
         <Block padding="0 1.5rem">
-          <div style={{ display: "grid", gap: "8px", gridTemplateColumns: "1fr 1fr" }}>
+          <div style={{ display: "grid", gap: "8px", gridTemplateColumns: "1fr 1fr",position:"relative"}}>
             {images.map((image, index) => {
-              return <ImageItem key={index} onClick={() => addObject(image.src.large)} preview={image.src.small} />
+              return <ImageItem key={index} onClick={() => callBoth(image)}  preview={image.src.small} />
             })}
           </div>
         </Block>
