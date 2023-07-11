@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useStyletron } from "baseui"
 import { Block } from "baseui/block"
 import AngleDoubleLeft from "~/components/Icons/AngleDoubleLeft"
@@ -10,6 +10,7 @@ import Input from "baseui/input/input"
 import { Button } from "baseui/button"
 import image from "~/core/parser/image"
 import './images.css'
+import { Header } from "baseui/accordion/styled-components"
 
 const Images = () => {
   const editor = useEditor()
@@ -28,11 +29,8 @@ const Images = () => {
     },
     [editor]
   )
-  const fetching = async (e: any) => {
-  
-    e.preventDefault();
-    console.log(input);
-    const headers = new Headers();
+  const [imagess,setImage] = useState([""]);  
+  const headers = new Headers();
   headers.append("Content-Type", "application/json");
   headers.append("enable_hr", "false");
   headers.append("denoising_strength", "0");
@@ -79,6 +77,11 @@ const Images = () => {
   headers.append("send_images", "true");
   headers.append("save_images", "false");
   headers.append("alwayson_scripts", "{}");
+  const fetching = async (e: any) => {
+  
+    e.preventDefault();
+    console.log(input);
+    
 
 
     const response = await fetch("https://5ca46622-b0bb-40c7-91c1-8603e74421ad.mock.pstmn.io/api/fetch-response", {
@@ -96,9 +99,25 @@ const Images = () => {
       console.error("Failed to fetch image from the API.");
     }
   };
+  const heade = new Headers();
+
+  const image_fetcing= async()=>
+  {
+    const response = await fetch("https://5ca46622-b0bb-40c7-91c1-8603e74421ad.mock.pstmn.io/api/fetch-response", {
+      method: "GET",
+      headers:headers,
+      body: JSON.stringify({}),
+    }).then(response => response.json()).then(data =>{ 
+      console.log(data)
+      setImage(data)});
+
   
+  }
   
-  
+  useEffect
+  {
+    image_fetcing();
+  }
 
   return (
         <Block $style={{ flex: 1, display: "flex", flexDirection: "column" }}>
