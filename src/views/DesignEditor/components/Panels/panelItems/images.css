@@ -19,7 +19,7 @@
   background: rgb(0, 0, 0);
   background: rgba(0, 0, 0, 0.5); 
   color: #f1f1f1;
-  width: 100%;
+  width: fit-content;
   transition: .5s ease;
   opacity:0;
   color: white;
@@ -39,10 +39,13 @@
 }
 
 .tooltip .tooltiptext {
+  margin-top: -20px;
+  margin-left: 30px;
   visibility: hidden;
-  height: 30px;
-  width: 120px;
+  height: fit-content;
+  width: fit-content;
   background-color: black;
+  overflow: visible;
   color: #fff;
   text-align: center;
   border-radius: 6px;
@@ -63,4 +66,5 @@
   border-width: 5px;
   border-style: solid;
   border-color: black transparent transparent transparent;
+  background: #000;
 }
