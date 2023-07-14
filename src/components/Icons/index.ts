@@ -24,6 +24,7 @@ import ArrowBackOutline from "./ArrowBackOutline"
 import Underline from "./Underline"
 import Add from "./Add"
 import Video from "./Video"
+import HumanIcon from "./HumanIcon"
 class Icons {
   static Background = Background
   static Elements = Elements
@@ -32,7 +33,7 @@ class Icons {
   static Search = Search
   static Images = Images
   static Videos = Video
-  static Graphics = Graphics
+  static Graphics = HumanIcon
   static Pixabay = Pixabay
   static Uploads = Uploads
   static Logo = Logo

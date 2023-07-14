@@ -8,7 +8,7 @@ import { vectors } from "~/constants/mock-data"
 import { useEditor } from "~/react"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import { Tooltip } from "baseui/tooltip"
-import './images.css'
+// import './images.css'
 
 const Graphics = () => {
   const inputFileRef = React.useRef<HTMLInputElement>(null)
@@ -57,7 +57,7 @@ const Graphics = () => {
           padding: "1.5rem",
         }}
       >
-        <Block>Graphics</Block>
+        <Block>Humans</Block>
 
         <Block onClick={() => setIsSidebarOpen(false)} $style={{ cursor: "pointer", display: "flex" }}>
           <AngleDoubleLeft size={18} />
@@ -84,11 +84,7 @@ const Graphics = () => {
         <Block>
           <Block $style={{ display: "grid", gap: "8px", padding: "1.5rem", gridTemplateColumns: "1fr 1fr" }}>
             {vectors.map((vector, index) => (
-              <div  className="tooltip">
-                              <span className="tooltiptext">Hello world</span>
-
               <GraphicItem onClick={() => addObject(vector)} key={index} preview={vector} />
-              </div>
             ))}
           </Block>
         </Block>

@@ -52,6 +52,7 @@
   padding: 5px 0;
   position: absolute;
   z-index: 1;
+  font-size: small;
 }
 
 .tooltip:hover .tooltiptext {
@@ -64,6 +65,7 @@
   left: 50%;
   margin-left: -5px;
   border-width: 5px;
+  visibility: hidden;
   border-style: solid;
   border-color: black transparent transparent transparent;
   background: #000;
