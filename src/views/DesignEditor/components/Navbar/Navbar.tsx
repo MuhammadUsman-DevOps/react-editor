@@ -13,7 +13,6 @@ import { loadTemplateFonts } from "~/utils/fonts"
 import { loadVideoEditorAssets } from "~/utils/video"
 import DesignTitle from "./DesignTitle"
 import { IDesign } from "~/interfaces/DesignEditor"
-import Github from "~/components/Icons/Github"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   height: "64px",
@@ -257,6 +256,51 @@ const Navbar = () => {
       reader.readAsText(file)
     }
   }
+  const makeDownloadCanvasImage = () => {
+    //@ts-ignore
+    const canvas = document.getElementById(editor?.canvasId)
+    const dataURL = canvas?.toDataURL("image/png")
+    const a = document.createElement("a")
+    a.href = dataURL
+    console.log(a.href);
+    a.download = "canvas.png"
+    a.click()
+  }
+  // const UploadImageToS3 = () => {
+  //   //@ts-ignore
+  //   const canvas = document.getElementById(editor?.canvasId)
+  //   const dataURL = canvas.toDataURL('image/png');
+  //   console.log("Button Clicked");
+  //   AWS.config.update({
+  //     accessKeyId: AWS_ACCESS_KEY_ID,
+  //     secretAccessKey: AWS_SECRET_ACCESS_KEY,
+  //   });
+    
+  //   // Convert data URL to Blob
+  //   fetch(dataURL)
+  //     .then((res) => res.blob())
+  //     .then((blob) => {
+  //       // Create a File object from the Blob
+  //       console.log(blob);
+  //       const file = new File([blob], 'image.png', { type: 'image/png' });
+  //       // Upload the file to S3
+  //       const s3 = new AWS.S3();
+  //       s3.putObject({
+  //         Bucket: AWS_BUCKET,
+  //         Key: 'image.png',
+  //         Body: file,
+  //       }, (err) => {
+  //         if (err) {
+  //           console.error(err);
+  //         } else {
+  //           console.log('Image uploaded to S3');
+  //         }
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error converting data URL to image file:', error);
+  //     });
+  // };
 
   return (
     // @ts-ignore
@@ -318,23 +362,21 @@ const Navbar = () => {
           >
             <Play size={24} />
           </Button>
-
           <Button
             size="compact"
-            onClick={() => window.location.replace("https://github.com/layerhub-io/react-design-editor")}
+            onClick={makeDownloadCanvasImage}
             kind={KIND.tertiary}
+            overrides={{
+              StartEnhancer: {
+                style: {
+                  marginRight: "4px",
+                },
+              },
+            }}
           >
-            <Github size={24} />
+            Download
           </Button>
-
-          <Button
-            style={{ marginLeft: "0.5rem" }}
-            size="compact"
-            onClick={() => window.location.replace("https://app.scenify.io")}
-            kind={KIND.primary}
-          >
-            Try PRO
-          </Button>
+          
         </Block>
       </Container>
     </ThemeProvider>
