@@ -45,10 +45,10 @@ const SelectEditor = () => {
             }}
           >
             <Images size={34} />
-            <Block>Graphic</Block>
+            <Block>Consumer Products</Block>
           </Block>
           <Block
-            onClick={() => setSelectedEditor("PRESENTATION")}
+            //onClick={() => setSelectedEditor("PRESENTATION")}
             $style={{
               height: "180px",
               width: "180px",
@@ -63,9 +63,9 @@ const SelectEditor = () => {
             }}
           >
             <Presentation size={36} />
-            <Block>Presentation</Block>
+            <Block>Home Decor</Block>
           </Block>
-          <Block
+          {/*           <Block
             onClick={() => setSelectedEditor("VIDEO")}
             $style={{
               height: "180px",
@@ -82,7 +82,8 @@ const SelectEditor = () => {
           >
             <Video size={36} />
             <Block>Video</Block>
-          </Block>
+          </Block>*/}
+
         </Block>
         <Block $style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem" }}>
           <Button style={{ width: "180px" }} onClick={() => setEditorType(selectedEditor)}>

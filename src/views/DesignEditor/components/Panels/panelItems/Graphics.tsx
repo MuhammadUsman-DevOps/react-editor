@@ -57,7 +57,7 @@ const Graphics = () => {
           padding: "1.5rem",
         }}
       >
-        <Block>Humans</Block>
+        <Block> Launching Soon!! </Block>
 
         <Block onClick={() => setIsSidebarOpen(false)} $style={{ cursor: "pointer", display: "flex" }}>
           <AngleDoubleLeft size={18} />

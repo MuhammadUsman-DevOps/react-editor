@@ -7,10 +7,12 @@ export const BASE_ITEMS = [
     id: "customize",
     name: "Customize",
   },
+  /*
   {
     id: "elements",
     name: "Elements",
   },
+  */
   {
     id: "images",
     name: "Images",
@@ -27,11 +29,12 @@ export const BASE_ITEMS = [
     id: "graphics",
     name: "Graphics",
   },
-
+  /*
   {
     id: "pixabay",
     name: "Pixabay",
   },
+  */
   {
     id: "layers",
     name: "Layers",
