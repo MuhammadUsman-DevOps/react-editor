@@ -11,6 +11,8 @@ import { Button } from "baseui/button"
 import image from "~/core/parser/image"
 import './images.css'
 import { Header } from "baseui/accordion/styled-components"
+import imagevariations from '../../../../../constants/mock-images/ImageVariations.jpg'
+import template1 from '../../../../../constants/mock-images/template2.jpg'
 
 const Images = () => {
   const editor = useEditor()
@@ -99,30 +101,48 @@ const Images = () => {
       console.error("Failed to fetch image from the API.");
     }
   };
-  const heade = new Headers();
+  const GenerateImg = () =>{
+    if (editor) {
+      if(input=="a bottle of whisky sitting on top of a wooden table"){
+      const options = {
+        type: "StaticImage",
+        src: "https://i.ibb.co/y02JvFg/Bottle-Gen-Image.jpg",
+      }
+      editor.objects.add(options)
+    }
+    if(input=="A perfume bottle on desk with some flowers in the background"){
+      const options = {
+        type: "StaticImage",
+        src: "https://i.ibb.co/qRVwdn5/template1.jpg",
+      }
+      editor.objects.add(options)
+    }
+    }
+  }
+  // const heade = new Headers();
 
-  const image_fetcing= async()=>
-  {
-    const response = await fetch("https://5ca46622-b0bb-40c7-91c1-8603e74421ad.mock.pstmn.io/api/fetch-response", {
-      method: "GET",
-      headers:headers,
-      body: JSON.stringify({}),
-    }).then(response => response.json()).then(data =>{ 
-      console.log(data)
-      setImage(data)});
+  // const image_fetcing= async()=>
+  // {
+  //   const response = await fetch("https://5ca46622-b0bb-40c7-91c1-8603e74421ad.mock.pstmn.io/api/fetch-response", {
+  //     method: "GET",
+  //     headers:headers,
+  //     body: JSON.stringify({}),
+  //   }).then(response => response.json()).then(data =>{ 
+  //     console.log(data)
+  //     setImage(data)});
 
   
-  }
+  // }
   
-  useEffect
-  {
-    image_fetcing();
-  }
+  // useEffect
+  // {
+  //   image_fetcing();
+  // }
 
   return (
         <Block $style={{ flex: 1, display: "flex", flexDirection: "column" }}>
           <textarea value={input}  placeholder="Enter your prompt or choose from below" onChange={e => setInput(e.target.value)}  style={{display:"flex" , flexDirection:"column" , padding:"10px", margin:"10px" , borderRadius:"10px" , fontSize:15 , fontFamily:"sans-serif"}} />
-          <Button style={{margin:"20px"}} onClick={fetching}>Generate</Button>
+          <Button style={{margin:"20px"}} onClick={GenerateImg}>Generate</Button>
           <Block
             $style={{
               display: "flex",
@@ -141,14 +161,22 @@ const Images = () => {
           <Scrollable>
             <Block padding="0 1.5rem">
               <div style={{ display: "grid", gap: "8px", gridTemplateColumns: "1fr 1fr",}}>
-                {images.map((image, index) => {
+                {/* {images.map((image, index) => {
                   return (
                   <div  className="tooltip" onClick={() => setInput(image.alt)}>
                   <ImageItem key={index}   preview={image.src.small} />
                   <span className="tooltiptext">{image.alt}</span>
                   </div>
                   )
-                })}
+                })} */}
+                <div   className="tooltip" onClick={() => setInput("a bottle of whisky sitting on top of a wooden table")}>
+                  <ImageItem preview={imagevariations} />
+                  <span className="tooltiptext">{"a bottle of whisky sitting on top of a wooden table"}</span>
+                  </div>
+                <div  className="tooltip" onClick={() => setInput("A perfume bottle on desk with some flowers in the background")}>
+                  <ImageItem preview={template1} />
+                  <span className="tooltiptext">{"A perfume bottle on desk with some flowers in the background"}</span>
+                  </div>
               </div>
             </Block>
           </Scrollable>
@@ -210,9 +238,9 @@ const Images = () => {
       <img
         src={preview}
         className={css({
-          width: "100%",
-          height: "100%",
-          objectFit: "contain",
+          width: "130px",
+          height: "130px",
+          objectFit: "cover",
           pointerEvents: "none",
           verticalAlign: "middle",
         })}

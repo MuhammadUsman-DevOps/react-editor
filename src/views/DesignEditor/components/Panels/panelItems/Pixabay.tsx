@@ -80,15 +80,15 @@ const Pixabay = () => {
           padding: "1.5rem 1.5rem 0",
         }}
       >
-        <Block>Pixabay images</Block>
+        <Block>BrandHub</Block>
 
         <Block onClick={() => setIsSidebarOpen(false)} $style={{ cursor: "pointer", display: "flex" }}>
           <AngleDoubleLeft size={18} />
         </Block>
       </Block>
 
-      <Block $style={{ padding: "1.5rem 1.5rem 1rem" }}>
-        <Input
+      {/* <Block $style={{ padding: "1.5rem 1.5rem 1rem" }}> */}
+        {/* <Input
           overrides={{
             Root: {
               style: {
@@ -103,9 +103,9 @@ const Pixabay = () => {
           placeholder="Search"
           size={"compact"}
           startEnhancer={<Search size={16} />}
-        />
-      </Block>
-      <Scrollable>
+        /> */}
+      {/* </Block> */}
+      {/* <Scrollable>
         <Block padding={"0 1.5rem"}>
           <InfiniteScrolling fetchData={fetchData} hasMore={hasMore}>
             <Block
@@ -138,7 +138,16 @@ const Pixabay = () => {
             </Block>
           </InfiniteScrolling>
         </Block>
-      </Scrollable>
+      </Scrollable> */}
+      <div style={{width:"75%" ,padding:10 ,margin:10, marginTop:30,paddingRight:30, backgroundColor:"lightgray" , borderRadius:10}}>
+        <h1>Radiance AI</h1>
+        <h2>Launching Soon!!</h2>
+          <ul style={{padding:10 , margin:10}}>
+            <li style={{padding:10}}>AI-powered virtual photographer, bringing life to your product visuals.</li>
+            <li style={{padding:10}}>Easilt set up,manage,and grow your brand with all your assets,controls,and workflows in one place</li>
+            <li style={{padding:10}}>Find all your brand assets and templates from the editor</li>
+          </ul>
+      </div>
     </Block>
   )
 }
