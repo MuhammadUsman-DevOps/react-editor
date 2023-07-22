@@ -13,5 +13,10 @@
   <body style="margin: 0; font-family: 'Poppins'; height: 100vh; width: 100vw; overflow: hidden">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if (global === undefined) {
+        var global = window;
+      }
+    </script>
   </body>
 </html>
