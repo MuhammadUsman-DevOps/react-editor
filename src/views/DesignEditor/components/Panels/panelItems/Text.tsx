@@ -16,6 +16,8 @@ import { selectPublicComponents } from "~/store/slices/components/selectors"
 import api from "~/services/api"
 import { IComponent } from "~/interfaces/DesignEditor"
 
+export interface TextComponentItemProps {}
+
 const textOptions = {
   id: nanoid(),
   type: "StaticText",
@@ -215,6 +217,7 @@ function TextComponentItem({
   onClick: (option: any) => void
 }) {
   const [css] = useStyletron()
+
   return (
     <div
       onClick={() => onClick(component.id)}
@@ -234,6 +237,7 @@ function TextComponentItem({
       })}
     >
       <img
+        // @ts-ignore
         src={component.preview}
         className={css({
           width: "100%",

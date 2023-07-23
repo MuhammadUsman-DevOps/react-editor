@@ -2,7 +2,7 @@ import { PanelType } from "~/constants/app-options"
 import React, { createContext, useState } from "react"
 
 type Template = any
-interface IAppContext {
+export interface IAppContext {
   isMobile: boolean | undefined
   setIsMobile: React.Dispatch<React.SetStateAction<boolean | undefined>>
   templates: Template[]
@@ -12,7 +12,7 @@ interface IAppContext {
   shapes: any[]
   setShapes: (templates: any[]) => void
   activePanel: PanelType
-  setActivePanel: (option: PanelType) => void
+  setActivePanel: (option: string) => void
   activeSubMenu: string | null
   setActiveSubMenu: (option: string) => void
   currentTemplate: any

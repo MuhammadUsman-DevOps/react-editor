@@ -6,7 +6,7 @@ import Video from "./Video"
 import Presentation from "./Presentation"
 import Graphic from "./Graphic"
 
-interface ComponentProps {
+export interface ComponentProps {
   isOpen: boolean
   setIsOpen: (v: boolean) => void
 }

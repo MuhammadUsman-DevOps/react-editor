@@ -36,6 +36,7 @@ export default function () {
       }
       await loadTemplateFonts(scene)
 
+      // @ts-ignore
       const preview = (await editor.renderer.render(scene)) as string
       scenes.push({ ...scene, preview })
     }

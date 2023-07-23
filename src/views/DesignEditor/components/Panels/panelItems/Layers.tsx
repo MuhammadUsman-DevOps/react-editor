@@ -40,6 +40,7 @@ const Layers = () => {
     }
   }, [editor, objects])
 
+  // @ts-ignore
   return (
     <Block $style={{ flex: 1, display: "flex", flexDirection: "column" }}>
       <Block
@@ -72,7 +73,10 @@ const Layers = () => {
               }}
               key={object.id}
             >
-              <Block $style={{ cursor: "pointer" }} onClick={() => editor.objects.select(object.id)}>
+              // @ts-ignore
+              <Block $style={{ cursor: "pointer" }} onClick={() =>
+                // @ts-ignore
+                editor.objects.select(object.id)}>
                 {object.name}
               </Block>
               <Block $style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
@@ -80,6 +84,7 @@ const Layers = () => {
                   <Button
                     kind={KIND.tertiary}
                     size={SIZE.mini}
+                    // @ts-ignore
                     onClick={() => editor.objects.unlock(object.id)}
                     overrides={{
                       Root: {
@@ -96,6 +101,7 @@ const Layers = () => {
                   <Button
                     kind={KIND.tertiary}
                     size={SIZE.mini}
+                    // @ts-ignore
                     onClick={() => editor.objects.lock(object.id)}
                     overrides={{
                       Root: {
@@ -114,6 +120,7 @@ const Layers = () => {
                   <Button
                     kind={KIND.tertiary}
                     size={SIZE.mini}
+                    // @ts-ignore
                     onClick={() => editor.objects.update({ visible: false }, object.id)}
                     overrides={{
                       Root: {
@@ -130,6 +137,7 @@ const Layers = () => {
                   <Button
                     kind={KIND.tertiary}
                     size={SIZE.mini}
+                    // @ts-ignore
                     onClick={() => editor.objects.update({ visible: true }, object.id)}
                     overrides={{
                       Root: {
@@ -146,6 +154,7 @@ const Layers = () => {
                 <Button
                   kind={KIND.tertiary}
                   size={SIZE.mini}
+                  // @ts-ignore
                   onClick={() => editor.objects.remove(object.id)}
                   overrides={{
                     Root: {

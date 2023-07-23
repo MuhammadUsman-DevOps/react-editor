@@ -2,7 +2,7 @@ import { IScene } from "~/types/"
 import React from "react"
 import {ContextMenuSceneRequest, ContextMenuTimelineRequest, DesignType, IDesign} from "~/interfaces/DesignEditor"
 
-interface ISceneEditorContext {
+export interface ISceneEditorContext {
   scenes: IScene[]
   setScenes: (value: ((prevState: IScene[]) => IScene[]) | IScene[]) => void
   currentScene: IScene | null
@@ -27,6 +27,7 @@ interface ISceneEditorContext {
   setContextMenuSceneRequest: React.Dispatch<React.SetStateAction<ContextMenuTimelineRequest>>
 }
 
+
 export const DesignEditorContext = React.createContext<ISceneEditorContext>({
   scenes: [],
   setScenes: () => {},
@@ -40,6 +41,7 @@ export const DesignEditorContext = React.createContext<ISceneEditorContext>({
     },
     metadata: {},
     name: "",
+    // @ts-ignore
     preview: "",
     scenes: [],
     type: "",
@@ -85,6 +87,7 @@ export const DesignEditorProvider = ({ children }: { children: React.ReactNode }
     },
     metadata: {},
     name: "",
+    // @ts-ignore
     preview: "",
     scenes: [],
     type: "",
