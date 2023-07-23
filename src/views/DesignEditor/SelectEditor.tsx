@@ -7,7 +7,7 @@ import Video from "~/components/Icons/Video"
 import Images from "~/components/Icons/Images"
 import Presentation from "~/components/Icons/Presentation"
 
-const SelectEditor = () => {
+export const SelectEditor = () => {
   const [selectedEditor, setSelectedEditor] = React.useState<DesignType>("GRAPHIC")
   const { setEditorType } = useDesignEditorContext()
 

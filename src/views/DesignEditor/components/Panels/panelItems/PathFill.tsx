@@ -28,6 +28,7 @@ const PathFill = () => {
 
   const updateObjectFill = throttle((color: string) => {
     if (activeObject) {
+      // @ts-ignore
       editor.objects.update({ fill: color })
     }
 

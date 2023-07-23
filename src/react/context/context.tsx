@@ -16,6 +16,7 @@ const Context = React.createContext<EditorState>({
   setEditor: () => {},
 })
 
+// @ts-ignore
 const Provider: any = ({ children }) => {
   const [zoomRatio, setZoomRatio] = React.useState(1)
   const [activeObject, setActiveObject] = React.useState(null)

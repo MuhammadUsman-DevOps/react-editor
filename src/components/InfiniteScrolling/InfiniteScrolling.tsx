@@ -1,7 +1,7 @@
 import React from "react"
 import { Block } from "baseui/block"
 
-interface Props {
+export interface Props {
   children: React.ReactNode
   fetchData: () => void
   hasMore: boolean

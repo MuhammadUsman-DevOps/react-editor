@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.0.8",
@@ -46,6 +48,16 @@
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
     "@size-limit/preset-small-lib": "^8.2.6",
+    "@storybook/addon-essentials": "^7.1.0",
+    "@storybook/addon-interactions": "^7.1.0",
+    "@storybook/addon-links": "^7.1.0",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/addon-actions": "^7.1.0",
+    "@storybook/blocks": "^7.1.0",
+    "@storybook/preset-typescript": "^3.0.0",
+    "@storybook/react": "^7.1.0",
+    "@storybook/react-vite": "^7.1.0",
+    "@storybook/testing-library": "^0.2.0",
     "@types/fabric": "^5.3.3",
     "@types/lodash": "^4.14.195",
     "@types/mime": "^3.0.1",
@@ -53,11 +65,14 @@
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "@vitejs/plugin-react": "^4.0.1",
+    "@wixc3/react-board": "^2.2.1",
     "fabric": "^5.3.0",
     "husky": "^8.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "size-limit": "^8.2.6",
+    "storybook": "^7.1.0",
+    "ts-loader": "^9.4.4",
     "tsdx": "^0.14.1",
     "tslib": "^2.6.0",
     "typescript": "^5.1.6",

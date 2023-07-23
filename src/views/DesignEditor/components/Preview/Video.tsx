@@ -5,6 +5,8 @@ import { useEditor } from "~/react"
 import Loading from "~/components/Loading"
 import useDesignEditorPages from "~/hooks/useDesignEditorScenes"
 
+export interface VideoProps {
+}
 const Video = () => {
   const editor = useEditor()
   const pages = useDesignEditorPages()
@@ -14,9 +16,11 @@ const Video = () => {
   })
 
   const makePreview = React.useCallback(async () => {
+    // @ts-ignore
     const template = editor.scene.exportToJSON()
 
     const clips = pages.map((page) => {
+      // @ts-ignore
       const currentTemplate = editor.scene.exportToJSON()
       if (page.id === currentTemplate.id) {
         return {
