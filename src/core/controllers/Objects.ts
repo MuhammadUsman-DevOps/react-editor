@@ -19,7 +19,7 @@ class Objects extends Base {
     const options = this.editor.frame.options
     const objectImporter = new ObjectImporter(this.editor)
     const refItem = item as unknown as ILayer
-
+    const { width, height, top } = this.editor.frame.frame
     const object: fabric.Object = await objectImporter.import(refItem, options)
     if (this.config.clipToFrame) {
       const frame = this.editor.frame.frame
@@ -27,6 +27,7 @@ class Objects extends Base {
     }
 
     const isBackgroundImage = refItem.type === LayerType.BACKGROUND_IMAGE
+    const isgeneratedImage = refItem.type === LayerType.STATIC_IMAGE
     let currentBackgrounImage: any
     if (isBackgroundImage) {
       currentBackgrounImage = await this.unsetBackgroundImage()
@@ -40,7 +41,13 @@ class Objects extends Base {
         canvas.add(currentBackgrounImage)
         this.sendToBack(currentBackgrounImage.id)
       }
-    } else {
+    } else if(isgeneratedImage){
+      object.scaleToWidth(width, false);
+      object.scaleToHeight(height, false);
+      canvas.add(object)
+      object.center()
+    }
+    else{
       canvas.add(object)
       object.center()
     }

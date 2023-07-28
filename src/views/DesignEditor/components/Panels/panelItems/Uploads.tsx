@@ -10,14 +10,18 @@ import { nanoid } from "nanoid"
 import { captureFrame, loadVideoResource } from "~/utils/video"
 import { ILayer } from "~/types/"
 import { toBase64 } from "~/utils/data"
-import AWS from "aws-sdk"
-import bottleAsset from '../../../../../constants/mock-images/bottleAsset.png'
 
 export default function () {
   const inputFileRef = React.useRef<HTMLInputElement>(null)
-  const [uploads, setUploads] = React.useState<any[]>([])
   const editor = useEditor()
   const setIsSidebarOpen = useSetIsSidebarOpen()
+  const temp = {
+    id: nanoid(),
+    src: "https://i.ibb.co/TKx8vNN/bottle-Asset.png",
+    preview: "https://i.ibb.co/TKx8vNN/bottle-Asset.png",
+    type: "StaticImage",
+  }
+  const [uploads, setUploads] = React.useState<any[]>([temp])
   
   
   const handleDropFiles = async (files: FileList) => {
@@ -41,27 +45,6 @@ export default function () {
       preview: preview,
       type: type,
     }
-    
-    
-    // const bucketName = process.env.BUCKET;
-    // const s3 = new AWS.S3({
-      //   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      //   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-      //   region: process.env.REGION,
-      // });
-      
-      // const upload = {
-        //   id: nanoid(),
-        //   src: base64,
-        //   preview: preview,
-        //   type: type,
-        // }
-        // s3.upload({
-          //   Bucket:"radiance-ai",
-          //   Key:"helper",
-          //   Body:"uploading"
-          // })
-          
           setUploads([...uploads, upload])
         }  
         
@@ -75,10 +58,6 @@ export default function () {
         
         const addImageToCanvas = (props: Partial<ILayer>) => {
           editor?.objects.add(props)
-        }
-        const options = {
-          type: "StaticImage",
-          src: "https://i.ibb.co/TKx8vNN/bottle-Asset.png",
         }
         return (
           <DropZone handleDropFiles={handleDropFiles}>
@@ -123,7 +102,7 @@ export default function () {
                 gridTemplateColumns: "1fr 1fr",
               }}
             >
-              {/* {uploads.map((upload) => (
+              {uploads.map((upload) => (
                 <div
                   key={upload.id}
                   style={{
@@ -131,26 +110,13 @@ export default function () {
                     alignItems: "center",
                     cursor: "pointer",
                   }}
-                  // onClick={() => addImageToCanvas(upload)}
+                  onClick={() => addImageToCanvas(upload)}
                 >
                   <div>
                     <img width="100%" src={upload.preview ? upload.preview : upload.url} alt="preview" />
                   </div>
                 </div>
-              ))} */}
-              <div
-                  key={1}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => addImageToCanvas(options)}
-                >
-                  <div>
-                    <img width="100%" src="https://i.ibb.co/TKx8vNN/bottle-Asset.png" alt="preview" />
-                  </div>
-                </div>
+              ))}
             </div>
           </Block>
         </Scrollable>

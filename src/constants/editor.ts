@@ -3542,7 +3542,7 @@ export const sampleFrames = [
     width: 1024,
     height: 768,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-presentation-4x3.svg",
+    preview: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Aspect_ratio_-_4x3.svg/1200px-Aspect_ratio_-_4x3.svg.png",
   },
   {
     id: 2,
@@ -3550,7 +3550,7 @@ export const sampleFrames = [
     width: 1920,
     height: 1080,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-presentation-16x9.svg",
+    preview: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Aspect_ratio_-_16x9.svg/2560px-Aspect_ratio_-_16x9.svg.png",
   },
   {
     id: 3,
@@ -3558,7 +3558,7 @@ export const sampleFrames = [
     width: 1080,
     height: 1920,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-social-media-story.svg",
+    preview: "https://brandmentions.com/wiki/images/3/37/Social_Media_Stories.jpg",
   },
   {
     id: 4,
@@ -3566,7 +3566,7 @@ export const sampleFrames = [
     width: 1080,
     height: 1080,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-social-media-post.svg",
+    preview: "https://neilpatel.com/wp-content/uploads/2017/08/instagram-1.jpg",
   },
   {
     id: 5,
@@ -3574,7 +3574,7 @@ export const sampleFrames = [
     width: 1200,
     height: 1200,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-social-media-post.svg",
+    preview: "https://images.macrumors.com/t/9CE4h8qOTWvPED6L4E8x2jiY5r8=/2250x/article-new/2021/03/Facebook-Feature.jpg",
   },
   {
     id: 6,
@@ -3582,15 +3582,15 @@ export const sampleFrames = [
     width: 1702,
     height: 630,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-facebook-event-cover.svg",
+    preview: "https://socialsizes.io/static/facebook-cover-photo-size-b4dd6123feb0ded4531a05cbd0bccd30.jpg",
   },
   {
     id: 7,
     name: "Facebook Event Cover",
     width: 1920,
-    height: 1080,
+    height: 1005,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-facebook-event-cover.svg",
+    preview: "https://www.fotor.com/blog/wp-content/uploads/2021/04/Facebook-Event-Photo-Cover-Size-1024x536.png",
   },
   {
     id: 8,
@@ -3598,7 +3598,7 @@ export const sampleFrames = [
     width: 2560,
     height: 1440,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-youtube-channel-art.svg",
+    preview: "https://t3.ftcdn.net/jpg/05/52/29/66/360_F_552296632_vtqpdH9allW1tkuDM1sNs3HloTCLy8bx.jpg",
   },
   {
     id: 9,
@@ -3606,7 +3606,7 @@ export const sampleFrames = [
     width: 1280,
     height: 720,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-youtube-thumbnail.svg",
+    preview: "https://havecamerawilltravel.com/wp-content/uploads/2020/01/youtube-thumbnails-size-header-1.png",
   },
   {
     id: 10,
@@ -3614,7 +3614,7 @@ export const sampleFrames = [
     width: 1200,
     height: 675,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-twittter-post.svg",
+    preview: "https://cdn.siasat.com/wp-content/uploads/2022/01/Twitter_Logo.jpeg",
   },
 ]
 
