@@ -35,9 +35,11 @@ const Images = () => {
     setCurrentScene,
     setCurrentDesign,
   } = useDesignEditorContext()
+  const [imgs,setimgs] = useState([""]);
+
 
 // adding the new slide for every new generation 
-  const addScene = React.useCallback(async () => {
+  const addScene = React.useCallback(async (s: string) => {
     // console.log("adding")
 
     const updatedTemplate = editor?.scene.exportToJSON() //first the json form is exported  
@@ -55,8 +57,8 @@ const Images = () => {
     //rendering the updates on the screen using hooks
     setScenes(newPages) 
     setCurrentScene(newPage)
+    addObject(s);
   }, [scenes, setCurrentDesign])
-
   const addObject = React.useCallback(
     (url: string) => {
       if (editor) {
@@ -69,7 +71,12 @@ const Images = () => {
     },
     [editor]
   )
-  const [imagess,setImage] = useState([""]);  
+  const [imagess,setImage] = useState([
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU",  
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU",  
+
+  ]);  
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   headers.append("enable_hr", "false");
@@ -118,9 +125,14 @@ const Images = () => {
   headers.append("save_images", "false");
   headers.append("alwayson_scripts", "{}");
   
-  
+  const img = ()=>
+  {
+    
+  }
+
+
   const handleImageUpload = (callback:any) => {
-    addScene()
+    addScene("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU")
     if(editor){
       const canvas = document.getElementById(editor.canvasId);
       const dataURL = canvas?.toDataURL('image/png');
@@ -223,14 +235,25 @@ const Images = () => {
                     </div>
                     )
                   })} */}
-                <div   className="tooltip" onClick={() => setInput("a bottle of whisky sitting on top of a wooden table")}>
+                <div   className="tooltip" onClick={() => {setInput("a bottle of whisky sitting on top of a wooden table"),addObject(imagevariations)}}>
                   <ImageItem preview={imagevariations} />
                   <span className="tooltiptext">{"a bottle of whisky sitting on top of a wooden table"}</span>
                   </div>
-                <div  className="tooltip" onClick={() => setInput("A perfume bottle on desk with some flowers in the background")}>
+                <div  className="tooltip" onClick={() => {setInput("a bottle of whisky sitting on top of a wooden table"),addObject(imagevariations)}}>
                   <ImageItem preview={template1} />
                   <span className="tooltiptext">{"A perfume bottle on desk with some flowers in the background"}</span>
                   </div>
+                  {/* {
+                    imagess.map((e,index)=>
+                    {
+                      return (
+                        <div>
+                        <ImageItem preview={e[index]} />
+                  <span className="tooltiptext">{"a bottle of whisky sitting on top of a wooden table"}</span>
+                  </div>
+                      )
+                    })
+                  } */}
               </div>
             </Block>
           </Scrollable>

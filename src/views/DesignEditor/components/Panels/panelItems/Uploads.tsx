@@ -66,25 +66,29 @@ export default function () {
         const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
           handleDropFiles(e.target.files!)
         }
-        const addScene = React.useCallback(async () => {
-          // console.log("adding")
+// not necessary uploadded image will not be added to the canavas
+
+
+
+        // const addScene = React.useCallback(async () => {
+        //   // console.log("adding")
           
-          setCurrentPreview("")
-          const updatedTemplate = editor?.scene.exportToJSON()
-          const updatedPreview = await editor?.renderer.render(updatedTemplate??scenes[0])
-          const updatedPages = scenes.map((p) => {
-            if (p.id === updatedTemplate?.id) {
-              return { ...updatedTemplate, preview: updatedPreview }
-            }
-            return p
-          })
-          const defaultTemplate = getDefaultTemplate(setCurrentScene.frame)
-          const newPreview = await editor?.renderer.render(defaultTemplate)
-          const newPage = { ...defaultTemplate, id: nanoid(), preview: newPreview } as any
-          const newPages = [...updatedPages, newPage] as any[]
-          setScenes(newPages)
-          setCurrentScene(newPage)
-        }, [scenes, setCurrentDesign])
+        //   setCurrentPreview("")
+        //   const updatedTemplate = editor?.scene.exportToJSON()
+        //   const updatedPreview = await editor?.renderer.render(updatedTemplate??scenes[0])
+        //   const updatedPages = scenes.map((p) => {
+        //     if (p.id === updatedTemplate?.id) {
+        //       return { ...updatedTemplate, preview: updatedPreview }
+        //     }
+        //     return p
+        //   })
+        //   const defaultTemplate = getDefaultTemplate(setCurrentScene.frame)
+        //   const newPreview = await editor?.renderer.render(defaultTemplate)
+        //   const newPage = { ...defaultTemplate, id: nanoid(), preview: newPreview } as any
+        //   const newPages = [...updatedPages, newPage] as any[]
+        //   setScenes(newPages)
+        //   setCurrentScene(newPage)
+       // }, [scenes, setCurrentDesign])
         const addImageToCanvas = (props: Partial<ILayer>) => {
           editor?.objects.add(props)
           const currentScene = scenes.find((scene) => scene.id === contextMenuTimelineRequest.id)
