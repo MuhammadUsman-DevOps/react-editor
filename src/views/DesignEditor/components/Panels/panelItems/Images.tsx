@@ -14,8 +14,12 @@ import { Header } from "baseui/accordion/styled-components"
 import imagevariations from '../../../../../constants/mock-images/ImageVariations.jpg'
 import template1 from '../../../../../constants/mock-images/template2.jpg'
 import AWS from 'aws-sdk'
+import useDesignEditorContext from "~/hooks/useDesignEditorContext"
+import { getDefaultTemplate } from "~/constants/design-editor"
+
 import axios from 'axios'
 import { log } from "console"
+import { nanoid } from "nanoid"
 
 
 const Images = () => {
@@ -23,6 +27,35 @@ const Images = () => {
   const setIsSidebarOpen = useSetIsSidebarOpen()
   const [input,setInput] =useState("");
   const [s3url,sets3url] = useState("")
+  const {
+    scenes,
+    setScenes,
+    setContextMenuTimelineRequest,
+    contextMenuTimelineRequest,
+    setCurrentScene,
+    setCurrentDesign,
+  } = useDesignEditorContext()
+
+// adding the new slide for every new generation 
+  const addScene = React.useCallback(async () => {
+    // console.log("adding")
+
+    const updatedTemplate = editor?.scene.exportToJSON() //first the json form is exported  
+    const updatedPreview = await editor?.renderer.render(updatedTemplate??scenes[0]) //the preview if of the file is then added to the time line
+    const updatedPages = scenes.map((p) => {
+      if (p.id === updatedTemplate?.id) {
+        return { ...updatedTemplate, preview: updatedPreview }
+      }
+      return p
+    })///the states of the every member in the time line is updated
+    const defaultTemplate = getDefaultTemplate(scenes[0].frame);//the last frame size is taken whic is going to be maintianed as a template
+    const newPreview = await editor?.renderer.render(defaultTemplate) //the new previw is added and referesed or rendred 
+    const newPage = { ...defaultTemplate, id: nanoid(), preview: newPreview } as any
+    const newPages = [...updatedPages, newPage] as any[] ///the list is updated with the newpage
+    //rendering the updates on the screen using hooks
+    setScenes(newPages) 
+    setCurrentScene(newPage)
+  }, [scenes, setCurrentDesign])
 
   const addObject = React.useCallback(
     (url: string) => {
@@ -87,6 +120,7 @@ const Images = () => {
   
   
   const handleImageUpload = (callback:any) => {
+    addScene()
     if(editor){
       const canvas = document.getElementById(editor.canvasId);
       const dataURL = canvas?.toDataURL('image/png');
@@ -147,6 +181,11 @@ const Images = () => {
         // Handle success
         addObject(response.data.gen_image_url)
         console.log(response.data.gen_image_url);
+        const currentScene = scenes.find((scene) => scene.id === contextMenuTimelineRequest.id)
+        const updatedScenes = [...scenes, { ...currentScene, id: nanoid() }]
+        //  @ts-ignore
+        setScenes(updatedScenes)
+        setContextMenuTimelineRequest({ ...contextMenuTimelineRequest, visible: false })
       })
       .catch((error) => {
         // Handle error
