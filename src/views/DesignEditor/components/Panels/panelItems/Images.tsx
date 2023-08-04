@@ -166,12 +166,11 @@ const Images = () => {
       console.log(graphicTemplate)
       const dataObject = {
         prompt: input,
-        canvas: currentDesign, // Assuming currentDesign is the data you want to send
+        canvas: currentDesign, 
       };
     
       const headers = {
         'Content-Type': 'application/json',
-        // Add any other headers as needed
       };
     
       axios.post('https://178baf3b-8487-4d18-aafb-d0589f301c43.mock.pstmn.io/productImages', dataObject, { headers })
@@ -187,13 +186,6 @@ const Images = () => {
       console.log("NO CURRENT DESIGN")
     }
 
-    // axios.post('http://your-api-url', this.convertJSON())
-    //   .then(response => {
-    //     console.log(response.data);
-    //   })
-    //   .catch(error => {
-    //     console.error('There was an error!', error);
-    //   });
 
   }
   const makeDownloadTemplate = async () => {
@@ -203,32 +195,7 @@ const Images = () => {
       } 
     }
   }
-  // const base64ImageToS3Url = async (imageData: string): Promise<string> => {
-  //   try {
-  //     const s3: AWS.S3 = new AWS.S3({
-  //       accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  //       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  //       region: process.env.REGION
-  //     })
-  //     const imageName: string = generateImageName('jpeg')
-  //     const base64Data: Buffer = Buffer.from(imageData, 'base64')
-  //     const uploadParams = {
-  //       Bucket: process.env.BUCKET,
-  //       Key: imageName,
-  //       Body: base64Data,
-  //       ContentEncoding: 'base64',
-  //       ContentType: 'image/jpeg'
-  //     }
-  //     const s3Upload = promisify(s3.upload).bind(s3)
-  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //     const data: AWS.S3.ManagedUpload.SendData = await s3Upload(uploadParams)
-  //     console.log('Image uploaded successfully.')
-  //     return data.Location
-  //   } catch (error) {
-  //     console.error('Error base64ImageToS3Url:', error)
-  //     throw error
-  //   }
-  // }
+
 
   const handleImageUpload = (callback:any) => {
     addScene("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU")
