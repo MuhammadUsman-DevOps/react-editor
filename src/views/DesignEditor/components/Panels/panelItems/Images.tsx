@@ -20,6 +20,9 @@ import { getDefaultTemplate } from "~/constants/design-editor"
 import axios from 'axios'
 import { log } from "console"
 import { nanoid } from "nanoid"
+import useEditorType from "~/hooks/useEditorType"
+import { IDesign } from "~/interfaces/DesignEditor"
+import Scene from "~/core/controllers/Scene"
 
 
 const Images = () => {
@@ -36,6 +39,8 @@ const Images = () => {
     setCurrentDesign,
   } = useDesignEditorContext()
   const [imgs,setimgs] = useState([""]);
+  const editorType = useEditorType()
+
 
 
 // adding the new slide for every new generation 
@@ -124,15 +129,42 @@ const Images = () => {
   headers.append("send_images", "true");
   headers.append("save_images", "false");
   headers.append("alwayson_scripts", "{}");
-  
-  const img = ()=>
+
+
+  const  convertJSON = ()=>
   {
-    
+    const final_export = [{}];
+    scenes.forEach((e,index)=>
+    {
+     let scene = {
+      images:editor?.canvas.canvas.toJSON(),
+      name : e.name,
+      description:e.description,
+      layer :e.layers,
+      frame:e.display,
+      metadata:e.metadata,
+     }
+     final_export.push(scene);
+      
+    }
+
+    )
+    console.log(final_export);
+  }
+  const makeDownloadTemplate = async () => {
+    if (editor) {
+      if (editorType === "GRAPHIC") {
+        return convertJSON()
+      } 
+    }
   }
 
 
   const handleImageUpload = (callback:any) => {
     addScene("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU")
+    console.log("downloading")
+    makeDownloadTemplate();
+
     if(editor){
       const canvas = document.getElementById(editor.canvasId);
       const dataURL = canvas?.toDataURL('image/png');
@@ -154,7 +186,7 @@ const Images = () => {
         // Upload the file to S3
         const s3 = new AWS.S3();
         s3.putObject({
-          Bucket: import.meta.env.VITE_BUCKET,
+          Bucket: import.meta.env.VITE_BUCKET??"radiance-sravan",
           Key: file_name,
           Body: file,
           ContentType:"image/png",
