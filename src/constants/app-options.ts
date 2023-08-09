@@ -38,6 +38,16 @@ export const BASE_ITEMS = [
     name: "Layers",
   },
 ]
+export const STYLE_ITEMS = [
+  {
+    id: "Images",
+    name: "Shiftimages",
+  },
+  {
+    id: "uploads",
+    name: "Shiftuploads",
+  },
+]
 
 export const VIDEO_PANEL_ITEMS = [
   {
