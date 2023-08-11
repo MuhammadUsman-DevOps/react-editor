@@ -42,6 +42,7 @@ export default function () {
       type: type,
     }
           if(uploads)setUploads([...uploads, upload])
+          else setUploads([upload])
         }  
         
         const handleInputFileRefClick = () => {

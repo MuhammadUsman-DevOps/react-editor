@@ -3,40 +3,60 @@ import { useStyletron } from "baseui"
 import { Block } from "baseui/block"
 import AngleDoubleLeft from "~/components/Icons/AngleDoubleLeft"
 import Scrollable from "~/components/Scrollable"
-import { images } from "~/constants/mock-data"
 import { useEditor } from "~/react"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
-import Input from "baseui/input/input"
-import { Button } from "baseui/button"
-import image from "~/core/parser/image"
+import { Button , SIZE } from "baseui/button"
 import './images.css'
-import { Header } from "baseui/accordion/styled-components"
-import imagevariations from '../../../../../constants/mock-images/ImageVariations.jpg'
-import template1 from '../../../../../constants/mock-images/template2.jpg'
-import AWS from 'aws-sdk'
-import useDesignEditorContext from "~/hooks/useDesignEditorContext"
-import { getDefaultTemplate } from "~/constants/design-editor"
-
-import axios from 'axios'
-import { log } from "console"
 import { nanoid } from "nanoid"
-import useEditorType from "~/hooks/useEditorType"
-import { IDesign } from "~/interfaces/DesignEditor"
-import Scene from "~/core/controllers/Scene"
+import { captureFrame, loadVideoResource } from "~/utils/video"
+import { toBase64 } from "~/utils/data"
+import DropZone from "~/components/Dropzone"
 
 
-const Shiftimages = () => {
+const Shiftimages = (props:any) => {
     const [input,setInput] =useState("");
     const [artStyle,setartStyle] =useState("");
     const setIsSidebarOpen = useSetIsSidebarOpen()
-    const hello = () =>{
-        setInput(()=>"hello")
-    }
+    const [mode,setMode] = useState("Select Mode")
+    const inputFileRef = React.useRef<HTMLInputElement>(null)
+    const editor = useEditor()
+    const [uploads, setUploads] = React.useState<any[]>()
+    
+    
+    const handleDropFiles = async (files: FileList) => {
+      const file = files[0]
+      
+      const isVideo = file.type.includes("video")
+      const base64 = (await toBase64(file)) as string
+      let preview = base64
+      if (isVideo) {
+        const video = await loadVideoResource(base64)
+        const frame = await captureFrame(video)
+        preview = frame
+      }
+      
+      const type = isVideo ? "StaticVideo" : "StaticImage"
+      
+      
+      const upload = {
+        id: nanoid(),
+        src: base64,
+        preview: preview,
+        type: type,
+      }
+        setUploads([upload])
+      }  
+      const handleInputFileRefClick = () => {
+          inputFileRef.current?.click()
+        } 
+        const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+          handleDropFiles(e.target.files!)
+        }
   return (
-    <Block $style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-          <textarea value={input}  placeholder="Enter your prompt or choose from below" onChange={e => setInput(e.target.value)}  style={{display:"flex" , flexDirection:"column" , padding:"10px", margin:"10px" , borderRadius:"10px" , fontSize:15 , fontFamily:"sans-serif"}} />
-          <Button style={{margin:"20px"}} onClick={()=>hello}>Generate</Button>
-          <textarea value={artStyle}  placeholder="Enter Style" onChange={e => setInput(e.target.value)}  style={{display:"flex" , flexDirection:"column" , padding:"10px", margin:"10px" , borderRadius:"10px" , fontSize:15 , fontFamily:"sans-serif"}} />
+    <Block $style={{ flex: 1, display: "flex", flexDirection: "column" ,}}>
+          <textarea value={input}  placeholder="Enter your prompt or choose from below" onChange={e => setInput(e.target.value)}  style={{display:"flex" , flexDirection:"column" , padding:"10px", margin:"10px 15px 10px 10px" , fontSize:15 , fontFamily:"sans-serif"}} />
+          <Button style={{margin:"20px"}}>Generate</Button>
+          <textarea value={artStyle}  placeholder="Select Style from below" onChange={e => setInput(e.target.value)}  style={{display:"flex" , flexDirection:"column" , padding:"10px", margin:"10px 15px 10px 10px" , fontSize:15 , fontFamily:"sans-serif"}} />
           <Block
             $style={{
                 display: "flex",
@@ -52,8 +72,8 @@ const Shiftimages = () => {
               <AngleDoubleLeft size={18} />
             </Block>
           </Block>
-          <Scrollable>
-            <Block padding="0 1.5rem">
+          {/* <Scrollable> */}
+            <Block padding="0 1.5rem" paddingBottom="30px">
               <div style={{ display: "grid", gap: "8px", gridTemplateColumns: "1fr 1fr",}}>
                 <div   className="tooltip" onClick={() => {setInput("Colourfull Image of cat from head to neck looking to the right"),setartStyle("Oil Painting")}}>
                   <ImageItem preview={"https://i.ebayimg.com/images/g/iYMAAOSw269jXD2D/s-l1600.jpg"} />
@@ -65,7 +85,81 @@ const Shiftimages = () => {
                   </div>
               </div>
             </Block>
-          </Scrollable>
+            {/* </Scrollable> */}
+            <Block
+            $style={{
+                display: "flex",
+                alignItems: "center",
+              fontWeight: 500,
+              justifyContent: "space-between",
+              padding: "1.5rem",
+            }}
+            >
+                <Block>Select Mode</Block>
+    
+            <Block onClick={() => setIsSidebarOpen(false)} $style={{ cursor: "pointer", display: "flex" }}>
+              <AngleDoubleLeft size={18} />
+            </Block>
+          </Block>
+            <select value={mode} onChange={e => setMode(e.target.value)} style={{display:"flex" , alignContent:"center" , alignItems:"center" , margin:"20px 20px 0px 20px" , padding:"15px" ,fontSize:"20px"}}>
+              <option>Style</option>
+              <option>Colour</option>
+              <option>Style + Colour</option>
+            </select>
+          <DropZone handleDropFiles={handleDropFiles}>
+      <Block $style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        <Block
+          $style={{
+            display: "flex",
+            alignItems: "center",
+            fontWeight: 500,
+            justifyContent: "space-between",
+            padding: "1.5rem",
+          }}
+          >
+        </Block>
+          <Block padding={"0 1.5rem"}>
+            <Button
+              onClick={handleInputFileRefClick}
+              size={SIZE.compact}
+              overrides={{
+                Root: {
+                  style: {
+                    width: "100%",
+                  },
+                },
+              }}
+            >
+              Select Style Reference Image
+            </Button>
+            <input onChange={handleFileInput} type="file" id="file" ref={inputFileRef} style={{ display: "none" }} />
+
+            <div
+              style={{
+                marginTop: "1rem",
+                display: "grid",
+                gap: "0.5rem",
+                gridTemplateColumns: "1fr 1fr",
+              }}
+            >
+              {uploads?.map((upload) => (
+                <div
+                  key={upload.id}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    cursor: "pointer",
+                  }}
+                >
+                  <div>
+                    <img width="100%" src={upload.preview ? upload.preview : upload.url} alt="preview" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Block>
+      </Block>
+    </DropZone>
         </Block>
       )
     }
