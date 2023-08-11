@@ -17,22 +17,7 @@ export default function () {
   const inputFileRef = React.useRef<HTMLInputElement>(null)
   const editor = useEditor()
   const setIsSidebarOpen = useSetIsSidebarOpen()
-  const temp = {
-    id: nanoid(),
-    src: "https://i.ibb.co/TKx8vNN/bottle-Asset.png",
-    preview: "https://i.ibb.co/TKx8vNN/bottle-Asset.png",
-    type: "StaticImage",
-  }
-  const {
-    scenes,
-    setScenes,
-    setContextMenuTimelineRequest,
-    contextMenuTimelineRequest,
-    setCurrentScene,
-    setCurrentDesign,
-  } = useDesignEditorContext()
-  
-  const [uploads, setUploads] = React.useState<any[]>([temp])
+  const [uploads, setUploads] = React.useState<any[]>()
   
   
   const handleDropFiles = async (files: FileList) => {
@@ -56,7 +41,8 @@ export default function () {
       preview: preview,
       type: type,
     }
-          setUploads([...uploads, upload])
+          if(uploads)setUploads([...uploads, upload])
+          else setUploads([upload])
         }  
         
         const handleInputFileRefClick = () => {
@@ -66,36 +52,8 @@ export default function () {
         const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
           handleDropFiles(e.target.files!)
         }
-// not necessary uploadded image will not be added to the canavas
-
-
-
-        // const addScene = React.useCallback(async () => {
-        //   // console.log("adding")
-          
-        //   setCurrentPreview("")
-        //   const updatedTemplate = editor?.scene.exportToJSON()
-        //   const updatedPreview = await editor?.renderer.render(updatedTemplate??scenes[0])
-        //   const updatedPages = scenes.map((p) => {
-        //     if (p.id === updatedTemplate?.id) {
-        //       return { ...updatedTemplate, preview: updatedPreview }
-        //     }
-        //     return p
-        //   })
-        //   const defaultTemplate = getDefaultTemplate(setCurrentScene.frame)
-        //   const newPreview = await editor?.renderer.render(defaultTemplate)
-        //   const newPage = { ...defaultTemplate, id: nanoid(), preview: newPreview } as any
-        //   const newPages = [...updatedPages, newPage] as any[]
-        //   setScenes(newPages)
-        //   setCurrentScene(newPage)
-       // }, [scenes, setCurrentDesign])
         const addImageToCanvas = (props: Partial<ILayer>) => {
           editor?.objects.add(props)
-          const currentScene = scenes.find((scene) => scene.id === contextMenuTimelineRequest.id)
-    const updatedScenes = [...scenes, { ...currentScene, id: nanoid() }]
-    //  @ts-ignore
-    setScenes(updatedScenes)
-    setContextMenuTimelineRequest({ ...contextMenuTimelineRequest, visible: false })
         }
         return (
           <DropZone handleDropFiles={handleDropFiles}>
@@ -140,7 +98,7 @@ export default function () {
                 gridTemplateColumns: "1fr 1fr",
               }}
             >
-              {uploads.map((upload) => (
+              {uploads?.map((upload) => (
                 <div
                   key={upload.id}
                   style={{

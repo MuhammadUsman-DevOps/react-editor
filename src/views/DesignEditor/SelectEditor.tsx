@@ -48,7 +48,7 @@ const SelectEditor = () => {
             <Block>Consumer Products</Block>
           </Block>
           <Block
-            //onClick={() => setSelectedEditor("PRESENTATION")}
+            onClick={() => setSelectedEditor("PRESENTATION")}
             $style={{
               height: "180px",
               width: "180px",
@@ -63,7 +63,7 @@ const SelectEditor = () => {
             }}
           >
             <Presentation size={36} />
-            <Block>Home Decor</Block>
+            <Block>Style Shift</Block>
           </Block>
           {/*           <Block
             onClick={() => setSelectedEditor("VIDEO")}

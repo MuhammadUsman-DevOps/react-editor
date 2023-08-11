@@ -14,6 +14,8 @@ import TextFill from "./TextFill"
 import PathFill from "./PathFill"
 import CanvasFill from "./CanvasFill"
 import TextEffects from "./TextEffects"
+import Shiftimages from './Shiftimages'
+import Shiftuploads from "./Shiftuploads"
 export default {
   StaticText: TextProperties,
   Text: Text,
@@ -31,4 +33,6 @@ export default {
   PathFill: PathFill,
   CanvasFill: CanvasFill,
   TextEffects: TextEffects,
+  Shiftuploads:Shiftuploads,
+  Shiftimages : Shiftimages,
 }

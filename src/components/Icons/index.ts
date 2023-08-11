@@ -26,6 +26,7 @@ import Add from "./Add"
 import Video from "./Video"
 import HumanIcon from "./HumanIcon"
 import Robot from './Robot'
+import { Upload } from "baseui/icon"
 class Icons {
   static Background = Background
   static Elements = Elements
@@ -53,6 +54,8 @@ class Icons {
   static ArrowBackOutline = ArrowBackOutline
   static Underline = Underline
   static Add = Add
+  static Shiftimages = Images
+  static Shiftuploads = Uploads
 }
 
 export default Icons

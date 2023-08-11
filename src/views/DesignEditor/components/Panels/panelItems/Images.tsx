@@ -14,8 +14,15 @@ import { Header } from "baseui/accordion/styled-components"
 import imagevariations from '../../../../../constants/mock-images/ImageVariations.jpg'
 import template1 from '../../../../../constants/mock-images/template2.jpg'
 import AWS from 'aws-sdk'
+import useDesignEditorContext from "~/hooks/useDesignEditorContext"
+import { getDefaultTemplate } from "~/constants/design-editor"
+
 import axios from 'axios'
 import { log } from "console"
+import { nanoid } from "nanoid"
+import useEditorType from "~/hooks/useEditorType"
+import { IDesign } from "~/interfaces/DesignEditor"
+import Scene from "~/core/controllers/Scene"
 
 
 const Images = () => {
@@ -23,7 +30,41 @@ const Images = () => {
   const setIsSidebarOpen = useSetIsSidebarOpen()
   const [input,setInput] =useState("");
   const [s3url,sets3url] = useState("")
+  const {
+    scenes,
+    setScenes,
+    setContextMenuTimelineRequest,
+    contextMenuTimelineRequest,
+    setCurrentScene,
+    currentDesign,
+    setCurrentDesign,
+  } = useDesignEditorContext()
+  const [imgs,setimgs] = useState([""]);
+  const editorType = useEditorType()
 
+
+
+// adding the new slide for every new generation 
+  const addScene = React.useCallback(async (s: string) => {
+    // console.log("adding")
+
+    const updatedTemplate = editor?.scene.exportToJSON() //first the json form is exported  
+    const updatedPreview = await editor?.renderer.render(updatedTemplate??scenes[0]) //the preview if of the file is then added to the time line
+    const updatedPages = scenes.map((p) => {
+      if (p.id === updatedTemplate?.id) {
+        return { ...updatedTemplate, preview: updatedPreview }
+      }
+      return p
+    })///the states of the every member in the time line is updated
+    const defaultTemplate = getDefaultTemplate(scenes[0].frame);//the last frame size is taken whic is going to be maintianed as a template
+    const newPreview = await editor?.renderer.render(defaultTemplate) //the new previw is added and referesed or rendred 
+    const newPage = { ...defaultTemplate, id: nanoid(), preview: newPreview } as any
+    const newPages = [...updatedPages, newPage] as any[] ///the list is updated with the newpage
+    //rendering the updates on the screen using hooks
+    setScenes(newPages) 
+    setCurrentScene(newPage)
+    addObject(s);
+  }, [scenes, setCurrentDesign])
   const addObject = React.useCallback(
     (url: string) => {
       if (editor) {
@@ -36,7 +77,12 @@ const Images = () => {
     },
     [editor]
   )
-  const [imagess,setImage] = useState([""]);  
+  const [imagess,setImage] = useState([
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU",  
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU",  
+
+  ]);  
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   headers.append("enable_hr", "false");
@@ -84,9 +130,78 @@ const Images = () => {
   headers.append("send_images", "true");
   headers.append("save_images", "false");
   headers.append("alwayson_scripts", "{}");
-  
-  
+
+
+  const  convertJSON = ()=>
+  {
+    console.log("convert to json")
+    const currentScene = editor?.scene.exportToJSON()
+
+    const updatedScenes = scenes.map((scn) => {
+      if (scn.id === currentScene?.id) {
+        return {
+          id: currentScene.id,
+          layers: currentScene.layers,
+          name: currentScene.name,
+        }
+      }
+      return {
+        id: scn.id,
+        layers: scn.layers,
+        name: scn.name,
+      }
+    })
+
+    if (currentDesign) {
+      const graphicTemplate: IDesign = {
+        id: currentDesign.id,
+        type: "GRAPHIC",
+        name: currentDesign.name,
+        frame: currentDesign.frame,
+        scenes: updatedScenes,
+        metadata: {},
+        previews: {          
+        },
+      }
+      console.log(graphicTemplate)
+      const dataObject = {
+        prompt: input,
+        canvas: currentDesign, 
+      };
+    
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+    
+      axios.post('https://178baf3b-8487-4d18-aafb-d0589f301c43.mock.pstmn.io/productImages', dataObject, { headers })
+        .then((response) => {
+          console.log(response.data);
+          const imageUrl = response.data?.canavas?.scenes[0]?.layers[0]?.src; 
+          addObject(imageUrl);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      console.log("NO CURRENT DESIGN")
+    }
+
+
+  }
+  const makeDownloadTemplate = async () => {
+    if (editor) {
+      if (editorType === "GRAPHIC") {
+        return convertJSON()
+      } 
+    }
+  }
+
+
   const handleImageUpload = (callback:any) => {
+    addScene("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU")
+    console.log("downloading")
+    makeDownloadTemplate();
+
     if(editor){
       const canvas = document.getElementById(editor.canvasId);
       const dataURL = canvas?.toDataURL('image/png');
@@ -108,7 +223,7 @@ const Images = () => {
         // Upload the file to S3
         const s3 = new AWS.S3();
         s3.putObject({
-          Bucket: import.meta.env.VITE_BUCKET,
+          Bucket: import.meta.env.VITE_BUCKET??"radiance-sravan",
           Key: file_name,
           Body: file,
           ContentType:"image/png",
@@ -147,6 +262,11 @@ const Images = () => {
         // Handle success
         addObject(response.data.gen_image_url)
         console.log(response.data.gen_image_url);
+        const currentScene = scenes.find((scene) => scene.id === contextMenuTimelineRequest.id)
+        const updatedScenes = [...scenes, { ...currentScene, id: nanoid() }]
+        //  @ts-ignore
+        setScenes(updatedScenes)
+        setContextMenuTimelineRequest({ ...contextMenuTimelineRequest, visible: false })
       })
       .catch((error) => {
         // Handle error
@@ -184,14 +304,25 @@ const Images = () => {
                     </div>
                     )
                   })} */}
-                <div   className="tooltip" onClick={() => setInput("a bottle of whisky sitting on top of a wooden table")}>
+                <div   className="tooltip" onClick={() => {setInput("a bottle of whisky sitting on top of a wooden table"),addObject(imagevariations)}}>
                   <ImageItem preview={imagevariations} />
                   <span className="tooltiptext">{"a bottle of whisky sitting on top of a wooden table"}</span>
                   </div>
-                <div  className="tooltip" onClick={() => setInput("A perfume bottle on desk with some flowers in the background")}>
+                <div  className="tooltip" onClick={() => {setInput("a bottle of whisky sitting on top of a wooden table"),addObject(imagevariations)}}>
                   <ImageItem preview={template1} />
                   <span className="tooltiptext">{"A perfume bottle on desk with some flowers in the background"}</span>
                   </div>
+                  {/* {
+                    imagess.map((e,index)=>
+                    {
+                      return (
+                        <div>
+                        <ImageItem preview={e[index]} />
+                  <span className="tooltiptext">{"a bottle of whisky sitting on top of a wooden table"}</span>
+                  </div>
+                      )
+                    })
+                  } */}
               </div>
             </Block>
           </Scrollable>
