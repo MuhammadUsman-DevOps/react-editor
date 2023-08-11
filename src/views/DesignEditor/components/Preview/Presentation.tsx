@@ -17,6 +17,7 @@ const Presentation = () => {
     async (scenes: IScene[]) => {
       const slides = []
       for (const scene of scenes) {
+        // @ts-ignore
         const preview = (await editor.renderer.render(scene)) as string
         slides.push({
           id: scene.id,

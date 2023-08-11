@@ -44,7 +44,9 @@ const ContextMenu = () => {
         <ContextMenuItem
           disabled={true}
           onClick={() => {
+            // @ts-ignore
             editor.objects.copy()
+            // @ts-ignore
             editor.cancelContextMenuRequest()
           }}
           icon="Duplicate"
@@ -54,7 +56,9 @@ const ContextMenu = () => {
         </ContextMenuItem>
         <ContextMenuItem
           onClick={() => {
+            // @ts-ignore
             editor.objects.paste()
+            // @ts-ignore
             editor.cancelContextMenuRequest()
           }}
           icon="Paste"
@@ -65,7 +69,9 @@ const ContextMenu = () => {
         <ContextMenuItem
           disabled={true}
           onClick={() => {
+            // @ts-ignore
             editor.objects.remove()
+            // @ts-ignore
             editor.cancelContextMenuRequest()
           }}
           icon="Delete"
@@ -95,7 +101,9 @@ const ContextMenu = () => {
         >
           <ContextMenuItem
             onClick={() => {
+              // @ts-ignore
               editor.objects.copy()
+              // @ts-ignore
               editor.cancelContextMenuRequest()
             }}
             icon="Duplicate"
@@ -105,7 +113,9 @@ const ContextMenu = () => {
           </ContextMenuItem>
           <ContextMenuItem
             onClick={() => {
+              // @ts-ignore
               editor.objects.paste()
+              // @ts-ignore
               editor.cancelContextMenuRequest()
             }}
             icon="Paste"
@@ -115,7 +125,9 @@ const ContextMenu = () => {
           </ContextMenuItem>
           <ContextMenuItem
             onClick={() => {
+              // @ts-ignore
               editor.objects.remove()
+              // @ts-ignore
               editor.cancelContextMenuRequest()
             }}
             icon="Delete"
@@ -126,7 +138,9 @@ const ContextMenu = () => {
           <div style={{ margin: "0.5rem 0" }} />
           <ContextMenuItem
             onClick={() => {
+              // @ts-ignore
               editor.objects.bringForward()
+              // @ts-ignore
               editor.cancelContextMenuRequest()
             }}
             icon="Forward"
@@ -136,7 +150,9 @@ const ContextMenu = () => {
           </ContextMenuItem>
           <ContextMenuItem
             onClick={() => {
+              // @ts-ignore
               editor.objects.sendBackwards()
+              // @ts-ignore
               editor.cancelContextMenuRequest()
             }}
             icon="Backward"
@@ -147,6 +163,7 @@ const ContextMenu = () => {
           <ContextMenuItem
             onClick={() => {
               handleAsComponentHandler()
+              // @ts-ignore
               editor.cancelContextMenuRequest()
             }}
             icon="Elements"
@@ -157,7 +174,9 @@ const ContextMenu = () => {
           <div style={{ margin: "0.5rem 0" }} />
           <ContextMenuItem
             onClick={() => {
+              // @ts-ignore
               editor.objects.lock()
+              // @ts-ignore
               editor.cancelContextMenuRequest()
             }}
             icon="Locked"
@@ -169,7 +188,9 @@ const ContextMenu = () => {
             <ContextMenuItem
               onClick={() => {
                 // handleAsComponentHandler()
+                // @ts-ignore
                 editor.objects.setAsBackgroundImage()
+                // @ts-ignore
                 editor.cancelContextMenuRequest()
               }}
               icon="Images"
@@ -196,7 +217,9 @@ const ContextMenu = () => {
         >
           <ContextMenuItem
             onClick={() => {
+              // @ts-ignore
               editor.objects.unlock()
+              // @ts-ignore
               editor.cancelContextMenuRequest()
             }}
             icon="Unlocked"

@@ -204,6 +204,7 @@ const Images = () => {
 
     if(editor){
       const canvas = document.getElementById(editor.canvasId);
+      // @ts-ignore
       const dataURL = canvas?.toDataURL('image/png');
       console.log("Button Clicked");
       AWS.config.update({

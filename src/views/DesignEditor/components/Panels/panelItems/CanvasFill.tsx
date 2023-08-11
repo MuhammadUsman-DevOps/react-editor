@@ -25,6 +25,7 @@ const CanvasFill = () => {
   const editor = useEditor()
 
   const updateCanvasBackground = throttle((color: string) => {
+    // @ts-ignore
     editor.canvas.setBackgroundColor(color)
   }, 100)
 

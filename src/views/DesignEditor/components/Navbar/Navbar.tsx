@@ -55,6 +55,7 @@ const Navbar = () => {
         frame: currentDesign.frame,
         scenes: updatedScenes,
         metadata: {},
+        // @ts-ignore
         preview: "",
       }
       makeDownload(graphicTemplate)
@@ -91,6 +92,7 @@ const Navbar = () => {
         frame: currentDesign.frame,
         scenes: updatedScenes,
         metadata: {},
+        // @ts-ignore
         preview: "",
       }
       makeDownload(presentationTemplate)
@@ -125,6 +127,7 @@ const Navbar = () => {
         frame: currentDesign.frame,
         scenes: updatedScenes,
         metadata: {},
+        // @ts-ignore
         preview: "",
       }
       makeDownload(videoTemplate)
@@ -259,6 +262,7 @@ const Navbar = () => {
   const makeDownloadCanvasImage = () => {
     //@ts-ignore
     const canvas = document.getElementById(editor?.canvasId)
+    // @ts-ignore
     const dataURL = canvas?.toDataURL("image/png")
     const a = document.createElement("a")
     a.href = dataURL

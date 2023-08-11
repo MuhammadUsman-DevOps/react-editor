@@ -8,6 +8,7 @@ import useDesignEditorPages from "~/hooks/useDesignEditorScenes"
 const Playback = () => {
   const editor = useEditor()
   const controller = React.useRef<Controller>()
+  // @ts-ignore
   const frameBoundingRect = editor.frame.getBoundingClientRect()
   const [initialized, setInitialized] = React.useState(false)
   const zoomRatio = useZoomRatio() as number
@@ -15,10 +16,12 @@ const Playback = () => {
   const pages = useDesignEditorPages()
   const { time } = useTimer()
   const loadFrames = React.useCallback(async () => {
+    // @ts-ignore
     const currentTemplate = editor.scene.exportToJSON()
 
     let refTime = 0
     const templates = pages.map((page) => {
+      // @ts-ignore
       const currentTemplate = editor.scene.exportToJSON()
       if (page.id === currentTemplate.id) {
         return { ...currentTemplate, duration: page.duration }
@@ -28,6 +31,7 @@ const Playback = () => {
 
     let clips = []
     for (const template of templates) {
+      // @ts-ignore
       const layers = await editor.scene.exportLayers(template)
       const timedLayers = layers.map((layer) => {
         return {
@@ -52,6 +56,7 @@ const Playback = () => {
       clips: clips,
     }
 
+    // @ts-ignore
     const layers = await editor.scene.exportLayers(currentTemplate)
 
     controller.current = new Controller("scenify_playback_container", {

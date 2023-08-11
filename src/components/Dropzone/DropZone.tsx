@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 
-interface Props {
+export interface Props {
   children: React.ReactNode
   handleDropFiles: (files: FileList) => void
 }
