@@ -134,18 +134,18 @@ const Images = () => {
 
   }
   const makeDownloadTemplate = async () => {
-    if (editor) {
-      if (editorType === "GRAPHIC") {
-        return convertJSON()
-      }
-    }
+
   }
 
 
   const handleImageUpload = (callback: any) => {
     addScene("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU")
     console.log("downloading")
-    makeDownloadTemplate()
+    if (editor) {
+      if (editorType === "GRAPHIC") {
+        return convertJSON()
+      }
+    }
 
     if (editor) {
       const canvas = document.getElementById(editor.canvasId)
