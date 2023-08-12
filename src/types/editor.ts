@@ -1,6 +1,6 @@
 import { Dimension, RotationControlPosition } from "./common"
 
-type SceneType = "CUSTOMIZATION" | "GRAPHIC" | "PRESENTATION" | "VIDEO"
+type SceneType = "CUSTOMIZATION" | "GRAPHIC" | "PRESENTATION" | "VIDEO" | "MODEL"
 
 export interface EditorConfig {
   id: string

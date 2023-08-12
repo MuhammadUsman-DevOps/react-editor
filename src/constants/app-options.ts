@@ -48,6 +48,16 @@ export const STYLE_ITEMS = [
     name: "Shiftuploads",
   },
 ]
+export const MODEL_ITEMS = [
+  {
+    id: "Images",
+    name: "Modelimages",
+  },
+  {
+    id: "uploads",
+    name: "Modeluploads",
+  },
+]
 
 export const VIDEO_PANEL_ITEMS = [
   {

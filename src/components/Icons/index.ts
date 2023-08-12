@@ -56,6 +56,8 @@ class Icons {
   static Add = Add
   static Shiftimages = Images
   static Shiftuploads = Uploads
+  static Modelimages = Images
+  static Modeluploads = Uploads
 }
 
 export default Icons

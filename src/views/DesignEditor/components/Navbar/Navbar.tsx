@@ -100,6 +100,41 @@ const Navbar = () => {
       console.log("NO CURRENT DESIGN")
     }
   }
+  const parseModelJSON = () => {
+    const currentScene = editor?.scene.exportToJSON()
+
+    const updatedScenes = scenes.map((scn) => {
+      if (scn.id === currentScene?.id) {
+        return {
+          id: currentScene.id,
+          duration: 5000,
+          layers: currentScene.layers,
+          name: currentScene.name,
+        }
+      }
+      return {
+        id: scn.id,
+        duration: 5000,
+        layers: scn.layers,
+        name: scn.name,
+      }
+    })
+
+    if (currentDesign) {
+      const presentationTemplate: IDesign = {
+        id: currentDesign.id,
+        type: "MODEL",
+        name: currentDesign.name,
+        frame: currentDesign.frame,
+        scenes: updatedScenes,
+        metadata: {},
+        preview: "",
+      }
+      makeDownload(presentationTemplate)
+    } else {
+      console.log("NO CURRENT DESIGN")
+    }
+  }
 
   const parseVideoJSON = () => {
     const currentScene = editor?.scene.exportToJSON()
@@ -149,6 +184,8 @@ const Navbar = () => {
       if (editorType === "GRAPHIC") {
         return parseGraphicJSON()
       } else if (editorType === "PRESENTATION") {
+        return parsePresentationJSON()
+      } else if (editorType === "MODEL") {
         return parsePresentationJSON()
       } else {
         return parseVideoJSON()
@@ -227,6 +264,8 @@ const Navbar = () => {
       if (data.type === "GRAPHIC") {
         template = await loadGraphicTemplate(data)
       } else if (data.type === "PRESENTATION") {
+        template = await loadPresentationTemplate(data)
+      } else if (data.type === "MODEL") {
         template = await loadPresentationTemplate(data)
       } else if (data.type === "VIDEO") {
         template = await loadVideoTemplate(data)
