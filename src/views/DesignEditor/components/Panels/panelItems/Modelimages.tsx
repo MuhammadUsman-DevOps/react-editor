@@ -110,7 +110,7 @@ const Modelimages = (props:any) => {
                 },
               }}
             >
-              Select Style Reference Image
+              Select Model Reference Image
             </Button>
             <input onChange={handleFileInput} type="file" id="file" ref={inputFileRef} style={{ display: "none" }} />
 
