@@ -76,7 +76,8 @@ const Images = () => {
       }
     },
     [editor]
-  )
+  );
+
   const [imagess,setImage] = useState([
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU",  
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU",
@@ -305,13 +306,13 @@ const Images = () => {
                     </div>
                     )
                   })} */}
-                <div   className="tooltip" onClick={() => {setInput("a bottle of whisky sitting on top of a wooden table"),addObject(imagevariations)}}>
+                <div   className="tooltip" onClick={() => {setInput("on top of a wooden table"),addObject(imagevariations)}}>
                   <ImageItem preview={imagevariations} />
-                  <span className="tooltiptext">{"a bottle of whisky sitting on top of a wooden table"}</span>
+                  <span className="tooltiptext">{"on top of a wooden table"}</span>
                   </div>
-                <div  className="tooltip" onClick={() => {setInput("a bottle of whisky sitting on top of a wooden table"),addObject(imagevariations)}}>
+                <div  className="tooltip" onClick={() => {setInput("with some flowers in the background")}}>
                   <ImageItem preview={template1} />
-                  <span className="tooltiptext">{"A perfume bottle on desk with some flowers in the background"}</span>
+                  <span className="tooltiptext">{"with some flowers in the background"}</span>
                   </div>
                   {/* {
                     imagess.map((e,index)=>
