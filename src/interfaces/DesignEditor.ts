@@ -6,7 +6,7 @@ export interface Page {
   preview: string
 }
 
-export type DesignType = "GRAPHIC" | "PRESENTATION" | "VIDEO" | "NONE"
+export type DesignType = "GRAPHIC" | "PRESENTATION" | "VIDEO" | "NONE" | "MODEL"
 
 export interface ContextMenuTimelineRequest {
   id: string

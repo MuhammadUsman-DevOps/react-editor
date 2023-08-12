@@ -6,6 +6,7 @@ import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 import Video from "~/components/Icons/Video"
 import Images from "~/components/Icons/Images"
 import Presentation from "~/components/Icons/Presentation"
+import HumanIcon from "~/components/Icons/HumanIcon"
 
 export const SelectEditor = () => {
   const [selectedEditor, setSelectedEditor] = React.useState<DesignType>("GRAPHIC")
@@ -64,6 +65,24 @@ export const SelectEditor = () => {
           >
             <Presentation size={36} />
             <Block>Style Shift</Block>
+          </Block>
+          <Block
+            onClick={() => setSelectedEditor("MODEL")}
+            $style={{
+              height: "180px",
+              width: "180px",
+              background: selectedEditor === "MODEL" ? "#000000" : "rgb(231, 236, 239)",
+              color: selectedEditor === "MODEL" ? "#ffffff" : "#333333",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              flexDirection: "column",
+              gap: "0.5rem",
+            }}
+          >
+            <HumanIcon size={36} />
+            <Block>Model Swap</Block>
           </Block>
           {/*           <Block
             onClick={() => setSelectedEditor("VIDEO")}

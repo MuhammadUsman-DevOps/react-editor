@@ -66,6 +66,7 @@ const Preview = ({ isOpen, setIsOpen }: ComponentProps) => {
             {
               GRAPHIC: <Graphic />,
               PRESENTATION: <Presentation />,
+              MODEL : <Presentation />,
               VIDEO: <Video />,
               NONE: <></>,
             }[editorType]

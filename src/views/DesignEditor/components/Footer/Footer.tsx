@@ -9,6 +9,7 @@ const Footer = () => {
   return {
     NONE: <></>,
     PRESENTATION: <Presentation />,
+    MODEL : <Presentation />,
     VIDEO: <Video />,
     GRAPHIC: <Graphic />,
   }[editorType]

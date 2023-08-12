@@ -1,5 +1,5 @@
 import { useStyletron, styled } from "baseui"
-import { BASE_ITEMS, VIDEO_PANEL_ITEMS , STYLE_ITEMS } from "~/constants/app-options"
+import { BASE_ITEMS, VIDEO_PANEL_ITEMS , STYLE_ITEMS , MODEL_ITEMS } from "~/constants/app-options"
 import useAppContext from "~/hooks/useAppContext"
 import Icons from "~/components/Icons"
 import { useTranslation } from "react-i18next"
@@ -19,7 +19,7 @@ const PanelsList = () => {
   const { activePanel } = useAppContext()
   const { t } = useTranslation("editor")
   const editorType = useEditorType()
-  const PANEL_ITEMS = editorType === "VIDEO" ? VIDEO_PANEL_ITEMS : editorType==="PRESENTATION" ? STYLE_ITEMS : BASE_ITEMS
+  const PANEL_ITEMS = editorType === "VIDEO" ? VIDEO_PANEL_ITEMS : editorType==="PRESENTATION" ? STYLE_ITEMS : editorType==="MODEL" ? MODEL_ITEMS : BASE_ITEMS
   return (
     <Container>
       <Scrollable autoHide={true}>
