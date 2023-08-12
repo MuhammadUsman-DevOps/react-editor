@@ -71,10 +71,17 @@ const Images = () => {
       }
     },
     [editor]
+<<<<<<< HEAD
   )
 
   const [imagess, setImage] = useState([
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU",
+=======
+  );
+
+  const [imagess,setImage] = useState([
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU",  
+>>>>>>> 2f2d5da (fix prompth drop)
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU"
 
@@ -255,6 +262,7 @@ const Images = () => {
                     </div>
                     )
                   })} */}
+<<<<<<< HEAD
             <div className="tooltip" onClick={() => {
               setInput("on top of a wooden table")
             }}>
@@ -268,6 +276,17 @@ const Images = () => {
               <span className="tooltiptext">{"with some flowers in the background"}</span>
             </div>
             {/* {
+=======
+                <div   className="tooltip" onClick={() => {setInput("on top of a wooden table"),addObject(imagevariations)}}>
+                  <ImageItem preview={imagevariations} />
+                  <span className="tooltiptext">{"on top of a wooden table"}</span>
+                  </div>
+                <div  className="tooltip" onClick={() => {setInput("with some flowers in the background")}}>
+                  <ImageItem preview={template1} />
+                  <span className="tooltiptext">{"with some flowers in the background"}</span>
+                  </div>
+                  {/* {
+>>>>>>> 2f2d5da (fix prompth drop)
                     imagess.map((e,index)=>
                     {
                       return (
