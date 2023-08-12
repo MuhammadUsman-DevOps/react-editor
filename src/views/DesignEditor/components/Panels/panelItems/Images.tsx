@@ -38,8 +38,8 @@ const Images = () => {
 
 
 // adding the new slide for every new generation
-  const addScene = React.useCallback(async (s: string) => {
-    // console.log("adding")
+  const addScene = React.useCallback(async (gen_image_url: string) => {
+    console.log("adding")
 
     const updatedTemplate = editor?.scene.exportToJSON() //first the json form is exported  
     const updatedPreview = await editor?.renderer.render(updatedTemplate ?? scenes[0]) //the preview if of the file is then added to the time line
@@ -56,8 +56,10 @@ const Images = () => {
     //rendering the updates on the screen using hooks
     setScenes(newPages)
     setCurrentScene(newPage)
-    addObject(s)
+    addObject(gen_image_url)
+
   }, [scenes, setCurrentDesign])
+
   const addObject = React.useCallback(
     (url: string) => {
       if (editor) {
@@ -111,14 +113,16 @@ const Images = () => {
       console.log(graphicTemplate)
       const dataObject = {
         prompt: input,
+        "image_url": "",
         canvas: currentDesign
       }
 
+      /*
       const headers = {
         "Content-Type": "application/json"
       }
 
-      axios.post("https://178baf3b-8487-4d18-aafb-d0589f301c43.mock.pstmn.io/productImages", dataObject, { headers })
+      axios.post("http://localhost:3000/productImage", dataObject, { headers })
         .then((response) => {
           console.log(response.data)
           const imageUrl = response.data?.canavas?.scenes[0]?.layers[0]?.src
@@ -126,28 +130,18 @@ const Images = () => {
         })
         .catch((error) => {
           console.error(error)
-        })
+        })*/
     } else {
       console.log("NO CURRENT DESIGN")
     }
-
-
-  }
-  const makeDownloadTemplate = async () => {
-
   }
 
-
-  const handleImageUpload = (callback: any) => {
-    addScene("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU")
-    console.log("downloading")
+  const handleGenerate = (callback: any) => {
     if (editor) {
       if (editorType === "GRAPHIC") {
-        return convertJSON()
+        convertJSON()
       }
-    }
 
-    if (editor) {
       const canvas = document.getElementById(editor.canvasId)
       // @ts-ignore
       const dataURL = canvas?.toDataURL("image/png")
@@ -179,11 +173,11 @@ const Images = () => {
             } else {
               // Get the S3 URL for the uploaded object
               const params = { Bucket: import.meta.env.VITE_BUCKET, Key: file_name }
-              const url = s3.getSignedUrl("getObject", params)
+              const input_image_url = s3.getSignedUrl("getObject", params)
 
               console.log("Image uploaded to S3")
-              console.log("S3 URL:", url)
-              sets3url(url)
+              console.log("S3 URL:", input_image_url)
+              sets3url(input_image_url)
               callback()
             }
           })
@@ -196,7 +190,8 @@ const Images = () => {
 
   const postToApi = () => {
     const dataObject = {
-      "prompt": input
+      "prompt": input,
+      "image_url" : s3url
     }
     const headers = {
       "Content-Type": "application/json", // Specify the content type of the request body
@@ -204,21 +199,28 @@ const Images = () => {
       // Add any other headers as needed
     }
 
-    axios.post(`${import.meta.env.VITE_RADIANCE_BACKEND_URL}/txt2img`, dataObject, { headers })
+    let backendurl = `${import.meta.env.VITE_RADIANCE_BACKEND_URL}/productImage`
+    axios.post(backendurl, dataObject, { headers })
       .then((response) => {
         // Handle success
-        addObject(response.data.gen_image_url)
+        //addObject(response.data.gen_image_url)
         console.log(response.data.gen_image_url)
         const currentScene = scenes.find((scene) => scene.id === contextMenuTimelineRequest.id)
         const updatedScenes = [...scenes, { ...currentScene, id: nanoid() }]
         //  @ts-ignore
         setScenes(updatedScenes)
         setContextMenuTimelineRequest({ ...contextMenuTimelineRequest, visible: false })
+
+        addScene(response.data.gen_image_url)
+
       })
       .catch((error) => {
         // Handle error
         console.error(error)
       })
+
+
+    console.log("downloading")
   }
 
   return (
@@ -226,7 +228,7 @@ const Images = () => {
       <textarea value={input} placeholder="Enter your prompt or choose from below"
                 onChange={e => setInput(e.target.value)}
                 style={{ display: "flex", flexDirection: "column", padding: "10px", margin: "10px", borderRadius: "10px", fontSize: 15, fontFamily: "sans-serif" }} />
-      <Button style={{ margin: "20px" }} onClick={() => handleImageUpload(postToApi)}>Generate</Button>
+      <Button style={{ margin: "20px" }} onClick={() => handleGenerate(postToApi)}>Generate...</Button>
       <Block
         $style={{
           display: "flex",
@@ -254,7 +256,7 @@ const Images = () => {
                     )
                   })} */}
             <div className="tooltip" onClick={() => {
-              setInput("on top of a wooden table"), addObject(imagevariations)
+              setInput("on top of a wooden table")
             }}>
               <ImageItem preview={imagevariations} />
               <span className="tooltiptext">{"on top of a wooden table"}</span>
