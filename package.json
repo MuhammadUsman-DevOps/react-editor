@@ -68,6 +68,7 @@
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.4",
     "@wixc3/react-board": "^2.3.0",
+    "buffer": "^6.0.3",
     "fabric": "^5.3.0",
     "husky": "^8.0.3",
     "react": "^18.2.0",
