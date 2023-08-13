@@ -78,12 +78,6 @@ const Shiftimages = (props: any) => {
     [editor]
   )
 
-  const [imagess, setImage] = useState([
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCXISA7AWonO3J24GKCgtJ9e4OTuaJHSBM7rcN3j28GfR6eJAJTe1Gi_AlJpG6wuFnCs&usqp=CAU"
-  ])
-
   const convertJSON = () => {
     console.log("convert to json")
     const currentScene = editor?.scene.exportToJSON()
@@ -162,7 +156,7 @@ const Shiftimages = (props: any) => {
           // Create a File object from the Blob
           const d = new Date()
           let time = d.getTime()
-          let file_name = `image${time}.png`
+          let file_name = `style_canvas_${time}.png`
           const file = new File([blob], file_name, { type: "image/png" })
           // Upload the file to S3
           const s3 = new AWS.S3()
@@ -266,6 +260,10 @@ const Shiftimages = (props: any) => {
     const base64 = (await toBase64(file)) as string
     let preview = base64
 
+    const d = new Date()
+    let time = d.getTime()
+    const file_name = `style_style_${time}.png`
+
     var base64String = base64.split(',')[1];
 
     // Upload the file to S3
@@ -278,7 +276,7 @@ const Shiftimages = (props: any) => {
     s3.putObject(
       {
         Bucket: import.meta.env.VITE_BUCKET ?? "radiance-sravan",
-        Key: file.name,
+        Key: file_name,
         Body: Buffer.from(base64String, 'base64'),
         ContentType: file.type
       },

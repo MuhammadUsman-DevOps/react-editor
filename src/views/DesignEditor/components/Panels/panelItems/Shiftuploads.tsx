@@ -24,10 +24,12 @@ export default function() {
 
   const handleDropFiles = async (files: FileList) => {
     const file: File = files[0]
-    const file_name = "handleDropFiles.png"
+    const d = new Date()
+    let time = d.getTime()
+    const file_name = `style_product_${time}.png`
     const isVideo = file.type.includes("video")
     const base64 = (await toBase64(file)) as string
-    var base64String = base64.split(',')[1];
+    let base64String = base64.split(',')[1];
 
     // Upload the file to S3
     AWS.config.update({
@@ -72,8 +74,12 @@ export default function() {
       preview: preview,
       type: type
     }
-    if (uploads) setUploads([...uploads, upload])
-    else setUploads([upload])
+    if (uploads) {
+      setUploads([...uploads, upload])
+    }
+    else {
+      setUploads([upload])
+    }
   }
 
   const handleInputFileRefClick = () => {
