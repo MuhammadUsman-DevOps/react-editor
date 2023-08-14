@@ -1,0 +1,63 @@
+import Background from "./Icons/Background"
+import Elements from "./Icons/Elements"
+import Text from "./Icons/Text"
+import Templates from "./Icons/Templates"
+import Search from "./Icons/Search"
+import Images from "./Icons/Images"
+import Graphics from "./Icons/Graphics"
+import Pixabay from "./Icons/Pixabay"
+import Uploads from "./Icons/Uploads"
+import Logo from "./Icons/Logo"
+import Compress from "./Icons/Compress"
+import Expand from "./Icons/Expand"
+import Undo from "./Icons/Undo"
+import Redo from "./Icons/Redo"
+import Layers from "./Icons/Layers"
+import Refresh from "./Icons/Refresh"
+import TimePast from "./Icons/TimePast"
+import AddCircleOutline from "./Icons/AddCircleOutline"
+import RemoveCircleOutline from "./Icons/RemoveCircleOutline"
+import InformationCircleOutline from "./Icons/InformationCircleOutline"
+import Customize from "./Icons/Customize"
+import SwapHorizontal from "./Icons/SwapHorizontal"
+import ArrowBackOutline from "./Icons/ArrowBackOutline"
+import Underline from "./Icons/Underline"
+import Add from "./Icons/Add"
+import Video from "./Icons/Video"
+import HumanIcon from "./Icons/HumanIcon"
+import Robot from './Icons/Robot'
+import { Upload } from "baseui/icon"
+class Icons {
+  static Background = Background
+  static Elements = Elements
+  static Text = Text
+  static Templates = Templates
+  static Search = Search
+  static Images = Images
+  static Videos = Video
+  static Graphics = HumanIcon
+  static Pixabay = Robot
+  static Uploads = Uploads
+  static Logo = Logo
+  static Compress = Compress
+  static Expand = Expand
+  static Undo = Undo
+  static Redo = Redo
+  static Refresh = Refresh
+  static Layers = Layers
+  static TimePast = TimePast
+  static AddCircleOutline = AddCircleOutline
+  static RemoveCircleOutline = RemoveCircleOutline
+  static InformationCircleOutline = InformationCircleOutline
+  static Customize = Customize
+  static SwapHorizontal = SwapHorizontal
+  static ArrowBackOutline = ArrowBackOutline
+  static Underline = Underline
+  static Add = Add
+  static Shiftimages = Images
+  static Shiftuploads = Uploads
+  static Modelimages = Images
+  static Modeluploads = Uploads
+}
+
+export default Icons
