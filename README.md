@@ -1,25 +1,4 @@
-# Design Editor
-
-If you are worrying about something like a designer tool, such as graphic editor, presentation editor, video editor, etc. Layerhub is a perfect choice for you.
-Try demo here [react-design-editor.up.railway.app/](https://react-design-editor.up.railway.app/)
-
-<p>
-    <a href="https://discord.gg/7jxnh8rHDV">
-        <img src="https://discordapp.com/api/guilds/1001450881448951838/widget.png?style=banner2" alt="Discord Banner 2"/>
-    </a>
-</p>
-
-## Screenshots
-
-React editor created editors for graphics, presentations and video.
-
-![Select Editor](https://i.ibb.co/y0L2C4c/select-editor.png)
-
-![Video Editor](https://i.ibb.co/TTgdsk2/video-editor.png)
-
-## Components
-
-- ~/react: This editor is using SDK for react.
+## Radiance Product Studio
 
 ## How to start
 
@@ -42,15 +21,3 @@ pnpm dev
 ```
 
 App should be running now.
-
-## Contribution
-
-Feel free to contribute by opening issues with any questions, bug reports or feature requests.
-
-## Get in touch
-
-You can reach us at cloud@scenify.io
-
-## License
-
-[MIT](LICENSE)
