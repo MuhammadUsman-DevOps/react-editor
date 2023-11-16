@@ -17,10 +17,6 @@ React editor created editors for graphics, presentations and video.
 
 ![Video Editor](https://i.ibb.co/TTgdsk2/video-editor.png)
 
-## Components
-
-- @layerhub-io/react: This editor is using SDK for react.
-
 ## How to start
 
 Clone the project:
@@ -47,9 +43,6 @@ App should be running now.
 
 Feel free to contribute by opening issues with any questions, bug reports or feature requests.
 
-## Get in touch
-
-You can reach us at cloud@scenify.io
 
 ## License
 
